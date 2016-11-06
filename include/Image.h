@@ -5,6 +5,9 @@
 #include <memory>
 #include <Magick++.h>
 
+#define W 401
+#define H 401
+
 class Image
 {
     public:
@@ -51,6 +54,10 @@ class Image
 
         bool save(std::string _fname);
 
+        bool hit(const std::size_t _x, const std::size_t _y,
+                        const unsigned char _r,
+                        const unsigned char _g,
+                        const unsigned char _b) const;
         /// @brief destructor
 
         inline ~Image() {;}

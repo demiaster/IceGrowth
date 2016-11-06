@@ -53,3 +53,30 @@ void Image::clearScreen(unsigned char _r,
 
     return;
 }
+
+bool Image::hit(const std::size_t _x, const std::size_t _y,
+                const unsigned char _r,
+                const unsigned char _g,
+                const unsigned char _b) const
+{
+    for (int i = -1; i <= 1; ++i)
+    {
+        //std::cout << "i: " <<  i << "\n";
+        for (int j = -1; j <= 1; ++j)
+        {
+            std::size_t nx = _x + i;
+            std::size_t ny = _y + j;
+            //std::cout << "X: " <<  nx << "\n";
+            if (nx < W && ny < H ) {
+                if (m_data[getIndex(nx, ny, 0)] == _r &&
+                    m_data[getIndex(nx, ny, 1)] == _g &&
+                    m_data[getIndex(nx, ny, 2)] == _b)
+                {
+                    std::cout << "X: " <<  nx << "Y: " <<  ny <<"\n";
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
