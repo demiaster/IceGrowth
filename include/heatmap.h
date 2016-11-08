@@ -2,7 +2,7 @@
 #define HEATMAP_H
 
 #include "map.h"
-#define NUMBER float
+#define NUMBER double
 class HeatMap
 {
 public:
@@ -18,6 +18,11 @@ public:
     void setTemperature(const std::size_t _x,
                         const std::size_t _y,
                         const NUMBER temp);
+
+    NUMBER getTemperature(const std::size_t _x,
+                          const std::size_t _y) const;
+
+    void reset(const NUMBER temp);
 
     void diffuse(const NUMBER _k0, const NUMBER _dt);
 
