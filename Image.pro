@@ -11,6 +11,7 @@ QMAKE_CXX = g++
 
 linux:QMAKE_CXXFLAGS+=$$system(Magick++-config --cppflags )
 linux:LIBS+=$$system(Magick++-config --ldflags --libs )
+linux:LIBS+= -fopenmp
 CONFIG+=c++11
 # Input
 SOURCES += src/main.cpp \
