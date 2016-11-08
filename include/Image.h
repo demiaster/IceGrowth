@@ -5,10 +5,14 @@
 #include <memory>
 #include <Magick++.h>
 
+#include "map.h"
+
 #define W 401
 #define H 401
 
-class Image
+#define __IMAGE_H_PARENT Map<unsigned char, 3>
+
+class Image : public Map<unsigned char, 3>
 {
     public:
 
@@ -21,10 +25,7 @@ class Image
         inline Image(std::size_t _width,
                      std::size_t _height,
                      std::size_t _depth = 3) :
-            m_width(_width),
-            m_height(_height),
-            m_pixelDepth(_depth),
-            m_data(new unsigned char[_width * _height * _depth]) {;}
+            Map({_width, _height, _depth}), m_width(_width), m_height(_height) {;}
 
         /// mutators
         /// @brief set the specified pixel to given r, g, b values
@@ -63,20 +64,7 @@ class Image
         inline ~Image() {;}
 
     private:
-
-        std::size_t m_width;
-        std::size_t m_height;
-        std::size_t m_pixelDepth;
-        std::unique_ptr<unsigned char[]> m_data;
-
-        inline int getIndex (std::size_t _x,
-                      std::size_t _y,
-                      std::size_t _z) const
-        {
-            return (_x + m_width * _y) * m_pixelDepth + _z;
-        }
-
-
+        std::size_t m_width, m_height;
 };
 
 #endif //IMAGE_H

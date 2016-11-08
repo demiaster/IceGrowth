@@ -8,16 +8,9 @@ void Image::setPixel(std::size_t _x,
               unsigned char _g,
               unsigned char _b)
 {
-    /*unsigned char colorComponents[m_pixelDepth];
-
-    for (auto i : colorComponents)
-    {
-        int index = getIndex(_x, _y, i);
-    }*/
-
-    m_data[getIndex(_x, _y, 0)] = _r;
-    m_data[getIndex(_x, _y, 1)] = _g;
-    m_data[getIndex(_x, _y, 2)] = _b;
+    set({_x, _y, 0}, _r);
+    set({_x, _y, 1}, _g);
+    set({_x, _y, 2}, _b);
 
     return;
 }
@@ -68,9 +61,9 @@ bool Image::hit(const std::size_t _x, const std::size_t _y,
             std::size_t ny = _y + j;
             //std::cout << "X: " <<  nx << "\n";
             if (nx < W && ny < H ) {
-                if (m_data[getIndex(nx, ny, 0)] == _r &&
-                    m_data[getIndex(nx, ny, 1)] == _g &&
-                    m_data[getIndex(nx, ny, 2)] == _b)
+                if (get({nx, ny, 0}) == _r &&
+                    get({nx, ny, 1}) == _g &&
+                    get({nx, ny, 2}) == _b)
                 {
                     std::cout << "X: " <<  nx << "Y: " <<  ny <<"\n";
                     return true;

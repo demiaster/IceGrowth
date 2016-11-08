@@ -14,10 +14,13 @@ linux:LIBS+=$$system(Magick++-config --ldflags --libs )
 CONFIG+=c++11
 # Input
 SOURCES += src/main.cpp \
-           src/Image.cpp
+           src/Image.cpp \
+    src/heatmap.cpp
 HEADERS+= include/Image.h \
     include/lineyielder.h \
-    include/point.h
+    include/point.h \
+    include/heatmap.h \
+    include/map.h
 macx:QMAKE_CXXFLAGS+=-DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/local/include/ImageMagick-6
 macx:LIBS+= -L/usr/local/lib -lMagick++-6.Q16 -lMagickWand-6.Q16 -lMagickCore-6.Q16
 OBJECTS_DIR=obj
