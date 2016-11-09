@@ -41,6 +41,7 @@ void HeatMap::diffuse(const NUMBER _k0, const NUMBER _dt)
     }
 
     //switching pointers
+    //std::swap look at it
     if(m_actual == &m_first)
     {
         m_actual = &m_second;

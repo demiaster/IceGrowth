@@ -66,5 +66,4 @@ class Image : public Map<unsigned char, 3>
     private:
         std::size_t m_width, m_height;
 };
-
 #endif //IMAGE_H
