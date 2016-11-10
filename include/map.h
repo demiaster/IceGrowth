@@ -25,6 +25,12 @@ class Map
         {
             return m_data[index(coordinates)];
         }
+
+
+
+    private:
+        std::array<std::size_t, N> m_sizes;
+
         std::size_t index(const std::array<std::size_t, N>& coordinates) const
         {
             // {W, H, D}
@@ -43,9 +49,6 @@ class Map
             }
             return accum;
         }
-
-    private:
-        std::array<std::size_t, N> m_sizes;
 
     protected:
         std::unique_ptr<T[]> m_data;
