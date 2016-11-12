@@ -1,4 +1,4 @@
-## Basic Git Project
+## Ice Growth
 
 This is my first Hello World program using git
 
