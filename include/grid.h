@@ -1,7 +1,7 @@
 #ifndef MODEL_GRID_H
 #define MODEL_GRID_H
 
-//#include <igrid.h>
+#include <igrid.h>
 
 #include <memory>
 #include <vector>
@@ -10,7 +10,7 @@
 
 namespace model {
     template <typename T, std::size_t N>
-    class Grid //: public IGrid<T, N>
+    class Grid : public IGrid<T, N>
     {
         public:
             //get as many dimension for the Grid as wanted
@@ -20,11 +20,12 @@ namespace model {
                 m_data(new T[std::accumulate(m_sizes.begin(), m_sizes.end(),
                                                    1, std::multiplies<std::size_t>())]) {}
 
-            inline void set(const std::array<std::size_t, N>& coordinates, T element)
+            inline void set(const std::array<std::size_t, N>& coordinates, T element) override
             {
                 m_data[index(coordinates)] = element;
             }
-            inline T get(const std::array<std::size_t, N>& coordinates) const
+            inline T get(const std::array<std::size_t, N>& coordinates) const override
+            /* supercazzola con brematura a destra */
             {
                 return m_data[index(coordinates)];
             }
