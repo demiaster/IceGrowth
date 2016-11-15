@@ -1,7 +1,9 @@
-#include "heatmap.h"
+#include "heatgrid.h"
 #include <iostream>
 
-void HeatMap::setTemperature(std::size_t _x,
+namespace model {
+
+void HeatGrid::setTemperature(std::size_t _x,
                              std::size_t _y,
                              NUMBER _temp)
 {
@@ -9,7 +11,7 @@ void HeatMap::setTemperature(std::size_t _x,
     return;
 }
 
-void HeatMap::diffuse(const NUMBER _k0, const NUMBER _dt)
+void HeatGrid::diffuse(const NUMBER _k0, const NUMBER _dt)
 {
     //code from https://dournac.org/info/parallel_heat3d
     // Factors for explicit scheme
@@ -56,13 +58,13 @@ void HeatMap::diffuse(const NUMBER _k0, const NUMBER _dt)
     return;
 }
 
-NUMBER HeatMap::getTemperature(const std::size_t _x,
+NUMBER HeatGrid::getTemperature(const std::size_t _x,
                                const std::size_t _y) const
 {
     return m_actual->get({_x, _y});
 }
 
-void HeatMap::reset(const NUMBER temp)
+void HeatGrid::reset(const NUMBER temp)
 {
     for (size_t i = 0; i < m_width; ++i)
     {
@@ -72,4 +74,6 @@ void HeatMap::reset(const NUMBER temp)
             m_temp->set({i, j}, temp);
         }
     }
+}
+
 }

@@ -2,6 +2,8 @@
 #include <exception>
 #include <iostream>
 
+namespace view {
+
 void Image::setPixel(std::size_t _x,
               std::size_t _y,
               unsigned char _r,
@@ -72,4 +74,6 @@ bool Image::hit(const std::size_t _x, const std::size_t _y,
         }
     }
     return false;
+}
+
 }
