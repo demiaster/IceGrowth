@@ -16,12 +16,17 @@ CONFIG+=c++11
 # Input
 SOURCES += src/main.cpp \
            src/Image.cpp \
-    src/heatgrid.cpp
+           src/heatgrid.cpp \
+           src/icegrid.cpp \
+           src/icegenerator.cpp
 HEADERS+= include/Image.h \
     include/point.h \
     include/grid.h \
     include/heatgrid.h \
-    include/igrid.h
+    include/igrid.h \
+    include/commons.h \
+    include/icegrid.h \
+    include/icegenerator.h
 macx:QMAKE_CXXFLAGS+=-DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/local/include/ImageMagick-6
 macx:LIBS+= -L/usr/local/lib -lMagick++-6.Q16 -lMagickWand-6.Q16 -lMagickCore-6.Q16
 OBJECTS_DIR=obj
