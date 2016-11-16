@@ -1,11 +1,10 @@
 #ifndef MODEL_IGRID_H
 #define MODEL_IGRID_H
 
+#include "commons.h"
 #include <cstdarg>
 #include <vector>
 #include <memory>
-
-#define PURE =0
 
 namespace model {
     template <typename T, std::size_t N>
