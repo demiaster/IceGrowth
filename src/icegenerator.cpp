@@ -1,7 +1,7 @@
 #include "icegenerator.h"
 #include "point.h"
 
-#include "Image.h"
+#include "image.h"
 
 // random shits
 #include <random>

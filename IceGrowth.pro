@@ -15,11 +15,11 @@ linux:LIBS+= -fopenmp
 CONFIG+=c++11
 # Input
 SOURCES += src/main.cpp \
-           src/Image.cpp \
+           src/image.cpp \
            src/heatgrid.cpp \
            src/icegrid.cpp \
            src/icegenerator.cpp
-HEADERS+= include/Image.h \
+HEADERS+= include/image.h \
     include/point.h \
     include/grid.h \
     include/heatgrid.h \

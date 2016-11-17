@@ -1,5 +1,5 @@
 #include "point.h"
-#include "Image.h"
+#include "image.h"
 #include <cstdlib>
 #include <iostream>
 
