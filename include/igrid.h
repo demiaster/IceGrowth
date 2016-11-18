@@ -6,7 +6,8 @@
 #include <vector>
 #include <memory>
 
-namespace model {
+namespace model
+{
     template <typename T, std::size_t N>
     class IGrid
     {
@@ -16,6 +17,5 @@ namespace model {
             virtual T get(const std::array<std::size_t, N>& coordinates) const PURE;
     };
 }
-
 
 #endif // MODEL_IGRID_H

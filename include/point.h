@@ -3,7 +3,8 @@
 
 #include <cstddef>
 
-namespace model {
+namespace model
+{
     typedef struct Point_s
     {
         std::size_t x;

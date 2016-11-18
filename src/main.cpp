@@ -67,9 +67,7 @@ void dla_pattern()
             ++j;
             image.setPixel(random_walker.x, random_walker.y, 255 - (j % 255), 0, 0);
         }
-
     }
-
     image.save("dla.png");
     return;
 }

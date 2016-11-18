@@ -9,23 +9,23 @@ namespace model
     class HeatGrid
     {
     public:
-        inline HeatGrid(const std::size_t width,
-                       const std::size_t height) :
-                       m_first({width, height}),
-                       m_second({width, height}),
+        inline HeatGrid(const std::size_t _width,
+                       const std::size_t _height) :
+                       m_first({_width, _height}),
+                       m_second({_width, _height}),
                        m_actual(&m_first),
                        m_temp(&m_second),
-                       m_width(width),
-                       m_height(height) {;}
+                       m_width(_width),
+                       m_height(_height) {;}
 
         void setTemperature(const std::size_t _x,
                             const std::size_t _y,
-                            const NUMBER temp);
+                            const NUMBER _temp);
 
         NUMBER getTemperature(const std::size_t _x,
                               const std::size_t _y) const;
 
-        void reset(const NUMBER temp);
+        void reset(const NUMBER _temp);
 
         void diffuse(const NUMBER _k0, const NUMBER _dt);
 

@@ -4,16 +4,20 @@
 #include "heatgrid.h"
 #include "icegrid.h"
 
-namespace controller {
-    class IceGenerator {
+namespace controller
+{
+    class IceGenerator
+    {
     public:
-        inline IceGenerator(const std::size_t width,
-                            const std::size_t height) :
-            m_width(width), m_height(height),
-            m_heatGrid(width, height), m_iceGrid(width, height) {;}
-        inline void mainloop() {
+        inline IceGenerator(const std::size_t _width,
+                            const std::size_t _height) :
+            m_width(_width), m_height(_height),
+            m_heatGrid(_width, _height), m_iceGrid(_width, _height) {;}
+        inline void mainloop()
+        {
             void setup();
-            while (true) {
+            while (true)
+            {
                 update();
                 represent();
             }
@@ -27,7 +31,6 @@ namespace controller {
         void dla_pattern();
 
         std::size_t m_width, m_height;
-
         model::HeatGrid m_heatGrid;
         model::IceGrid m_iceGrid;
 

@@ -59,8 +59,8 @@ namespace view
                             const unsigned char _r,
                             const unsigned char _g,
                             const unsigned char _b) const;
-            /// @brief destructor
 
+            /// @brief destructor
             inline ~Image() {;}
 
         private:

@@ -8,7 +8,8 @@
 #include <numeric>
 #include <cstdarg>
 
-namespace model {
+namespace model
+{
     template <typename T, std::size_t N>
     class Grid : public IGrid<T, N>
     {
@@ -30,8 +31,6 @@ namespace model {
                 return m_data[index(coordinates)];
             }
 
-
-
         private:
             std::array<std::size_t, N> m_sizes;
 
@@ -43,10 +42,12 @@ namespace model {
 
                 // sum accumulator
                 std::size_t accum = 0;
-                for (std::size_t i = 0; i < N; ++i) {
+                for (std::size_t i = 0; i < N; ++i)
+                {
                     // multiplier accumulator
                     std::size_t maccum = coordinates[i];
-                    for (std::size_t j = i + 1; j < N; j++) {
+                    for (std::size_t j = i + 1; j < N; j++)
+                    {
                         maccum *= m_sizes[j];
                     }
                     accum += maccum;
@@ -59,5 +60,4 @@ namespace model {
 
     };
 }
-
 #endif // MODEL_GRID_H
