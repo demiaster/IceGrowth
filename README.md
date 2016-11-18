@@ -1,6 +1,6 @@
 ## Ice Growth
 
-This is my first Hello World program using git
+Ice Growth simulation using the DLA method.
 
 
-```clang++ -Wall -g main.cpp -o hello```
+
