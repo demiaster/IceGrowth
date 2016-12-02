@@ -18,8 +18,7 @@ SOURCES += src/main.cpp \
            src/image.cpp \
            src/heatgrid.cpp \
            src/icegrid.cpp \
-           src/icegenerator.cpp \
-           src/framebuffer.cpp
+           src/icegenerator.cpp
 HEADERS+= include/image.h \
     include/point.h \
     include/grid.h \
@@ -27,7 +26,6 @@ HEADERS+= include/image.h \
     include/igrid.h \
     include/commons.h \
     include/icegrid.h \
-    include/icegenerator.h \
-    include/framebuffer.h
+    include/icegenerator.h
 
 OBJECTS_DIR=obj
