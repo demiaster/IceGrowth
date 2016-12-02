@@ -1,7 +1,6 @@
 #ifndef MODEL_IGRID_H
 #define MODEL_IGRID_H
 
-#include "commons.h"
 #include <cstdarg>
 #include <vector>
 #include <memory>
@@ -12,9 +11,9 @@ namespace model
     class IGrid
     {
         public:
-            virtual void set(const std::array<std::size_t, N>& coordinates, T element) PURE;
+            virtual void set(const std::array<std::size_t, N>& coordinates, T element) = 0;
 
-            virtual T get(const std::array<std::size_t, N>& coordinates) const PURE;
+            virtual T get(const std::array<std::size_t, N>& coordinates) const = 0;
     };
 }
 
