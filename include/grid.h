@@ -1,8 +1,6 @@
 #ifndef MODEL_GRID_H
 #define MODEL_GRID_H
 
-#include <igrid.h>
-
 #include <memory>
 #include <array>
 #include <numeric>
