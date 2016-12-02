@@ -7,6 +7,7 @@
 #include <vector>
 #include <numeric>
 #include <cstdarg>
+#include <functional>
 
 namespace model
 {
