@@ -2,7 +2,7 @@
 #define MODEL_IGRID_H
 
 #include <cstdarg>
-#include <vector>
+#include <array>
 #include <memory>
 
 namespace model
