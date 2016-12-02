@@ -23,7 +23,6 @@ HEADERS+= include/image.h \
     include/point.h \
     include/grid.h \
     include/heatgrid.h \
-    include/igrid.h \
     include/icegrid.h \
     include/icegenerator.h
 
