@@ -5,7 +5,7 @@
 
 namespace model
 {
-    #define NUMBER double
+    using NUMBER = double;
     class HeatGrid
     {
     public:

@@ -3,10 +3,11 @@
 
 #include "grid.h"
 #include "heatgrid.h"
-#define PERCENTAGE double
+
+using PERCENTAGE = double;
 
 namespace model
-{
+{   
     class IceGrid : public Grid<PERCENTAGE, 2> {
     public:
         inline IceGrid(const std::size_t _width,

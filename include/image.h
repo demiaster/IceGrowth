@@ -7,8 +7,8 @@
 
 #include "grid.h"
 
-#define W 401
-#define H 401
+static const size_t W = 401;
+static const size_t H = 401;
 
 namespace view
 {
