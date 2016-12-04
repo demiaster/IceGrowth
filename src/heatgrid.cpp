@@ -28,7 +28,7 @@ namespace model
         const NUMBER weighty = _k0 * _dt / (hy * hy);
 
         // Perform an explicit update on the points within the domain
-        #pragma omp parallel for
+        //#pragma omp parallel for
         for(std::size_t i = 1; i < m_width - 1; ++i)
         {
             for(std::size_t j = 1; j < m_height - 1; ++j)

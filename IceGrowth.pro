@@ -6,12 +6,13 @@ TARGET = IceGrowth
 CONFIG -= app_bundle
 DEPENDPATH += .
 INCLUDEPATH += ./include
-QMAKE_CC = gcc
-QMAKE_CXX = g++
+QMAKE_CC = clang
+QMAKE_CXX = clang++
+
 
 linux:QMAKE_CXXFLAGS+=$$system(Magick++-config --cppflags )
 linux:LIBS+=$$system(Magick++-config --ldflags --libs )
-linux:LIBS+= -fopenmp -lglfw -lGLEW
+linux:LIBS+= -lGLEW
 CONFIG+=c++11
 # Input
 SOURCES += src/main.cpp \
