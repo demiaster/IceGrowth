@@ -17,6 +17,15 @@ namespace controller
 {
     //setup IceGenerator controller
 
+    IceGenerator::IceGenerator(const std::size_t _width,
+                    const std::size_t _height) :
+        m_heatGrid(_width, _height), m_iceGrid(_width, _height)
+    {
+        m_width = _width;
+        m_height = _height;
+        setup();
+    }
+
     void IceGenerator::setup()
     {
         // reset the heatgrid to a custom temperature

@@ -9,13 +9,10 @@ namespace controller
     class IceGenerator
     {
     public:
-        inline IceGenerator(const std::size_t _width,
-                            const std::size_t _height) :
-            m_width(_width), m_height(_height),
-            m_heatGrid(_width, _height), m_iceGrid(_width, _height) {;}
+        IceGenerator(const std::size_t _width,
+                            const std::size_t _height);
         inline void mainloop()
         {
-            void setup();
             while (true)
             {
                 update();
