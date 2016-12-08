@@ -11,9 +11,9 @@ namespace view
                   unsigned char _g,
                   unsigned char _b)
     {
-        set({_x, _y, 0}, _r);
-        set({_x, _y, 1}, _g);
-        set({_x, _y, 2}, _b);
+        set({{_x, _y, 0}}, _r);
+        set({{_x, _y, 1}}, _g);
+        set({{_x, _y, 2}}, _b);
 
         return;
     }
@@ -63,9 +63,9 @@ namespace view
                 std::size_t ny = _y + j;
                 if (nx < W && ny < H )
                 {
-                    if (get({nx, ny, 0}) == _r &&
-                        get({nx, ny, 1}) == _g &&
-                        get({nx, ny, 2}) == _b)
+                    if (get({{nx, ny, 0}}) == _r &&
+                        get({{nx, ny, 1}}) == _g &&
+                        get({{nx, ny, 2}}) == _b)
                     {
                         std::cout << "X: " <<  nx << "Y: " <<  ny <<"\n";
                         return true;
