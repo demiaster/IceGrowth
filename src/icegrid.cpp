@@ -5,9 +5,17 @@
 
 namespace model
 {
+    IceGrid::IceGrid(const std::size_t _width,
+                     const std::size_t _height) :
+                     Grid(std::array<std::size_t, 2>{{_width, _height}})
+    {
+        m_width = _width;
+        m_height = _height;
+    }
+
     void IceGrid::freeze(std::size_t x, std::size_t y, PERCENTAGE percentage)
     {
-        set({x, y}, percentage);
+        set({{x, y}}, percentage);
     }
 
     PERCENTAGE IceGrid::hit(std::size_t x, std::size_t y) const
@@ -24,7 +32,7 @@ namespace model
                 //std::cout << "X: " <<  nx << "\n";
                 if (nx < m_width && ny < m_height ) {
                     ++neighbours;
-                    accum += get({nx, ny});
+                    accum += get({{nx, ny}});
                 }
             }
         }
@@ -39,7 +47,7 @@ namespace model
             for (std::size_t j = 0; j < m_height; ++j)
             {
                 NUMBER temp = heatGrid.getTemperature(i, j);
-                this->set({i,j}, temp - MIN_TEMP / (MAX_TEMP - MIN_TEMP));
+                this->set({{i, j}}, temp - MIN_TEMP / (MAX_TEMP - MIN_TEMP));
             }
         }
     }

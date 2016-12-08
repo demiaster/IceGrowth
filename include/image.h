@@ -25,7 +25,7 @@ namespace view
             inline Image(std::size_t _width,
                          std::size_t _height,
                          std::size_t _depth = 3) :
-                Grid({_width, _height, _depth}), m_width(_width), m_height(_height) {;}
+                Grid(std::array<std::size_t, 3>{{_width, _height, _depth}}), m_width(_width), m_height(_height) {;}
 
             /// mutators
             /// @brief set the specified pixel to given r, g, b values

@@ -7,14 +7,14 @@
 using PERCENTAGE = double;
 
 namespace model
-{   
-    class IceGrid : public Grid<PERCENTAGE, 2> {
+{
+
+
+    class IceGrid : public Grid<PERCENTAGE, 2>
+    {
     public:
-        inline IceGrid(const std::size_t _width,
-                       const std::size_t _height) :
-                       Grid({_width, _height}),
-                       m_width(_width),
-                       m_height(_height) {;}
+        IceGrid(const std::size_t _width,
+                       const std::size_t _height);
         void freeze(std::size_t x, std::size_t y, PERCENTAGE _percentage);
 
         PERCENTAGE hit(std::size_t _x, std::size_t _y) const;

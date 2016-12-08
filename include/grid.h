@@ -59,4 +59,5 @@ namespace model
 
     };
 }
+
 #endif // MODEL_GRID_H
