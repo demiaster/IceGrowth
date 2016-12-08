@@ -8,9 +8,9 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr int WIDTH = 1920;
-constexpr int HEIGHT = 1080;
-constexpr int DEPTH = 3;
+//constexpr int WIDTH = 1920;
+//constexpr int HEIGHT = 1080;
+//constexpr int DEPTH = 3;
 void dla_pattern();
 
 int main()
