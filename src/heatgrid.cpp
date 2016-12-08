@@ -8,7 +8,7 @@ namespace model
                                   std::size_t _y,
                                   NUMBER _temp)
     {
-        m_actual->set({_x, _y}, _temp);
+        m_actual->set({{_x, _y}}, _temp);
         return;
     }
 
@@ -34,13 +34,13 @@ namespace model
             for(std::size_t j = 1; j < m_height - 1; ++j)
             {
 
-                m_temp->set({i, j},
-                             weightx * (m_actual->get({i-1, j}) +
-                                        m_actual->get({i+1, j}) +
-                                        m_actual->get({i, j}) * diagx) +
-                             weighty * (m_actual->get({i, j - 1}) +
-                                        m_actual->get({i, j + 1}) +
-                                        m_actual->get({i, j}) * diagy));
+                m_temp->set({{i, j}},
+                             weightx * (m_actual->get({{i - 1, j}}) +
+                                        m_actual->get({{i + 1, j}}) +
+                                        m_actual->get({{i, j}}) * diagx) +
+                             weighty * (m_actual->get({{i, j - 1}}) +
+                                        m_actual->get({{i, j + 1}}) +
+                                        m_actual->get({{i, j}}) * diagy));
             }
         }
 
@@ -63,7 +63,7 @@ namespace model
     NUMBER HeatGrid::getTemperature(const std::size_t _x,
                                     const std::size_t _y) const
     {
-        return m_actual->get({_x, _y});
+        return m_actual->get({{_x, _y}});
     }
 
     void HeatGrid::reset(const NUMBER _temp)
@@ -72,8 +72,8 @@ namespace model
         {
             for (size_t j = 0; j < m_height; ++j)
             {
-                m_actual->set({i, j}, _temp);
-                m_temp->set({i, j}, _temp);
+                m_actual->set({{i, j}}, _temp);
+                m_temp->set({{i, j}}, _temp);
             }
         }
     }
