@@ -60,4 +60,7 @@ namespace model
     };
 }
 
+//instantiating template for icegrid.h
+//template class model::Grid<double, 2>;
+
 #endif // MODEL_GRID_H

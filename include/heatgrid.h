@@ -11,8 +11,8 @@ namespace model
     public:
         inline HeatGrid(const std::size_t _width,
                        const std::size_t _height) :
-                       m_first({_width, _height}),
-                       m_second({_width, _height}),
+                       m_first(std::array<std::size_t, 2>{{_width, _height}}),
+                       m_second(std::array<std::size_t, 2>{{_width, _height}}),
                        m_actual(&m_first),
                        m_temp(&m_second),
                        m_width(_width),
