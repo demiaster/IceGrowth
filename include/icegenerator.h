@@ -3,6 +3,7 @@
 
 #include "heatgrid.h"
 #include "icegrid.h"
+#include "image.h"
 
 namespace controller
 {
@@ -13,11 +14,11 @@ namespace controller
                             const std::size_t _height);
         inline void mainloop()
         {
-            while (true)
-            {
+            //while (true)
+            //{
                 update();
                 represent();
-            }
+            //}
         }
     private:
         void setup();
@@ -30,6 +31,7 @@ namespace controller
         std::size_t m_width, m_height;
         model::HeatGrid m_heatGrid;
         model::IceGrid m_iceGrid;
+        view::Image m_image;
 
     };
 }
