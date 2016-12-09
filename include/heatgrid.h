@@ -2,6 +2,7 @@
 #define MODEL_HEATGRID_H
 
 #include "grid.h"
+#include "image.h"
 
 namespace model
 {
@@ -37,6 +38,8 @@ namespace model
         Grid<NUMBER, 2>* m_temp;
 
         std::size_t m_width, m_height;
+        view::Image m_image;
+        std::size_t m_counter;
     };
 }
 
