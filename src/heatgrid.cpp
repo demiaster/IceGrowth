@@ -4,6 +4,15 @@
 namespace model
 {
 
+    HeatGrid::HeatGrid(const std::size_t _width,
+             const std::size_t _height) :
+                   m_first(std::array<std::size_t, 2>{{_width, _height}}),
+                   m_second(std::array<std::size_t, 2>{{_width, _height}}),
+                   m_actual(&m_first),
+                   m_temp(&m_second),
+                   m_width(_width),
+                   m_height(_height) {;}
+
     void HeatGrid::setTemperature(std::size_t _x,
                                   std::size_t _y,
                                   NUMBER _temp)
@@ -16,6 +25,7 @@ namespace model
     /// The following section is from :-
     /// Fabien Dournac (2003). MPI Parallelization for numerically solving the 3D Heat equation [online]. [Accessed 2016].
     /// Available from: "https://dournac.org/info/parallel_heat3d".
+
     void HeatGrid::diffuse(const NUMBER _k0, const NUMBER _dt)
     {
         //TODO: evaluate also boundary cells
