@@ -15,6 +15,10 @@ void dla_pattern();
 int main()
 {
     controller::IceGenerator controller(W, H);
-    controller.mainloop();
+    controller.setup();
+    while(true)
+    {
+        controller.run();
+    }
     return EXIT_SUCCESS;
 }

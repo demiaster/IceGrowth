@@ -12,17 +12,14 @@ namespace controller
     public:
         IceGenerator(const std::size_t _width,
                             const std::size_t _height);
-        inline void mainloop()
+        inline void run()
         {
-            //while (true)
-            //{
                 update();
                 represent();
-            //}
         }
-    private:
-        void setup();
 
+        void setup();
+    private:
         void update();
         void represent();
 
