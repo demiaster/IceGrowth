@@ -10,7 +10,8 @@
 
 #include "icegenerator.h"
 
-void dla_pattern();
+static const size_t W = 10;
+static const size_t H = 10;
 
 int main()
 {
