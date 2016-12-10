@@ -6,6 +6,9 @@
 #include <numeric>
 #include <cstdarg>
 #include <functional>
+#ifdef DEBUG
+    #include <iostream>
+#endif
 
 namespace model
 {
@@ -39,6 +42,28 @@ namespace model
                     m_data[i] = _element;
                 }
             }
+#ifdef DEBUG
+            inline void inspect() const
+            {
+                if (N == 2)
+                {
+                    std::cout << "grid internal: \n";
+                    std::cout << "x: "<< m_sizes[0]<< "y: " << m_sizes[1] << std::endl;
+                    for (std::size_t i = 0; i < m_sizes[0]; ++i) {
+                      for (std::size_t j = 0; j < m_sizes[1]; ++j) {
+                         std::cout << get({{i, j}}) << ' ';
+                      }
+                      std::cout << std::endl;
+                    }
+                    std::cout << std::endl;
+                }
+            }
+#else
+            inline void inspect() const
+            {
+
+            }
+#endif
 
         private:
             std::array<std::size_t, N> m_sizes;
