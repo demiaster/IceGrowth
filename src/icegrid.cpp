@@ -1,7 +1,7 @@
 #include "icegrid.h"
 
 #define MIN_TEMP -100.0
-#define MAX_TEMP 0.0
+#define MAX_TEMP 1.0
 
 namespace model
 {
@@ -47,7 +47,7 @@ namespace model
             for (std::size_t j = 0; j < m_height; ++j)
             {
                 NUMBER temp = heatGrid->getTemperature(i, j);
-                this->set({{i, j}}, (temp - MIN_TEMP) / (MAX_TEMP - MIN_TEMP));
+                this->set({{i, j}}, 1 - (temp - MIN_TEMP)/(MAX_TEMP - MIN_TEMP));
             }
         }
     }
