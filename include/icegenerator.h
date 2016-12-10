@@ -4,7 +4,6 @@
 #include "heatgrid.h"
 #include "icegrid.h"
 #include "image.h"
-#include "point.h"
 
 namespace controller
 {
@@ -15,18 +14,19 @@ namespace controller
                             const std::size_t _height);
         inline void mainloop()
         {
-            while (true)
-            {
-                model::Point frozen = update();
-                represent(frozen);
-            }
+            //while (true)
+            //{
+                update();
+                represent();
+            //}
         }
-
-        void setup();
     private:
-        model::Point update();
-        void represent(model::Point _new_frozen);
-        model::Point dla_pattern();
+        void setup();
+
+        void update();
+        void represent();
+
+        void dla_pattern();
 
         std::size_t m_width, m_height;
         model::HeatGrid m_heatGrid;

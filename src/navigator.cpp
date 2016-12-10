@@ -15,7 +15,7 @@ namespace model
         m_height = _height;
     }
 
-    model::Point Navigator::setOnBorder()
+    model::Point Navigator::setOnBorders()
     {
         //mapping all the point on the frame of the image
         //to use a contiguous indexing system
@@ -33,42 +33,9 @@ namespace model
 
     }
 
-    bool Navigator::walk(model::Point& _walker)
+    void Navigator::walk(model::Point& _walker)
     {
-
-
-           long int t = distr(eng);
-           _walker.x = _walker.x + t;
-           t = distr(eng);
-           _walker.y = _walker.y + t;
-           if(_walker.x >= m_width || _walker.y >= m_height)
-           {
-               return false;
-           }
-
-           return true;
-//           while (!(_walker.x + t < m_width))
-//           {
-//                    t = distr(eng);
-//           }
-//           _walker.x = _walker.x + t;
-
-//           while (!(_walker.y + t < m_height))
-//           {
-//                t = distr(eng);
-//           }
-//           _walker.y = _walker.y + t;
-
+        _walker.x = _walker.x + distr(eng);
+        _walker.y = _walker.y + distr(eng);
     }
-
-    bool Navigator::isFreezable(double _probability)
-    {
-        if (_probability > pdistrib(eng))
-        {
-            return true;
-        }
-        return false;
-
-    }
-
 }

@@ -1,10 +1,6 @@
 #include "heatgrid.h"
 #include <iostream>
-#include <sstream>
 
-
-#define MAX_TEMP 1
-#define MIN_TEMP -100
 namespace model
 {
 
@@ -15,24 +11,13 @@ namespace model
                    m_actual(&m_first),
                    m_temp(&m_second),
                    m_width(_width),
-                   m_height(_height),
-                   m_image(_width, _height)
-    {
-        m_counter = 0;
-        m_image.clearScreen(0, 0, 0);
-    }
+                   m_height(_height) {;}
 
     void HeatGrid::setTemperature(std::size_t _x,
                                   std::size_t _y,
                                   NUMBER _temp)
     {
         m_actual->set({{_x, _y}}, _temp);
-        int blue = 255 - (_temp - MIN_TEMP)/(MAX_TEMP - MIN_TEMP) * 255;
-        m_image.setPixel(_x, _y, 0, 0, blue);
-        std::stringstream ss;
-        ss << "heatgrid-" << m_counter << ".png";
-        m_image.save(ss.str().c_str());
-        ++m_counter;
         return;
     }
 

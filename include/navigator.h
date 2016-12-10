@@ -10,9 +10,8 @@ namespace model
     {
     public:
         Navigator(std::size_t _width, std::size_t _height);
-        model::Point setOnBorder();
-        bool walk(model::Point& _walker);
-        bool isFreezable(double _probability);
+        model::Point setOnBorders();
+        void walk(model::Point& _walker);
         void diffuseOnAxis();
 
     private:
