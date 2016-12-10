@@ -22,6 +22,14 @@ namespace model
         void reset(const NUMBER _temp);
 
         void diffuse(const NUMBER _k0, const NUMBER _dt);
+#if defined(DEBUG)
+            inline void inspect() const
+            {
+                m_actual->inspect();
+            }
+#else
+            inline void inspect() {}
+#endif
 
     private:
 
