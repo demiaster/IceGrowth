@@ -35,7 +35,14 @@ namespace model
 
     void Navigator::walk(model::Point& _walker)
     {
-        _walker.x = _walker.x + distr(eng);
-        _walker.y = _walker.y + distr(eng);
+        long int dx, dy;
+        do
+        {
+            dx = distr(eng);
+            dy = distr(eng);
+        }
+        while ((_walker.x + dx) >= m_width || (_walker.y + dy) >= m_height);
+        _walker.x = _walker.x + dx;
+        _walker.y = _walker.y + dy;
     }
 }

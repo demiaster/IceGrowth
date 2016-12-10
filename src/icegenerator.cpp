@@ -61,25 +61,13 @@ namespace controller
     {
         model::Navigator navigator (m_width, m_height);
         model::Point random_walker = navigator.setOnBorder();
-        m_image.setPixel(random_walker.x, random_walker.y, 255, 0, 0);
 
-        int j = 0;
         while(true)
         {
             navigator.walk(random_walker);
             std::cout << "x, y (" << random_walker.x << ", " << random_walker.y << ")\n";
-
-            //random_walker.x = random_walker.x + distr(eng);
-            //random_walker.y = random_walker.y + distr(eng);
-
-            //only check upper bounds because of
-            //Point unsigned int x, y coordinates
-            if(random_walker.x >= m_width || random_walker.y >= m_height)
-            {
-                break;
-            }
             //PERCENTAGE probability = m_iceGrid.hit(random_walker.x, random_walker.y);
-            else if(m_image.hit(random_walker.x, random_walker.y, 255, 255, 255))
+            if(m_image.hit(random_walker.x, random_walker.y, 255, 255, 255))
             {
                 //ONLY TO TEST AGAIN NORMAL BEHAVIOUR
                 //std::cout << "x, y (" << random_walker.x << ", " << random_walker.y << ")\n";
@@ -98,10 +86,7 @@ namespace controller
                    break;
                }
                */
-            ++j;
-            m_image.setPixel(random_walker.x, random_walker.y, 255 - (j % 255), 0, 0);
         }
-        m_image.save("dla_controller_navigator.png");
         return;
     }
 }
