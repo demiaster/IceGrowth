@@ -66,26 +66,12 @@ namespace controller
         {
             navigator.walk(random_walker);
             std::cout << "x, y (" << random_walker.x << ", " << random_walker.y << ")\n";
-            //PERCENTAGE probability = m_iceGrid.hit(random_walker.x, random_walker.y);
-            if(m_image.hit(random_walker.x, random_walker.y, 255, 255, 255))
+            PERCENTAGE probability = m_iceGrid.hit(random_walker.x, random_walker.y);
+            if(navigator.isFreezable(probability))
             {
-                //ONLY TO TEST AGAIN NORMAL BEHAVIOUR
-                //std::cout << "x, y (" << random_walker.x << ", " << random_walker.y << ")\n";
-                m_image.setPixel(random_walker.x,
-                                 random_walker.y,
-                                 255, 255, 255);
+                m_iceGrid.freeze(random_walker.x, random_walker.y, probability);
                 break;
             }
-            //TODO: figure out why this breaks everything
-            /*if(probability > pdistrib(eng))
-               {
-                   m_iceGrid.freeze(random_walker.x, random_walker.y, probability);
-                   m_image.setPixel(random_walker.x,
-                                  random_walker.y,
-                                  255, 255, 255);
-                   break;
-               }
-               */
         }
         return;
     }
