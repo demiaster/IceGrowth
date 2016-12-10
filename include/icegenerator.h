@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_ICEGENERATOR_H
 #define CONTROLLER_ICEGENERATOR_H
 
+#include <memory>
 #include "heatgrid.h"
 #include "icegrid.h"
 #include "image.h"
@@ -15,7 +16,7 @@ namespace controller
         inline void run()
         {
                 update();
-                represent();
+                //represent();
         }
 
         void setup();
@@ -26,9 +27,9 @@ namespace controller
         void dla_pattern();
 
         std::size_t m_width, m_height;
-        model::HeatGrid m_heatGrid;
-        model::IceGrid m_iceGrid;
-        view::Image m_image;
+        std::unique_ptr<model::HeatGrid> m_heatGrid;
+        std::unique_ptr<model::IceGrid> m_iceGrid;
+        std::unique_ptr<view::Image> m_image;
 
     };
 }
