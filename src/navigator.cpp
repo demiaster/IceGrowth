@@ -15,7 +15,7 @@ namespace model
         m_height = _height;
     }
 
-    model::Point Navigator::setOnBorders()
+    model::Point Navigator::setOnBorder()
     {
         //mapping all the point on the frame of the image
         //to use a contiguous indexing system
