@@ -13,6 +13,7 @@ namespace model
         model::Point setOnBorder();
         void walk(model::Point& _walker);
         void diffuseOnAxis();
+        bool isFreezable(float _probability);
 
     private:
         std::random_device rd; // obtain a random number from hardware

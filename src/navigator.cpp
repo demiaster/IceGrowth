@@ -45,4 +45,13 @@ namespace model
         _walker.x = _walker.x + dx;
         _walker.y = _walker.y + dy;
     }
+
+    bool Navigator::isFreezable(const float _probability)
+    {
+        if(_probability > pdistrib(eng))
+        {
+            return true;
+        }
+        return false;
+    }
 }
