@@ -40,13 +40,13 @@ namespace model
                     accum / neighbours : 0;
     }
 
-    void IceGrid::merge(HeatGrid &heatGrid)
+    void IceGrid::merge(HeatGrid* heatGrid)
     {
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
             {
-                NUMBER temp = heatGrid.getTemperature(i, j);
+                NUMBER temp = heatGrid->getTemperature(i, j);
                 this->set({{i, j}}, (temp - MIN_TEMP) / (MAX_TEMP - MIN_TEMP));
             }
         }

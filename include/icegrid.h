@@ -19,7 +19,7 @@ namespace model
 
         PERCENTAGE hit(std::size_t _x, std::size_t _y) const;
 
-        void merge(HeatGrid& _heatGrid);
+        void merge(HeatGrid* _heatGrid);
     private:
         std::size_t m_width, m_height;
     };
