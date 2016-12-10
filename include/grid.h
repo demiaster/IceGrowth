@@ -30,10 +30,20 @@ namespace model
                 return m_data[index(coordinates)];
             }
 
+            inline void reset(const T _element)
+            {
+                std::size_t len = std::accumulate(m_sizes.begin(), m_sizes.end(),
+                                                  1, std::multiplies<std::size_t>());
+                for (size_t i = 0; i < len; ++i)
+                {
+                    m_data[i] = _element;
+                }
+            }
+
         private:
             std::array<std::size_t, N> m_sizes;
 
-            std::size_t index(const std::array<std::size_t, N>& coordinates) const
+            inline std::size_t index(const std::array<std::size_t, N>& coordinates) const
             {
                 // {W, H, D}
                 // {X, Y, Z} inputs

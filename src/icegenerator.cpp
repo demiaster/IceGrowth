@@ -34,6 +34,7 @@ namespace controller
     {
         // reset the heatgrid to a custom temperature
         m_heatGrid.reset(RESET_TEMPERATURE);
+        m_iceGrid.reset(0);
         // set the initial seed of the iceGrid + set the temperature of the seed inside the heatgrid
         m_iceGrid.freeze(m_width / 2, m_height / 2, 1.0);
         m_heatGrid.setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);

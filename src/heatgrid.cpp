@@ -78,13 +78,8 @@ namespace model
 
     void HeatGrid::reset(const NUMBER _temp)
     {
-        for (size_t i = 0; i < m_width; ++i)
-        {
-            for (size_t j = 0; j < m_height; ++j)
-            {
-                m_actual->set({{i, j}}, _temp);
-                m_temp->set({{i, j}}, _temp);
-            }
-        }
+
+        m_actual->reset(_temp);
+        m_temp->reset(_temp);
     }
 }
