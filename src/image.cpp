@@ -61,7 +61,7 @@ namespace view
             {
                 std::size_t nx = _x + i;
                 std::size_t ny = _y + j;
-                if (nx < W && ny < H )
+                if (nx < m_width && ny < m_height )
                 {
                     if (get({{nx, ny, 0}}) == _r &&
                         get({{nx, ny, 1}}) == _g &&
