@@ -10,6 +10,9 @@ linux:QMAKE_CXXFLAGS+=$$system(Magick++-config --cppflags )
 linux:LIBS+=$$system(Magick++-config --ldflags --libs )
 linux:LIBS+= -lGLEW
 CONFIG+=c++11
+DEFINES += DEBUG
+DEFINES += TRACE
+
 # Input
 SOURCES += src/main.cpp \
            src/image.cpp \
