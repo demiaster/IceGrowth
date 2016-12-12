@@ -5,11 +5,11 @@
 namespace view
 {
 
-    void Image::setPixel(std::size_t _x,
-                  std::size_t _y,
-                  unsigned char _r,
-                  unsigned char _g,
-                  unsigned char _b)
+    void Image::setPixel(const std::size_t _x,
+                  const std::size_t _y,
+                  const unsigned char _r,
+                  const unsigned char _g,
+                  const unsigned char _b)
     {
         set({{_x, _y, 0}}, _r);
         set({{_x, _y, 1}}, _g);
@@ -18,7 +18,7 @@ namespace view
         return;
     }
 
-    bool Image::save(std::string _fname)
+    bool Image::save(const std::string _fname)
     {
         try
         {
@@ -35,9 +35,9 @@ namespace view
         return true;
     }
 
-    void Image::clearScreen(unsigned char _r,
-                            unsigned char _g,
-                            unsigned char _b)
+    void Image::clearScreen(const unsigned char _r,
+                            const unsigned char _g,
+                            const unsigned char _b)
     {
         for (unsigned int i = 0; i < m_width; ++i)
         {

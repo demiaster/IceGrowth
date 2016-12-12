@@ -21,8 +21,8 @@ namespace view
             /// @param[in] _height height of the image
             /// @param[in] _depth number of color component
 
-            inline Image(std::size_t _width,
-                         std::size_t _height,
+            inline Image(const std::size_t _width,
+                         const std::size_t _height,
                          std::size_t _depth = 3) :
                 Grid(std::array<std::size_t, 3>{{_width, _height, _depth}}), m_width(_width), m_height(_height) {;}
 
@@ -34,25 +34,25 @@ namespace view
             /// @param[in] _g green component
             /// @param[in] _b blue component
 
-            void setPixel(std::size_t _x,
-                          std::size_t _y,
-                          unsigned char _r,
-                          unsigned char _g,
-                          unsigned char _b);
+            void setPixel(const std::size_t _x,
+                          const std::size_t _y,
+                          const unsigned char _r,
+                          const unsigned char _g,
+                          const unsigned char _b);
 
             /// @brief set the whole image color according to given r, g, b values
             /// @param[in] _r red component
             /// @param[in] _g green component
             /// @param[in] _b blue component
 
-            void clearScreen(unsigned char _r,
-                             unsigned char _g,
-                             unsigned char _b);
+            void clearScreen(const unsigned char _r,
+                             const unsigned char _g,
+                             const unsigned char _b);
 
             /// @brief save image to output file
             /// @param[in] _fname name of the output file
 
-            bool save(std::string _fname);
+            bool save(const std::string _fname);
 
             bool hit(const std::size_t _x, const std::size_t _y,
                             const unsigned char _r,
