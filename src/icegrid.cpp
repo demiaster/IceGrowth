@@ -1,7 +1,6 @@
 #include "icegrid.h"
 
-#define MIN_TEMP -100.0
-#define MAX_TEMP 1.0
+#define NOICE_TEMP 1.0
 
 namespace model
 {
@@ -42,12 +41,25 @@ namespace model
 
     void IceGrid::merge(HeatGrid* heatGrid)
     {
+        NUMBER minTemp = NOICE_TEMP;
+        for (std::size_t i = 0; i < m_width; ++i)
+        {
+            for (std::size_t j = 0; j < m_height; ++j)
+            {
+                NUMBER tempTemp = heatGrid->getTemperature(i, j);
+                if (tempTemp < minTemp)
+                {
+                  minTemp = tempTemp;
+                }
+            }
+        }
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
             {
                 NUMBER temp = heatGrid->getTemperature(i, j);
-                this->set({{i, j}}, 1 - (temp - MIN_TEMP)/(MAX_TEMP - MIN_TEMP));
+                if (temp > NOICE_TEMP) temp = NOICE_TEMP;
+                this->set({{i, j}}, 1 - (temp - minTemp)/(NOICE_TEMP - minTemp));
             }
         }
     }
