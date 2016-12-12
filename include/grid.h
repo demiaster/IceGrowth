@@ -49,7 +49,13 @@ namespace model
                 {
                     std::cout << "grid internal: \n";
                     std::cout << "x: "<< m_sizes[0]<< "y: " << m_sizes[1] << std::endl;
+                    std::cout << "  ";
+                    for (std::size_t j = 0; j < m_sizes[1]; ++j) {
+                      std::cout << j << " ";
+                    }
+                    std::cout << std::endl;
                     for (std::size_t i = 0; i < m_sizes[0]; ++i) {
+                      std::cout << i << " ";
                       for (std::size_t j = 0; j < m_sizes[1]; ++j) {
                          std::cout << get({{i, j}}) << ' ';
                       }
