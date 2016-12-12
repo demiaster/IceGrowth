@@ -11,8 +11,8 @@
 #include<iostream>
 
 #define HITTEMPERATURE -100
-#define DIFFUSE_K 0.002
-#define DIFFUSE_TIME 1.0
+#define DIFFUSE_K 0.34
+#define DIFFUSE_TIME 1.0/(3*1000000000)
 #define RESET_TEMPERATURE 1.0
 
 namespace controller
@@ -37,7 +37,7 @@ namespace controller
         m_iceGrid->reset(0);
         // set the initial seed of the iceGrid + set the temperature of the seed inside the heatgrid
         m_iceGrid->freeze(m_width / 2, m_height / 2, 1.0);
-        m_heatGrid->setTemperature(m_width / 2, m_height / 2, -10);
+        m_heatGrid->setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);
         m_heatGrid->inspect();
         m_iceGrid->inspect();
         m_image->clearScreen(0, 0, 0);
@@ -48,8 +48,8 @@ namespace controller
     {
         m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME);
         //to avoid melting
-        m_iceGrid->freeze(m_width / 2, m_height / 2, 1.0);
-        m_heatGrid->setTemperature(m_width / 2, m_height / 2, -10);
+        //m_iceGrid->freeze(m_width / 2, m_height / 2, 1.0);
+        //m_heatGrid->setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);
 
         m_heatGrid->inspect();
         m_iceGrid->merge(m_heatGrid.get());
@@ -71,11 +71,14 @@ namespace controller
                 if (temperature < 0)
                 {
                     ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
+#ifdef DEBUG
+                    std::cout << "Represent ice: " << ice << std::endl;
+#endif
                     m_image->setPixel(i, j, 255, 255, 255);
                 }
             }
         }
-        m_image->save("represent_function.png");
+        m_image->save("/tmp/represent_function.png");
         return;
     }
 
@@ -97,7 +100,7 @@ namespace controller
 #endif
             if(navigator.isFreezable(probability))
             {
-                m_iceGrid->freeze(random_walker.x, random_walker.y, probability);
+                //m_iceGrid->freeze(random_walker.x, random_walker.y, probability);
                 m_heatGrid->setTemperature(random_walker.x, random_walker.y, HITTEMPERATURE);
 #ifdef DEBUG
                 std::cout << "Freeze: (" << random_walker.x << ", " << random_walker.y << ")\n";
