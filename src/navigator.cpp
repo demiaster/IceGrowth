@@ -4,8 +4,8 @@
 
 namespace model
 {
-    Navigator::Navigator(std::size_t _width,
-                         std::size_t _height) :
+    Navigator::Navigator(const std::size_t _width,
+                         const std::size_t _height) :
                                          eng(rd()),
                                          distr(-1, 1),
                                          offdistr(0, 2 * (_width + _height) - 4),

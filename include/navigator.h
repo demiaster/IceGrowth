@@ -9,11 +9,11 @@ namespace model
     class Navigator
     {
     public:
-        Navigator(std::size_t _width, std::size_t _height);
+        Navigator(const std::size_t _width, const std::size_t _height);
         model::Point setOnBorder();
         void walk(model::Point& _walker);
         void diffuseOnAxis();
-        bool isFreezable(float _probability);
+        bool isFreezable(const float _probability);
 
     private:
         std::random_device rd; // obtain a random number from hardware
