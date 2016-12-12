@@ -16,7 +16,7 @@ namespace controller
         inline void run()
         {
                 update();
-                //represent();
+                represent();
         }
 
         void setup();
