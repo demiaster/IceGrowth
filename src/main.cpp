@@ -10,8 +10,8 @@
 
 #include "icegenerator.h"
 
-static const size_t W = 10;
-static const size_t H = 10;
+static const size_t W = 401;
+static const size_t H = 401;
 
 int main()
 {
