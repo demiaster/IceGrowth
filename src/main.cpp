@@ -15,9 +15,14 @@ static const size_t H = 401;
 
 int main()
 {
-    controller::IceGenerator controller(W, H);
+    std::unique_ptr<frm::Framebuffer> framebuffer(new frm::Framebuffer());
+    framebuffer->init(W, H, NULL);
+    framebuffer->bind();
+    framebuffer->poll();
+    framebuffer->title("IceGrowth");
+    controller::IceGenerator controller(W, H, framebuffer.get());
     controller.setup();
-    while(true)
+    while(!framebuffer->shouldClose())
     {
         controller.run();
     }
