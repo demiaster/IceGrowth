@@ -5,6 +5,7 @@
 #include "heatgrid.h"
 #include "icegrid.h"
 #include "image.h"
+#include "framebuffer.h"
 
 namespace controller
 {
@@ -12,7 +13,8 @@ namespace controller
     {
     public:
         IceGenerator(const std::size_t _width,
-                            const std::size_t _height);
+                     const std::size_t _height,
+                     frm::Framebuffer* _framebuffer);
         inline void run()
         {
                 update();
@@ -30,6 +32,7 @@ namespace controller
         std::unique_ptr<model::HeatGrid> m_heatGrid;
         std::unique_ptr<model::IceGrid> m_iceGrid;
         std::unique_ptr<view::Image> m_image;
+        std::unique_ptr<frm::Framebuffer> m_framebuffer;
 
     };
 }
