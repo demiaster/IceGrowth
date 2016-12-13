@@ -14,7 +14,7 @@ namespace model
     {
     public:
         IceGrid(const std::size_t _width,
-                       const std::size_t _height);
+                const std::size_t _height);
         void freeze(std::size_t x, std::size_t y, PERCENTAGE _percentage);
 
         PERCENTAGE hit(std::size_t _x, std::size_t _y) const;
