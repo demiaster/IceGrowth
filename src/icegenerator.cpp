@@ -1,26 +1,33 @@
 #include "icegenerator.h"
 #include "point.h"
 #include "navigator.h"
-
+#include "framebuffer.h"
 #include "image.h"
 
 // random shits
 #include <random>
 #include <algorithm>
 #include <sstream>
-#include<iostream>
+#include <string>
+#include <iostream>
 
 #define HITTEMPERATURE -100
 #define DIFFUSE_K 0.34
 #define DIFFUSE_TIME 1.0/(3*1000000000)
 #define RESET_TEMPERATURE 1.0
 
+GLFWwindow* gWindowPointer;
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 namespace controller
 {
     //setup IceGenerator controller
 
     IceGenerator::IceGenerator(const std::size_t _width,
-                    const std::size_t _height)
+                               const std::size_t _height,
+                               frm::Framebuffer *_framebuffer) :
+                               m_framebuffer(_framebuffer)
     {
         m_width = _width;
         m_height = _height;
@@ -29,6 +36,9 @@ namespace controller
     void IceGenerator::setup()
     {
         m_image.reset(new view::Image (m_width, m_height));
+        m_image->clearScreen(0, 0, 0);
+
+        //initialising all other grids
         m_iceGrid.reset(new model::IceGrid(m_width, m_height));
         m_heatGrid.reset(new model::HeatGrid(m_width, m_height));
         // reset the heatgrid to a custom temperature
@@ -40,7 +50,6 @@ namespace controller
         m_heatGrid->setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);
         m_heatGrid->inspect();
         m_iceGrid->inspect();
-        m_image->clearScreen(0, 0, 0);
         return;
     }
 
@@ -78,7 +87,9 @@ namespace controller
                 }
             }
         }
-        m_image->save("/tmp/represent_function.png");
+        m_framebuffer->image(m_image->getData(), m_width, m_height);
+        m_framebuffer->draw();
+        m_framebuffer->poll();
         return;
     }
 
@@ -109,5 +120,17 @@ namespace controller
             }
         }
         return;
+    }
+}
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    switch(key)
+    {
+      case GLFW_KEY_ESCAPE:
+        std::cout<< "exiting";
+        exit(EXIT_SUCCESS);
+      break;
+    default: break;
     }
 }
