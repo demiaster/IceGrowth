@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "Framebuffer.h"
+#include "framebuffer.h"
 
 namespace frm
 {
