@@ -8,9 +8,9 @@ QMAKE_CXX = clang++
 
 linux:QMAKE_CXXFLAGS+=$$system(Magick++-config --cppflags )
 linux:LIBS+=$$system(Magick++-config --ldflags --libs )
-linux:LIBS+= -lGLEW
+linux:LIBS+= -lGLEW -lglfw
 CONFIG+=c++11
-DEFINES += DEBUG
+#DEFINES += DEBUG
 #DEFINES += TRACE
 
 # Input
