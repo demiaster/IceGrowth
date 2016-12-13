@@ -59,6 +59,8 @@ namespace view
                             const unsigned char _g,
                             const unsigned char _b) const;
 
+            inline unsigned char* getData() const {return m_data.get();}
+
             /// @brief destructor
             inline ~Image() {;}
 
