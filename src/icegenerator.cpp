@@ -1,6 +1,6 @@
 #include "icegenerator.h"
 #include "point.h"
-#include "navigator.h"
+#include "squarenavigator.h"
 #include "framebuffer.h"
 #include "image.h"
 
@@ -95,7 +95,7 @@ namespace controller
 
     void IceGenerator::dla_pattern()
     {
-        model::Navigator navigator (m_width, m_height);
+        model::SquareNavigator navigator (m_width, m_height);
         model::Point random_walker = navigator.setOnBorder();
 
         while(true)
