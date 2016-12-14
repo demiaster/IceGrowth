@@ -1,10 +1,10 @@
-#include "navigator.h"
+#include "squarenavigator.h"
 
 #include "point.h"
 
 namespace model
 {
-    Navigator::Navigator(const std::size_t _width,
+    SquareNavigator::SquareNavigator(const std::size_t _width,
                          const std::size_t _height) :
                                          eng(rd()),
                                          distr(-1, 1),
@@ -15,7 +15,7 @@ namespace model
         m_height = _height;
     }
 
-    model::Point Navigator::setOnBorder()
+    model::Point SquareNavigator::setOnBorder()
     {
         //mapping all the point on the frame of the image
         //to use a contiguous indexing system
@@ -33,7 +33,7 @@ namespace model
 
     }
 
-    void Navigator::walk(model::Point& _walker)
+    void SquareNavigator::walk(model::Point& _walker)
     {
         long int dx, dy;
         do
@@ -46,7 +46,10 @@ namespace model
         _walker.y = _walker.y + dy;
     }
 
-    bool Navigator::isFreezable(const float _probability)
+//    void diffuseOnAxis()
+//    {;}
+
+    bool SquareNavigator::isFreezable(const float _probability)
     {
         if(_probability > pdistrib(eng))
         {
