@@ -15,7 +15,7 @@ namespace model
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
         //void diffuseOnAxis() override;
-        bool isFreezable(const float _probability);
+        //bool isFreezable(const float _probability);
     };
 }
 
