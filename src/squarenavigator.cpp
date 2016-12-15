@@ -6,10 +6,7 @@ namespace model
 {
     SquareNavigator::SquareNavigator(const std::size_t _width,
                          const std::size_t _height) :
-                                         eng(rd()),
-                                         distr(-1, 1),
-                                         offdistr(0, 2 * (_width + _height) - 4),
-                                         pdistrib(0, 1.0)
+                                         common::RandomDist(_width, _height)
     {
         m_width = _width;
         m_height = _height;
