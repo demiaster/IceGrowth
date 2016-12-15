@@ -30,6 +30,7 @@ HEADERS+= include/image.h \
     include/icegrid.h \
     include/icegenerator.h \
     include/framebuffer.h \
+    include/freezable.h \
     include/navigator.h \
     include/randomdist.h \
     include/squarenavigator.h
