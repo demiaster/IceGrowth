@@ -27,7 +27,8 @@ namespace controller
     IceGenerator::IceGenerator(const std::size_t _width,
                                const std::size_t _height,
                                frm::Framebuffer *_framebuffer) :
-                               m_framebuffer(_framebuffer)
+                               m_framebuffer(_framebuffer),
+                               m_freezeprob(_width, _height)
     {
         m_width = _width;
         m_height = _height;
@@ -109,7 +110,7 @@ namespace controller
             std::cout << "DLA Probability: (" << random_walker.x << ", " << random_walker.y << "), " <<
               probability << "\n";
 #endif
-            if(navigator.isFreezable(probability))
+            if(m_freezeprob.isFreezable(probability))
             {
                 //m_iceGrid->freeze(random_walker.x, random_walker.y, probability);
                 m_heatGrid->setTemperature(random_walker.x, random_walker.y, HITTEMPERATURE);
