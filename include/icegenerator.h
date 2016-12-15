@@ -6,6 +6,7 @@
 #include "icegrid.h"
 #include "image.h"
 #include "framebuffer.h"
+#include "freezable.h"
 
 namespace controller
 {
@@ -33,6 +34,7 @@ namespace controller
         std::unique_ptr<model::IceGrid> m_iceGrid;
         std::unique_ptr<view::Image> m_image;
         std::unique_ptr<frm::Framebuffer> m_framebuffer;
+        model::Freezable m_freezeprob;
 
     };
 }
