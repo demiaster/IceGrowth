@@ -5,7 +5,7 @@
 #include "randomdist.h"
 namespace model
 {
-    class HexNavigator : public Navigator, common::RandomDist
+    class HexNavigator : public Navigator, public common::RandomDist
     {
     public:
         HexNavigator(const std::size_t _width, const std::size_t _height);
