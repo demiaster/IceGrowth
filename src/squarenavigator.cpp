@@ -46,12 +46,12 @@ namespace model
 //    void diffuseOnAxis()
 //    {;}
 
-    bool SquareNavigator::isFreezable(const float _probability)
-    {
-        if(_probability > pdistrib(eng))
-        {
-            return true;
-        }
-        return false;
-    }
+//    bool SquareNavigator::isFreezable(const float _probability)
+//    {
+//        if(_probability > pdistrib(eng))
+//        {
+//            return true;
+//        }
+//        return false;
+//    }
 }
