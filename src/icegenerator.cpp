@@ -28,7 +28,9 @@ namespace controller
                                const std::size_t _height,
                                frm::Framebuffer *_framebuffer) :
                                m_framebuffer(_framebuffer),
-                               m_freezeprob(_width, _height)
+                               m_randomdist(_width, _height),
+                               m_freezeprob(_width, _height, m_randomdist),
+                               m_navigator (_width, _height, m_randomdist)
     {
         m_width = _width;
         m_height = _height;
@@ -96,12 +98,11 @@ namespace controller
 
     void IceGenerator::dla_pattern()
     {
-        model::SquareNavigator navigator (m_width, m_height);
-        model::Point random_walker = navigator.setOnBorder();
+        model::Point random_walker = m_navigator.setOnBorder();
 
-        while(true)
+        while (true)
         {
-            navigator.walk(random_walker);
+            m_navigator.walk(random_walker);
             PERCENTAGE probability = m_iceGrid->hit(random_walker.x, random_walker.y);
 
 #ifdef TRACE

@@ -7,6 +7,8 @@
 #include "image.h"
 #include "framebuffer.h"
 #include "freezable.h"
+#include "squarenavigator.h"
+#include "randomdist.h"
 
 namespace controller
 {
@@ -35,6 +37,8 @@ namespace controller
         std::unique_ptr<view::Image> m_image;
         std::unique_ptr<frm::Framebuffer> m_framebuffer;
         model::Freezable m_freezeprob;
+        common::RandomDist m_randomdist;
+        model::SquareNavigator m_navigator;
 
     };
 }
