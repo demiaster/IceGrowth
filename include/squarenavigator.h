@@ -8,14 +8,18 @@
 
 namespace model
 {
-    class SquareNavigator : public Navigator, public common::RandomDist
+    class SquareNavigator : public Navigator
     {
     public:
-        SquareNavigator(const std::size_t _width, const std::size_t _height);
+        SquareNavigator(const std::size_t _width,
+                        const std::size_t _height,
+                        common::RandomDist& _randomdist);
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
         //void diffuseOnAxis() override;
         //bool isFreezable(const float _probability);
+    private:
+        common::RandomDist& m_randomdist;
     };
 }
 

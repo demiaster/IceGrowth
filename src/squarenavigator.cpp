@@ -5,8 +5,9 @@
 namespace model
 {
     SquareNavigator::SquareNavigator(const std::size_t _width,
-                         const std::size_t _height) :
-                                         common::RandomDist(_width, _height)
+                                     const std::size_t _height,
+                                     common::RandomDist& _randomdist) :
+                                     m_randomdist(_randomdist)
     {
         m_width = _width;
         m_height = _height;
@@ -18,7 +19,7 @@ namespace model
         //to use a contiguous indexing system
 
         //calculating a random index on the frame of the image
-        std::size_t offset = offdistr(eng);
+        std::size_t offset = m_randomdist.get_offdistr();
 
         //converting from that index to the actual x, y values for the random walker
         model::Point walker = (offset < m_width) ? model::Point{offset, 0} :
@@ -35,8 +36,8 @@ namespace model
         long int dx, dy;
         do
         {
-            dx = distr(eng);
-            dy = distr(eng);
+            dx = m_randomdist.get_distr();
+            dy = m_randomdist.get_distr();
         }
         while ((_walker.x + dx) >= m_width || (_walker.y + dy) >= m_height);
         _walker.x = _walker.x + dx;
@@ -46,12 +47,4 @@ namespace model
 //    void diffuseOnAxis()
 //    {;}
 
-//    bool SquareNavigator::isFreezable(const float _probability)
-//    {
-//        if(_probability > pdistrib(eng))
-//        {
-//            return true;
-//        }
-//        return false;
-//    }
 }
