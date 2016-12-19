@@ -5,20 +5,20 @@
 
 namespace model
 {
-    class Freezable : public common::RandomDist
+    class Freezable
     {
     public:
         inline Freezable(const std::size_t _width,
-                         const std::size_t _height) :
-                                    common::RandomDist(_width, _height) {;}
+                         const std::size_t _height,
+                         common::RandomDist& _randomdist) :
+                         m_randomdist(_randomdist) {;}
+
         inline bool isFreezable(const float _probability)
         {
-            if(_probability > pdistrib(eng))
-            {
-                return true;
-            }
-            return false;
+            return _probability > m_randomdist.get_pdistrib();
         }
+    private:
+        common::RandomDist& m_randomdist;
     };
 }
 
