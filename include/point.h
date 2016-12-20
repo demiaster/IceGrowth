@@ -10,6 +10,12 @@ namespace model
         std::size_t x;
         std::size_t y;
     } Point;
+
+    typedef struct DiffPoint_s
+    {
+        int x;
+        int y;
+    } DiffPoint;
 }
 
 #endif // MODEL_POINT_H
