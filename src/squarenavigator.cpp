@@ -5,9 +5,11 @@
 namespace model
 {
     SquareNavigator::SquareNavigator(const std::size_t _width,
-                                     const std::size_t _height,
-                                     common::RandomDist& _randomdist) :
-                                     m_randomdist(_randomdist)
+                                     const std::size_t _height) :
+                                     m_neighboursdist(0, 7),
+                                     m_borderdist(0, 2 * (_width + _height)
+                                                  - 4 /* remove double vertexes */
+                                                  - 1 /* remove last element because we start from zero */)
     {
         m_width = _width;
         m_height = _height;
@@ -19,7 +21,7 @@ namespace model
         //to use a contiguous indexing system
 
         //calculating a random index on the frame of the image
-        std::size_t offset = m_randomdist.get_offdistr();
+        std::size_t offset = m_borderdist.get_distr();
 
         //converting from that index to the actual x, y values for the random walker
         model::Point walker = (offset < m_width) ? model::Point{offset, 0} :
@@ -33,15 +35,15 @@ namespace model
 
     void SquareNavigator::walk(model::Point& _walker)
     {
-        long int dx, dy;
+        DiffPoint dp = {0,0};
         do
         {
-            dx = m_randomdist.get_distr();
-            dy = m_randomdist.get_distr();
+            std::size_t val = m_neighboursdist.get_distr();
+            dp = m_point[val];
         }
-        while ((_walker.x + dx) >= m_width || (_walker.y + dy) >= m_height);
-        _walker.x = _walker.x + dx;
-        _walker.y = _walker.y + dy;
+        while ((_walker.x + dp.x) >= m_width || (_walker.y + dp.y) >= m_height);
+        _walker.x = _walker.x + dp.x;
+        _walker.y = _walker.y + dp.y;
     }
 
 //    void diffuseOnAxis()

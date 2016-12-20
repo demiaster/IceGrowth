@@ -12,14 +12,24 @@ namespace model
     {
     public:
         SquareNavigator(const std::size_t _width,
-                        const std::size_t _height,
-                        common::RandomDist& _randomdist);
+                        const std::size_t _height);
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
         //void diffuseOnAxis() override;
         //bool isFreezable(const float _probability);
     private:
-        common::RandomDist& m_randomdist;
+        common::IntDistribution m_borderdist, m_neighboursdist;
+
+        //TODO: make this variable static again
+        DiffPoint m_point[8] =
+                        {{-1, -1},
+                          {0, -1},
+                          {1, -1},
+                          {1, 0},
+                          {1, 1},
+                          {0, 1},
+                          {-1, 1},
+                          {-1, 0}};
     };
 }
 
