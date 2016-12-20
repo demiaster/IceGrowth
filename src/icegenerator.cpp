@@ -28,9 +28,8 @@ namespace controller
                                const std::size_t _height,
                                frm::Framebuffer *_framebuffer) :
                                m_framebuffer(_framebuffer),
-                               m_randomdist(_width, _height),
-                               m_freezeprob(_width, _height, m_randomdist),
-                               m_navigator (_width, _height, m_randomdist)
+                               m_freezeprob(_width, _height),
+                               m_navigator (_width, _height)
     {
         m_width = _width;
         m_height = _height;
