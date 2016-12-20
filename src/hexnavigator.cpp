@@ -4,9 +4,11 @@
 namespace model
 {
     HexNavigator::HexNavigator(const std::size_t _width,
-                               const std::size_t _height,
-                               common::RandomDist _randomdist) :
-                               m_randomdist(_randomdist)
+                               const std::size_t _height) :
+                                m_neighboursdist(0, 5),
+                                m_borderdist(0, 2 * (_width + _height)
+                                             - 4 /* remove double vertexes */
+                                             - 1 /* remove last element because we start from zero */)
     {
         m_width = _width;
         m_height = _height;
@@ -31,7 +33,16 @@ namespace model
 
     void HexNavigator::walk(model::Point& _walker)
     {
-
+        DiffPoint dp = {0,0};
+        DiffPoint[5]& m_point = walker.x % 2 ? m_point_even : m_point_odd;
+        do
+        {
+            std::size_t val = m_neighboursdist.get_distr();
+            dp = m_point[val];
+        }
+        while ((_walker.x + dp.x) >= m_width || (_walker.y + dp.y) >= m_height);
+        _walker.x = _walker.x + dp.x;
+        _walker.y = _walker.y + dp.y;
     }
 
     //    void diffuseOnAxis()
