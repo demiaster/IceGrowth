@@ -9,16 +9,15 @@ namespace model
     {
     public:
         inline Freezable(const std::size_t _width,
-                         const std::size_t _height,
-                         common::RandomDist& _randomdist) :
-                         m_randomdist(_randomdist) {;}
+                         const std::size_t _height) :
+                         m_floatdist(0.0, 1.0) {;}
 
         inline bool isFreezable(const float _probability)
         {
-            return _probability > m_randomdist.get_pdistrib();
+            return _probability > m_floatdist.get_distr();
         }
     private:
-        common::RandomDist& m_randomdist;
+        common::FloatDistribution m_floatdist;
     };
 }
 
