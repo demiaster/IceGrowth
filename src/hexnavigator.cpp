@@ -20,7 +20,7 @@ namespace model
         //to use a contiguous indexing system
 
         //calculating a random index on the frame of the image
-        std::size_t offset = m_randomdist.get_offdistr();
+        std::size_t offset = m_borderdist.get_distr();
 
         //converting from that index to the actual x, y values for the random walker
         model::Point walker = (offset < m_width) ? model::Point{offset, 0} :
@@ -34,7 +34,8 @@ namespace model
     void HexNavigator::walk(model::Point& _walker)
     {
         DiffPoint dp = {0,0};
-        DiffPoint[5]& m_point = walker.x % 2 ? m_point_even : m_point_odd;
+
+        DiffPoint (&m_point)[6] = _walker.x % 2 ? m_point_even : m_point_odd;
         do
         {
             std::size_t val = m_neighboursdist.get_distr();
