@@ -8,8 +8,7 @@ namespace model
     class Freezable
     {
     public:
-        inline Freezable(const std::size_t _width,
-                         const std::size_t _height) :
+        inline Freezable() :
                          m_floatdist(0.0, 1.0) {;}
 
         inline bool isFreezable(const float _probability)
