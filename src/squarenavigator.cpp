@@ -6,10 +6,10 @@ namespace model
 {
     SquareNavigator::SquareNavigator(const std::size_t _width,
                                      const std::size_t _height) :
-                                     m_neighboursdist(0, 7),
                                      m_borderdist(0, 2 * (_width + _height)
                                                   - 4 /* remove double vertexes */
-                                                  - 1 /* remove last element because we start from zero */)
+                                                  - 1 /* remove last element because we start from zero */),
+                                     m_neighboursdist(0, 7)
     {
         m_width = _width;
         m_height = _height;
@@ -39,14 +39,14 @@ namespace model
         do
         {
             std::size_t val = m_neighboursdist.get_distr();
-            dp = m_point[val];
+            dp = m_neighbour[val];
         }
         while ((_walker.x + dp.x) >= m_width || (_walker.y + dp.y) >= m_height);
         _walker.x = _walker.x + dp.x;
         _walker.y = _walker.y + dp.y;
     }
 
-//    void diffuseOnAxis()
-//    {;}
+    void SquareNavigator::diffuseOnAxis()
+    {;}
 
 }
