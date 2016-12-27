@@ -32,6 +32,7 @@ SOURCES += src/main.cpp \
            src/icegrid.cpp \
            src/icegenerator.cpp \
            src/framebuffer.cpp \
+           src/NGLscene.cpp \
            src/squarenavigator.cpp
 HEADERS += include/image.h \
            include/point.h \
@@ -43,8 +44,10 @@ HEADERS += include/image.h \
            include/framebuffer.h \
            include/freezable.h \
            include/navigator.h \
+           include/NGLscene.h \
            include/randomdist.h \
-           include/squarenavigator.h
+           include/squarenavigator.h \
+           include/windowparam.h
 OTHER_FILES += shaders/*.glsl \
 
 # as I want to support 4.8 and 5 this will set a flag for some of the mac stuff
@@ -66,7 +69,7 @@ isEqual(QT_MAJOR_VERSION, 5) {
         QMAKE_EXTRA_TARGETS += first copydata
 }
 
-NGLPATH = $$(NGLDIR)
+NGLPATH  = $$(NGLDIR)
 
 isEmpty(NGLPATH){ # note brace must be here
         message("including $HOME/NGL")
