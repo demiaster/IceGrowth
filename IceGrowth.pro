@@ -33,6 +33,7 @@ SOURCES += src/main.cpp \
            src/icegenerator.cpp \
            src/framebuffer.cpp \
            src/NGLscene.cpp \
+           src/NGLsceneMouseControls.cpp \
            src/squarenavigator.cpp
 HEADERS += include/image.h \
            include/point.h \
