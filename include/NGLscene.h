@@ -7,21 +7,27 @@
 
 namespace view
 {
-    class NGLScene : public QOpenGLWindow
+    class NGLscene : public QOpenGLWindow
     {
     public:
-        NGLScene();
-        ~NGLScene();
+        NGLscene();
+        ~NGLscene();
         void initializeGL();
         void paintGL();
         void resizeGL(int _w, int _h);
     private:
-        //ngl drawing and visualizing stuff
-        ngl::Camera m_cam;
-        std::unique_ptr<ngl::AbstractVAO> m_vao;
-
         //window stuff
         WinParams m_win;
+
+        //ngl drawing and visualizing stuff
+        ngl::Mat4 m_view;
+        ngl::Camera m_cam;
+        ngl::Mat4 m_projection;
+        std::unique_ptr<ngl::AbstractVAO> m_vao;
+        size_t m_nVerts;
+
+        void buildMesh(ngl::Real _width, ngl::Real _height);
+        void timerEvent(QTimerEvent *);
 
         //mouse stuff
         ngl::Vec3 m_modelPos;
