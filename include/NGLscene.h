@@ -12,9 +12,9 @@ namespace view
     public:
         NGLscene();
         ~NGLscene();
-        void initializeGL();
-        void paintGL();
-        void resizeGL(int _w, int _h);
+        void initializeGL() override;
+        void paintGL() override;
+        void resizeGL(int _w, int _h) override;
     private:
         //window stuff
         WinParams m_win;
