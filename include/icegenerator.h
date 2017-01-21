@@ -21,13 +21,14 @@ namespace controller
         inline void run()
         {
                 update();
-                represent();
+                representFrameBuffer();
         }
 
         void setup();
     private:
         void update();
-        void represent();
+        void representFrameBuffer();
+        void representNGL();
 
         void dla_pattern();
 
