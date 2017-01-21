@@ -69,11 +69,15 @@ namespace controller
         m_iceGrid->inspect();
         return;
     }
-    void IceGenerator::represent()
+
+    void IceGenerator::representNGL()
     {
-        //TODO: represent an iceGrid inside an image a framebuffer or a mesh
+        //TODO: represent an iceGrid inside an image a mesh
         float temperature;
-        std::size_t ice;
+        //std::size_t ice;
+
+        //initialize mesh (or maybe outside from there)
+
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
@@ -81,7 +85,31 @@ namespace controller
                 temperature = m_heatGrid->getTemperature(i, j);
                 if (temperature < 0)
                 {
-                    ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
+                    //ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
+#ifdef DEBUG
+                    std::cout << "Represent ice: " << ice << std::endl;
+#endif
+                    //set mesh cell's colour
+                }
+            }
+        }
+
+        //Draw things(paint NGL)
+        return;
+    }
+    void IceGenerator::representFrameBuffer()
+    {
+        //TODO: represent an iceGrid inside an image a framebuffer
+        float temperature;
+        //std::size_t ice;
+        for (std::size_t i = 0; i < m_width; ++i)
+        {
+            for (std::size_t j = 0; j < m_height; ++j)
+            {
+                temperature = m_heatGrid->getTemperature(i, j);
+                if (temperature < 0)
+                {
+                    //ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
 #ifdef DEBUG
                     std::cout << "Represent ice: " << ice << std::endl;
 #endif
