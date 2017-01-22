@@ -2,6 +2,8 @@
 #include <QGuiApplication>
 
 #include "NGLscene.h"
+#include "point.h"
+
 #include <ngl/NGLInit.h>
 #include <ngl/NGLStream.h>
 #include <ngl/ShaderLib.h>
@@ -46,38 +48,26 @@ namespace view
 
     }
 
-    struct vertex
-    {
-        ngl::Vec3 p;
-        ngl::Vec3 n;
-        ngl::Vec4 c;
-    };
-
-    typedef struct Point_s
-    {
-        float x;
-        float y;
-    } Point;
 
     void NGLscene::buildMesh(ngl::Real _width, ngl::Real _height)
     {
-        std::vector<vertex> data;
-        vertex vert;
-        vertex origin;
-        vertex current_center;
+        std::vector<model::Vertex> data;
+        model::Vertex vert;
+        model::Vertex origin;
+        model::Vertex current_center;
         float angle = 60.0;
         float cosine = cos(angle * ngl::PI / 180);
         float sine = sin(angle * ngl::PI / 180);
         float radius = 1.0f;
         //anticlockwise
-        std::array<Point, 7> vertices =
-                                {{Point{  radius, 0},
-                                  Point{  radius * cosine, radius * sine},
-                                  Point{- radius * cosine, radius * sine},
-                                  Point{- radius, 0},
-                                  Point{- radius * cosine, - radius * sine},
-                                  Point{  radius * cosine, - radius * sine},
-                                  Point{  radius, 0}}};
+        std::array<model::MeshPoint, 7> vertices =
+                                {{model::MeshPoint{  radius, 0},
+                                  model::MeshPoint{  radius * cosine, radius * sine},
+                                  model::MeshPoint{- radius * cosine, radius * sine},
+                                  model::MeshPoint{- radius, 0},
+                                  model::MeshPoint{- radius * cosine, - radius * sine},
+                                  model::MeshPoint{  radius * cosine, - radius * sine},
+                                  model::MeshPoint{  radius, 0}}};
 
         //center of the first top left hexagon
         origin.p.m_x = 0.0f;
@@ -126,11 +116,11 @@ namespace view
 
         m_vao.reset(ngl::VAOFactory::createVAO(ngl::simpleVAO,GL_TRIANGLES));
         m_vao->bind();
-        m_vao->setData(ngl::AbstractVAO::VertexData(data.size()*sizeof(vertex),
+        m_vao->setData(ngl::AbstractVAO::VertexData(data.size()*sizeof(model::Vertex),
                                                     data[0].p.m_x));
-        m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(vertex),0);
-        m_vao->setVertexAttributePointer(1,3,GL_FLOAT,sizeof(vertex),3);
-        m_vao->setVertexAttributePointer(2,4,GL_FLOAT,sizeof(vertex),6);
+        m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(model::Vertex),0);
+        m_vao->setVertexAttributePointer(1,3,GL_FLOAT,sizeof(model::Vertex),3);
+        m_vao->setVertexAttributePointer(2,4,GL_FLOAT,sizeof(model::Vertex),6);
 
         m_vao->setNumIndices(data.size());
         m_vao->unbind();
@@ -142,17 +132,8 @@ namespace view
         static float time;
         time+=0.1f;
         m_vao->bind();
-        vertex *ptr =static_cast<vertex *>
+        model::Vertex *ptr =static_cast<model::Vertex *>
                 ( glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE) );
-
-        //  for(size_t i=0; i<m_vao->numIndices(); ++i)
-        //  {
-        //    ptr[i].p.m_y=sinf(ptr[i].p.m_x+time);
-        //  }
-        //  for(size_t i=0; i<m_vao->numIndices(); ++i)
-        //  {
-        //    ptr[i].p.m_y+=sinf(ptr[i].p.m_z+time);
-        //  }
 
         for(size_t i = 0; i < m_vao->numIndices(); i += 3)
         {
