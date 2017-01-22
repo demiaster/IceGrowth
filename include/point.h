@@ -2,6 +2,7 @@
 #define MODEL_POINT_H
 
 #include <cstddef>
+#include <ngl/Util.h>
 
 namespace model
 {
@@ -16,6 +17,19 @@ namespace model
         int x;
         int y;
     } DiffPoint;
+
+    typedef struct MeshPoint_s
+    {
+        float x;
+        float y;
+    } MeshPoint;
+
+    typedef struct Vertex_s
+    {
+        ngl::Vec3 p;
+        ngl::Vec3 n;
+        ngl::Vec4 c;
+    } Vertex;
 }
 
 #endif // MODEL_POINT_H
