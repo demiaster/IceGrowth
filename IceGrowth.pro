@@ -48,6 +48,7 @@ HEADERS += include/image.h \
            include/NGLscene.h \
            include/randomdist.h \
            include/squarenavigator.h \
+           include/vertexgrid.h \
            include/windowparam.h
 OTHER_FILES += shaders/*.glsl \
 
