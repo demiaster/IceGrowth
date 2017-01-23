@@ -169,18 +169,6 @@ namespace view
 #endif
         m_vao->unbind();
 
-        m_vao->bind();
-
-        model::Vertex *ptr =static_cast<model::Vertex *>
-                ( glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE) );
-        if(ptr)
-        for(std::size_t i = 0; i < data.size(); ++i)
-        {
-            ptr[i] = data[i];
-        }
-        glUnmapBuffer(GL_ARRAY_BUFFER);
-
-        m_vao->unbind();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         update();
     }
@@ -191,10 +179,10 @@ namespace view
 #ifdef GRAPHICSDEBUG
         std::cout << "timer\n";
 #endif
-        m_vao->bind();
-        glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE);
-        glUnmapBuffer(GL_ARRAY_BUFFER);
-        m_vao->unbind();
+//        m_vao->bind();
+//        glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE);
+//        glUnmapBuffer(GL_ARRAY_BUFFER);
+//        m_vao->unbind();
         update();
     }
 
@@ -238,7 +226,7 @@ namespace view
         image.reset(new view::Image(m_width, m_height, 3));
         image->clearScreen(0, 0, 0);
 
-        buildMesh(60.0f,60.0f, image);
+        buildMesh(m_width, m_height, image);
         startTimer(100);
         glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     }
