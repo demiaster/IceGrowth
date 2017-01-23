@@ -13,7 +13,7 @@ namespace view
     class NGLscene : public QOpenGLWindow
     {Q_OBJECT
     public:
-        NGLscene();
+        NGLscene(std::size_t _width, std::size_t _height);
         ~NGLscene();
         void initializeGL() override;
         void paintGL() override;
