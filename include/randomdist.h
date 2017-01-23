@@ -15,11 +15,12 @@ namespace common
     private: \
         std::random_device m_rd; \
         std::mt19937 m_eng;  \
-        std::uniform_ ## distr ## _distribution<> m_distr; \
+        std::uniform_ ## distr ## _distribution<type> m_distr; \
     }
 
     RANDOMDIST(IntDistribution, int, std::size_t);
     RANDOMDIST(FloatDistribution, real, float);
+    RANDOMDIST(CharDistribution, int, char);
 }
 
 #endif //COMMON_RANDOMDIST_H
