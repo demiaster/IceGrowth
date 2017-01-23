@@ -18,14 +18,16 @@
 
 namespace view
 {
-    NGLscene::NGLscene()
+    NGLscene::NGLscene(std::size_t _width, std::size_t _height)
     {
         // re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
         setTitle("VAO Grid");
         std::cout<<m_view<<'\n'<<m_projection<<'\n';
-        m_view=ngl::lookAt(ngl::Vec3(0.0f,0.0f,160.0f),
-                           ngl::Vec3::zero(),
+        m_view=ngl::lookAt(ngl::Vec3(50.0f, -50.0f,150.0f),
+                           ngl::Vec3(50.0f, -50.0f, 50.0f),
                            ngl::Vec3::up());
+        m_width = _width;
+        m_height = _height;
 
         std::cout<<"view \n"<<m_view<<'\n';
     }
@@ -64,7 +66,7 @@ namespace view
 #ifdef GRAPHICSDEBUG
         std::cout << "setImage\n";
 #endif
-        buildMesh(401, 401, m_image);
+        buildMesh(m_width, m_height, m_image);
         update();
     }
 
@@ -113,9 +115,6 @@ namespace view
                 current_center.c.m_r = _image->get({{k, j, 0}});
                 current_center.c.m_g = _image->get({{k, j, 1}});
                 current_center.c.m_b = _image->get({{k, j, 2}});
-//                current_center.c.m_r = dist.get_distr();
-//                current_center.c.m_g = dist.get_distr();
-//                current_center.c.m_b = dist.get_distr();
 
                 //do the hexagon
                 for(i = 0; i < vertices.size() - 1; ++i)
@@ -131,9 +130,6 @@ namespace view
                         vert.c.m_r = _image->get({{k, j, 0}});
                         vert.c.m_g = _image->get({{k, j, 1}});
                         vert.c.m_b = _image->get({{k, j, 2}});
-//                        vert.c.m_r = dist.get_distr();
-//                        vert.c.m_g = dist.get_distr();
-//                        vert.c.m_b = dist.get_distr();
                     }
                     data.push_back(vert);
 
@@ -142,9 +138,6 @@ namespace view
                     vert.c.m_r = _image->get({{k, j, 0}});
                     vert.c.m_g = _image->get({{k, j, 1}});
                     vert.c.m_b = _image->get({{k, j, 2}});
-//                    vert.c.m_r = dist.get_distr();
-//                    vert.c.m_g = dist.get_distr();
-//                    vert.c.m_b = dist.get_distr();
                     data.push_back(vert);
 
                 }
@@ -162,8 +155,6 @@ namespace view
         }
 
         m_nVerts=data.size();
-
-        //m_datamutex.lock();
         m_vao.reset(ngl::VAOFactory::createVAO(ngl::simpleVAO,GL_TRIANGLES));
         m_vao->bind();
         m_vao->setData(ngl::AbstractVAO::VertexData(data.size()*sizeof(model::Vertex),
@@ -173,22 +164,23 @@ namespace view
         m_vao->setVertexAttributePointer(2,3,GL_FLOAT,sizeof(model::Vertex),6);
 
         m_vao->setNumIndices(data.size());
+#ifdef GRAPHICSDEBUG
+        std::cout << data.size() << "dataSize\n";
+#endif
         m_vao->unbind();
 
         m_vao->bind();
+
         model::Vertex *ptr =static_cast<model::Vertex *>
                 ( glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE) );
-
         if(ptr)
         for(std::size_t i = 0; i < data.size(); ++i)
         {
             ptr[i] = data[i];
         }
-
         glUnmapBuffer(GL_ARRAY_BUFFER);
 
         m_vao->unbind();
-        //m_datamutex.unlock();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         update();
     }
@@ -201,9 +193,6 @@ namespace view
 #endif
         m_vao->bind();
         glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE);
-
-
-
         glUnmapBuffer(GL_ARRAY_BUFFER);
         m_vao->unbind();
         update();
@@ -222,7 +211,6 @@ namespace view
         glEnable(GL_DEPTH_TEST);
         // enable multisampling for smoother drawing
         glEnable(GL_MULTISAMPLE);
-
 
         ngl::ShaderLib *shader = ngl::ShaderLib::instance();
         shader->createShaderProgram(gridShader);
@@ -247,7 +235,7 @@ namespace view
         shader->use(gridShader);
         shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
         std::shared_ptr<view::Image> image;
-        image.reset(new view::Image(100, 100, 3));
+        image.reset(new view::Image(m_width, m_height, 3));
         image->clearScreen(0, 0, 0);
 
         buildMesh(60.0f,60.0f, image);
@@ -262,7 +250,6 @@ namespace view
 #ifdef GRAPHICSDEBUG
         std::cout << "paintGL\n";
 #endif
-        //m_datamutex.lock();
         // clear the screen and depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glViewport(0, 0, m_win.width, m_win.height);
@@ -293,8 +280,6 @@ namespace view
         shader->setUniform("normalMatrix",normalMatrix);
         m_vao->draw();
         m_vao->unbind();
-        //m_datamutex.unlock();
-
     }
 
 
@@ -306,14 +291,14 @@ namespace view
         {
             // escape key to quite
             case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
-//                // turn on wirframe rendering
-//            case Qt::Key_W : glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); break;
-//                // turn off wire frame
-//            case Qt::Key_S : glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); break;
-//                // show full screen
-//            case Qt::Key_F : showFullScreen(); break;
-//                // show windowed
-//            case Qt::Key_N : showNormal(); break;
+                // turn on wirframe rendering
+            case Qt::Key_W : glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); break;
+                // turn off wire frame
+            case Qt::Key_S : glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); break;
+                // show full screen
+            case Qt::Key_F : showFullScreen(); break;
+                // show windowed
+            case Qt::Key_N : showNormal(); break;
             default : break;
         }
         // finally update the GLWindow and re-draw
