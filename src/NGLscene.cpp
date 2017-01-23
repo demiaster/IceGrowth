@@ -3,6 +3,7 @@
 
 #include "NGLscene.h"
 #include "point.h"
+#include "randomdist.h"
 
 #include <ngl/NGLInit.h>
 #include <ngl/NGLStream.h>
@@ -22,7 +23,7 @@ namespace view
         // re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
         setTitle("VAO Grid");
         std::cout<<m_view<<'\n'<<m_projection<<'\n';
-        m_view=ngl::lookAt(ngl::Vec3(0.0f,0.0f,150.0f),
+        m_view=ngl::lookAt(ngl::Vec3(0.0f,0.0f,160.0f),
                            ngl::Vec3::zero(),
                            ngl::Vec3::up());
 
@@ -48,9 +49,32 @@ namespace view
 
     }
 
-
-    void NGLscene::buildMesh(ngl::Real _width, ngl::Real _height)
+    void NGLscene::feed(std::size_t _width, std::size_t _height, std::shared_ptr<view::Image> _image)
     {
+#ifdef GRAPHICSDEBUG
+        std::cout << "feed\n";
+#endif
+        m_image = _image;
+        m_width = _width;
+        m_height = _height;
+    }
+
+    void NGLscene::setImage()
+    {
+#ifdef GRAPHICSDEBUG
+        std::cout << "setImage\n";
+#endif
+        buildMesh(401, 401, m_image);
+        update();
+    }
+
+    void NGLscene::buildMesh(std::size_t _width, std::size_t _height, std::shared_ptr<view::Image> _image)
+    {
+#ifdef GRAPHICSDEBUG
+        std::cout << "buildMesh\n";
+#endif
+
+        static common::IntDistribution dist(0, 255);
         std::vector<model::Vertex> data;
         model::Vertex vert;
         model::Vertex origin;
@@ -76,18 +100,25 @@ namespace view
         float deltax = 3 * radius * cosine;
         float deltay_odd = - radius * sine;
         //looping on the y
-        for(int k = 0; k < _height; ++k)
+        std::size_t k, j, i;
+        for(k = 0; k < _height; ++k)
         {
-            float line_offset = - k * 2 * radius * sine;
+            int nk = k;
+            float line_offset = - nk * 2 * radius * sine;
             //looping on the x
-            for(int j = 0; j < _width; ++j)
+            for(j = 0; j < _width; ++j)
             {
                 current_center.p.m_x = origin.p.m_x + j * deltax;
                 current_center.p.m_y = origin.p.m_y + line_offset + ((j % 2) * deltay_odd);
-
+                current_center.c.m_r = _image->get({{k, j, 0}});
+                current_center.c.m_g = _image->get({{k, j, 1}});
+                current_center.c.m_b = _image->get({{k, j, 2}});
+//                current_center.c.m_r = dist.get_distr();
+//                current_center.c.m_g = dist.get_distr();
+//                current_center.c.m_b = dist.get_distr();
 
                 //do the hexagon
-                for(unsigned i = 0; i < vertices.size() - 1; ++i)
+                for(i = 0; i < vertices.size() - 1; ++i)
                 {
                     data.push_back(current_center);
 
@@ -97,59 +128,86 @@ namespace view
                     {
                         vert.p.m_x = current_center.p.m_x + vertices[i].x;
                         vert.p.m_y = current_center.p.m_y + vertices[i].y;
+                        vert.c.m_r = _image->get({{k, j, 0}});
+                        vert.c.m_g = _image->get({{k, j, 1}});
+                        vert.c.m_b = _image->get({{k, j, 2}});
+//                        vert.c.m_r = dist.get_distr();
+//                        vert.c.m_g = dist.get_distr();
+//                        vert.c.m_b = dist.get_distr();
                     }
                     data.push_back(vert);
 
                     vert.p.m_x = current_center.p.m_x + vertices[i + 1].x;
                     vert.p.m_y = current_center.p.m_y + vertices[i + 1].y;
-                    vert.c.m_r = 255;
-                    vert.c.m_g = 0;
-                    vert.c.m_b = 0;
-                    vert.c.m_a = 0;
+                    vert.c.m_r = _image->get({{k, j, 0}});
+                    vert.c.m_g = _image->get({{k, j, 1}});
+                    vert.c.m_b = _image->get({{k, j, 2}});
+//                    vert.c.m_r = dist.get_distr();
+//                    vert.c.m_g = dist.get_distr();
+//                    vert.c.m_b = dist.get_distr();
                     data.push_back(vert);
 
                 }
             }
         }
 
+        std::cout << k<<' '<< j << ' '<< i<<'\n';
+        for(size_t i = 0; i < data.size(); i += 3)
+        {
+            //calculating the correct normal direction for every 3 vertexes
+            ngl::Vec3 normal = ngl::calcNormal(data[i + 1].p, data[i].p, data[i + 2].p);
+            data[i].n = normal;
+            data[i + 1].n = normal;
+            data[i + 2].n = normal;
+        }
+
         m_nVerts=data.size();
 
+        //m_datamutex.lock();
         m_vao.reset(ngl::VAOFactory::createVAO(ngl::simpleVAO,GL_TRIANGLES));
         m_vao->bind();
         m_vao->setData(ngl::AbstractVAO::VertexData(data.size()*sizeof(model::Vertex),
                                                     data[0].p.m_x));
         m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(model::Vertex),0);
         m_vao->setVertexAttributePointer(1,3,GL_FLOAT,sizeof(model::Vertex),3);
-        m_vao->setVertexAttributePointer(2,4,GL_FLOAT,sizeof(model::Vertex),6);
+        m_vao->setVertexAttributePointer(2,3,GL_FLOAT,sizeof(model::Vertex),6);
 
         m_vao->setNumIndices(data.size());
         m_vao->unbind();
 
-    }
-
-    void NGLscene::timerEvent(QTimerEvent *)
-    {
-        static float time;
-        time+=0.1f;
         m_vao->bind();
         model::Vertex *ptr =static_cast<model::Vertex *>
                 ( glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE) );
 
-        for(size_t i = 0; i < m_vao->numIndices(); i += 3)
+        if(ptr)
+        for(std::size_t i = 0; i < data.size(); ++i)
         {
-            //calculating the correct normal direction for every 3 vertexes
-            ngl::Vec3 normal = ngl::calcNormal(ptr[i + 1].p, ptr[i].p, ptr[i + 2].p);
-            ptr[i].n = normal;
-            ptr[i + 1].n = normal;
-            ptr[i + 2].n = normal;
-
+            ptr[i] = data[i];
         }
+
+        glUnmapBuffer(GL_ARRAY_BUFFER);
+
+        m_vao->unbind();
+        //m_datamutex.unlock();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        update();
+    }
+
+
+    void NGLscene::timerEvent(QTimerEvent *)
+    {
+#ifdef GRAPHICSDEBUG
+        std::cout << "timer\n";
+#endif
+        m_vao->bind();
+        glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE);
+
+
 
         glUnmapBuffer(GL_ARRAY_BUFFER);
         m_vao->unbind();
         update();
     }
-
 
     constexpr auto gridShader = "gridShader";
 
@@ -188,16 +246,23 @@ namespace view
 
         shader->use(gridShader);
         shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
+        std::shared_ptr<view::Image> image;
+        image.reset(new view::Image(100, 100, 3));
+        image->clearScreen(0, 0, 0);
 
-        buildMesh(60.0f,60.0f);
-        startTimer(20);
-        glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+        buildMesh(60.0f,60.0f, image);
+        startTimer(100);
+        glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     }
 
 
 
     void NGLscene::paintGL()
     {
+#ifdef GRAPHICSDEBUG
+        std::cout << "paintGL\n";
+#endif
+        //m_datamutex.lock();
         // clear the screen and depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glViewport(0, 0, m_win.width, m_win.height);
@@ -228,6 +293,7 @@ namespace view
         shader->setUniform("normalMatrix",normalMatrix);
         m_vao->draw();
         m_vao->unbind();
+        //m_datamutex.unlock();
 
     }
 
@@ -240,14 +306,14 @@ namespace view
         {
             // escape key to quite
             case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
-                // turn on wirframe rendering
-            case Qt::Key_W : glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); break;
-                // turn off wire frame
-            case Qt::Key_S : glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); break;
-                // show full screen
-            case Qt::Key_F : showFullScreen(); break;
-                // show windowed
-            case Qt::Key_N : showNormal(); break;
+//                // turn on wirframe rendering
+//            case Qt::Key_W : glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); break;
+//                // turn off wire frame
+//            case Qt::Key_S : glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); break;
+//                // show full screen
+//            case Qt::Key_F : showFullScreen(); break;
+//                // show windowed
+//            case Qt::Key_N : showNormal(); break;
             default : break;
         }
         // finally update the GLWindow and re-draw
