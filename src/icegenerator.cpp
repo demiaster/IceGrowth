@@ -10,6 +10,8 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 #define HITTEMPERATURE -100
 #define DIFFUSE_K 0.34
@@ -24,19 +26,57 @@ namespace controller
 {
     //setup IceGenerator controller
 
-    IceGenerator::IceGenerator(const std::size_t _width,
-                               const std::size_t _height,
-                               frm::Framebuffer *_framebuffer) :
-                               m_framebuffer(_framebuffer),
-                               m_freezeprob(),
-                               m_navigator (_width, _height)
+    IceGenerator::IceGenerator(){}
+
+//    IceGenerator::IceGenerator(const std::size_t _width,
+//                               const std::size_t _height,
+//                               frm::Framebuffer *_framebuffer) :
+//                               m_framebuffer(_framebuffer)
+//    {
+
+//    }
+
+//    IceGenerator::IceGenerator(const std::size_t _width,
+//                               const std::size_t _height,
+//                               std::shared_ptr<view::NGLscene> _window) :
+//                               m_window(_window)
+//    {
+//    }
+    void IceGenerator::run()
+    {
+        connect(this, SIGNAL(imageChanged()),
+                                      m_window.get(), SLOT(setImage()));
+        while(true)
+        {
+#ifdef GRAPHICSDEBUG
+            std::cout << "run\n";
+#endif
+            update();
+            //representFrameBuffer();
+            representNGL();
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }
+    }
+
+//    void IceGenerator::runSlot()
+//    {
+//        run();
+//    }
+
+    void IceGenerator::setup(const std::size_t _width,
+                             const std::size_t _height,
+                             std::shared_ptr<view::NGLscene> _window)
+    {
+        m_window = _window;
+        setup(_width, _height);
+    }
+
+    void IceGenerator::setup(const std::size_t _width,
+                             const std::size_t _height)
     {
         m_width = _width;
         m_height = _height;
-    }
-
-    void IceGenerator::setup()
-    {
+        m_navigator.reset(new model::SquareNavigator(_width, _height));
         m_image.reset(new view::Image (m_width, m_height));
         m_image->clearScreen(0, 0, 0);
 
@@ -87,14 +127,19 @@ namespace controller
                 {
                     //ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
 #ifdef DEBUG
-                    std::cout << "Represent ice: " << ice << std::endl;
+                    //std::cout << "Represent ice: " << ice << std::endl;
 #endif
                     //set mesh cell's colour
+                    m_image->setPixel(i, j, 255, 255, 255);
                 }
             }
         }
-
         //Draw things(paint NGL)
+#ifdef GRAPHICSDEBUG
+        m_image->save("/tmp/test.png");
+#endif
+        m_window->feed(m_width, m_height, m_image);
+        emit imageChanged();
         return;
     }
     void IceGenerator::representFrameBuffer()
@@ -111,7 +156,7 @@ namespace controller
                 {
                     //ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
 #ifdef DEBUG
-                    std::cout << "Represent ice: " << ice << std::endl;
+                    //std::cout << "Represent ice: " << ice << std::endl;
 #endif
                     m_image->setPixel(i, j, 255, 255, 255);
                 }
@@ -125,11 +170,11 @@ namespace controller
 
     void IceGenerator::dla_pattern()
     {
-        model::Point random_walker = m_navigator.setOnBorder();
+        model::Point random_walker = m_navigator->setOnBorder();
 
         while (true)
         {
-            m_navigator.walk(random_walker);
+            m_navigator->walk(random_walker);
             PERCENTAGE probability = m_iceGrid->hit(random_walker.x, random_walker.y);
 
 #ifdef TRACE
