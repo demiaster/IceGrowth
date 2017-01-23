@@ -2,6 +2,7 @@
 #define CONTROLLER_ICEGENERATOR_H
 
 #include <memory>
+#include <QThread>
 #include "heatgrid.h"
 #include "icegrid.h"
 #include "image.h"
@@ -9,22 +10,36 @@
 #include "freezable.h"
 #include "squarenavigator.h"
 #include "randomdist.h"
+#include "NGLscene.h"
 
 namespace controller
 {
-    class IceGenerator
-    {
+    class IceGenerator : public QThread
+    { Q_OBJECT
     public:
-        IceGenerator(const std::size_t _width,
-                     const std::size_t _height,
-                     frm::Framebuffer* _framebuffer);
-        inline void run()
-        {
-                update();
-                representFrameBuffer();
-        }
+        //TODO: add shared_ptr here as well
+        //IceGenerator(QObject* parent);
+        IceGenerator();
+//        IceGenerator(const std::size_t _width,
+//                     const std::size_t _height,
+//                     frm::Framebuffer* _framebuffer);
 
-        void setup();
+//        IceGenerator(const std::size_t _width,
+//                     const std::size_t _height,
+//                     std::shared_ptr<view::NGLscene> _window);
+
+        void run();
+        void setup(const std::size_t _width,
+                   const std::size_t _height, std::shared_ptr<view::NGLscene> _window);
+
+        void setup(const std::size_t _width,
+                   const std::size_t _height);
+//    public slots:
+//        void runSlot();
+
+    signals:
+        void imageChanged();
+
     private:
         void update();
         void representFrameBuffer();
@@ -35,10 +50,11 @@ namespace controller
         std::size_t m_width, m_height;
         std::unique_ptr<model::HeatGrid> m_heatGrid;
         std::unique_ptr<model::IceGrid> m_iceGrid;
-        std::unique_ptr<view::Image> m_image;
+        std::shared_ptr<view::Image> m_image;
         std::unique_ptr<frm::Framebuffer> m_framebuffer;
+        std::shared_ptr<view::NGLscene> m_window;
         model::Freezable m_freezeprob;
-        model::SquareNavigator m_navigator;
+        std::unique_ptr<model::SquareNavigator> m_navigator;
     };
 }
 
