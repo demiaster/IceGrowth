@@ -28,20 +28,6 @@ namespace controller
 
     IceGenerator::IceGenerator(){}
 
-//    IceGenerator::IceGenerator(const std::size_t _width,
-//                               const std::size_t _height,
-//                               frm::Framebuffer *_framebuffer) :
-//                               m_framebuffer(_framebuffer)
-//    {
-
-//    }
-
-//    IceGenerator::IceGenerator(const std::size_t _width,
-//                               const std::size_t _height,
-//                               std::shared_ptr<view::NGLscene> _window) :
-//                               m_window(_window)
-//    {
-//    }
     void IceGenerator::run()
     {
         connect(this, SIGNAL(imageChanged()),
@@ -58,11 +44,6 @@ namespace controller
         }
     }
 
-//    void IceGenerator::runSlot()
-//    {
-//        run();
-//    }
-
     void IceGenerator::setup(const std::size_t _width,
                              const std::size_t _height,
                              std::shared_ptr<view::NGLscene> _window)
@@ -78,7 +59,7 @@ namespace controller
         m_height = _height;
         m_navigator.reset(new model::SquareNavigator(_width, _height));
         m_image.reset(new view::Image (m_width, m_height));
-        m_image->clearScreen(0, 0, 0);
+        m_image->clearScreen(255, 0, 0);
 
         //initialising all other grids
         m_iceGrid.reset(new model::IceGrid(m_width, m_height));
