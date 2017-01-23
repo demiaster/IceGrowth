@@ -2,6 +2,8 @@
 #include "image.h"
 #include <cstdlib>
 #include <iostream>
+#include <memory>
+#include <thread>
 
 // random shits
 //#include <random>
@@ -32,22 +34,27 @@ int main(int argc, char **argv)
     #else
       // with luck we have the latest GL version so set to this
       format.setMajorVersion(4);
-      format.setMinorVersion(3);
+      format.setMinorVersion(1);
     #endif
     // now we are going to set to CoreProfile OpenGL so we can't use and old Immediate mode GL
     format.setProfile(QSurfaceFormat::CoreProfile);
     // now set the depth buffer to 24 bits
     format.setDepthBufferSize(24);
     // now we are going to create our scene window
-    view::NGLscene window;
+    std::shared_ptr<view::NGLscene> window;
+    window.reset(new view::NGLscene());
     // and set the OpenGL format
-    window.setFormat(format);
+    window->setFormat(format);
     // we can now query the version to see if it worked
     std::cout<<"Profile is "<<format.majorVersion()<<" "<<format.minorVersion()<<"\n";
     // set the window size
-    window.resize(1024, 720);
+    window->resize(1024, 720);
     // and finally show
-    window.show();
+    window->show();
+
+    controller::IceGenerator controller;
+    controller.setup(W, H, window);
+    controller.start();
 
 //    std::unique_ptr<frm::Framebuffer> framebuffer(new frm::Framebuffer());
 //    framebuffer->init(W, H, NULL);
