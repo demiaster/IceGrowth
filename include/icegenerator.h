@@ -17,16 +17,7 @@ namespace controller
     class IceGenerator : public QThread
     { Q_OBJECT
     public:
-        //TODO: add shared_ptr here as well
-        //IceGenerator(QObject* parent);
         IceGenerator();
-//        IceGenerator(const std::size_t _width,
-//                     const std::size_t _height,
-//                     frm::Framebuffer* _framebuffer);
-
-//        IceGenerator(const std::size_t _width,
-//                     const std::size_t _height,
-//                     std::shared_ptr<view::NGLscene> _window);
 
         void run();
         void setup(const std::size_t _width,
@@ -34,8 +25,6 @@ namespace controller
 
         void setup(const std::size_t _width,
                    const std::size_t _height);
-//    public slots:
-//        void runSlot();
 
     signals:
         void imageChanged();

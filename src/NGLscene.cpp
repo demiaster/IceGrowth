@@ -144,10 +144,9 @@ namespace view
             }
         }
 
-        std::cout << k<<' '<< j << ' '<< i<<'\n';
+        //calculating the correct normal direction for every 3 vertexes
         for(size_t i = 0; i < data.size(); i += 3)
         {
-            //calculating the correct normal direction for every 3 vertexes
             ngl::Vec3 normal = ngl::calcNormal(data[i + 1].p, data[i].p, data[i + 2].p);
             data[i].n = normal;
             data[i + 1].n = normal;
@@ -179,10 +178,6 @@ namespace view
 #ifdef GRAPHICSDEBUG
         std::cout << "timer\n";
 #endif
-//        m_vao->bind();
-//        glMapBuffer(GL_ARRAY_BUFFER,GL_READ_WRITE);
-//        glUnmapBuffer(GL_ARRAY_BUFFER);
-//        m_vao->unbind();
         update();
     }
 

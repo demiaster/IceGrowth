@@ -22,7 +22,7 @@ namespace model
         //common::RandomDist& m_randomdist;
         common::IntDistribution m_borderdist, m_neighboursdist;
 
-        // pari
+        // for even column index
         //TODO: make this variable static again
         DiffPoint m_point_even[6] =
                         {{0, -1},
@@ -31,7 +31,7 @@ namespace model
                           {0, 1},
                           {-1, 0},
                           {-1, -1}};
-        // dispari
+        // for odd column index
         //TODO: make this variable static again
         DiffPoint m_point_odd[6] =
                         {{0, -1},

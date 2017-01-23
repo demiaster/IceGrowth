@@ -5,11 +5,6 @@
 #include <memory>
 #include <thread>
 
-// random shits
-//#include <random>
-//#include <algorithm>
-//#include <sstream>
-
 #include <QtGui/QGuiApplication>
 
 #include "NGLscene.h"

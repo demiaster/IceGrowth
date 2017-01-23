@@ -3,7 +3,6 @@
 
 #include <ngl/Camera.h>
 #include <QOpenGLWindow>
-#include <mutex>
 #include "windowparam.h"
 #include "image.h"
 #include "point.h"
@@ -40,16 +39,11 @@ namespace view
         std::unique_ptr<ngl::AbstractVAO> m_vao;
         size_t m_nVerts;
 
-        //std::vector<model::Vertex> m_data;
-
-        void timerEvent(QTimerEvent *) override;
-
         //mouse stuff
         ngl::Vec3 m_modelPos;
         ngl::Mat4 m_mouseGlobalTX;
 
-        std::mutex m_datamutex;
-
+        void timerEvent(QTimerEvent *) override;
         void keyPressEvent(QKeyEvent *_event) override;
         void mouseMoveEvent(QMouseEvent * _event) override;
         void mousePressEvent(QMouseEvent *_event) override;

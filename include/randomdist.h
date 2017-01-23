@@ -20,7 +20,6 @@ namespace common
 
     RANDOMDIST(IntDistribution, int, std::size_t);
     RANDOMDIST(FloatDistribution, real, float);
-    RANDOMDIST(CharDistribution, int, char);
 }
 
 #endif //COMMON_RANDOMDIST_H

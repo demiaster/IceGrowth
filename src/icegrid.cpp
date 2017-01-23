@@ -23,12 +23,10 @@ namespace model
         PERCENTAGE accum = 0;
         for (int i = -1; i <= 1; ++i)
         {
-            //std::cout << "i: " <<  i << "\n";
             for (int j = -1; j <= 1; ++j)
             {
                 std::size_t nx = x + i;
                 std::size_t ny = y + j;
-                //std::cout << "X: " <<  nx << "\n";
                 if (nx < m_width && ny < m_height ) {
                     ++neighbours;
                     accum += get({{nx, ny}});

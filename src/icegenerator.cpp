@@ -31,7 +31,7 @@ namespace controller
     void IceGenerator::run()
     {
         connect(this, SIGNAL(imageChanged()),
-                                      m_window.get(), SLOT(setImage()));
+                m_window.get(), SLOT(setImage()));
         while(true)
         {
 #ifdef GRAPHICSDEBUG
@@ -64,10 +64,12 @@ namespace controller
         //initialising all other grids
         m_iceGrid.reset(new model::IceGrid(m_width, m_height));
         m_heatGrid.reset(new model::HeatGrid(m_width, m_height));
+
         // reset the heatgrid to a custom temperature
         m_heatGrid->reset(RESET_TEMPERATURE);
         m_heatGrid->inspect();
         m_iceGrid->reset(0);
+
         // set the initial seed of the iceGrid + set the temperature of the seed inside the heatgrid
         m_iceGrid->freeze(m_width / 2, m_height / 2, 1.0);
         m_heatGrid->setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);
@@ -93,7 +95,6 @@ namespace controller
 
     void IceGenerator::representNGL()
     {
-        //TODO: represent an iceGrid inside an image a mesh
         float temperature;
         //std::size_t ice;
 
@@ -115,7 +116,6 @@ namespace controller
                 }
             }
         }
-        //Draw things(paint NGL)
 #ifdef GRAPHICSDEBUG
         m_image->save("/tmp/test.png");
 #endif
@@ -125,7 +125,6 @@ namespace controller
     }
     void IceGenerator::representFrameBuffer()
     {
-        //TODO: represent an iceGrid inside an image a framebuffer
         float temperature;
         //std::size_t ice;
         for (std::size_t i = 0; i < m_width; ++i)
