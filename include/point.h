@@ -28,7 +28,7 @@ namespace model
     {
         ngl::Vec3 p;
         ngl::Vec3 n;
-        ngl::Vec4 c;
+        ngl::Vec3 c;
     } Vertex;
 }
 
