@@ -42,7 +42,7 @@ int main(int argc, char **argv)
     format.setDepthBufferSize(24);
     // now we are going to create our scene window
     std::shared_ptr<view::NGLscene> window;
-    window.reset(new view::NGLscene());
+    window.reset(new view::NGLscene(W, H));
     // and set the OpenGL format
     window->setFormat(format);
     // we can now query the version to see if it worked
