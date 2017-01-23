@@ -84,7 +84,7 @@ namespace view
         float angle = 60.0;
         float cosine = cos(angle * ngl::PI / 180);
         float sine = sin(angle * ngl::PI / 180);
-        float radius = 1.0f;
+        float radius = 0.3f;
         //anticlockwise
         std::array<model::MeshPoint, 7> vertices =
                                 {{model::MeshPoint{  radius, 0},
