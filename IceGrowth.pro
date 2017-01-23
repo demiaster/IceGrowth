@@ -36,7 +36,6 @@ SOURCES += src/main.cpp \
            src/NGLscene.cpp \
            src/NGLsceneMouseControls.cpp \
            src/squarenavigator.cpp
-           #src/vertexgrid.cpp
 
 HEADERS += include/image.h \
            include/point.h \
