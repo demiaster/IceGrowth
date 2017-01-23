@@ -3,19 +3,33 @@
 
 #include <ngl/Camera.h>
 #include <QOpenGLWindow>
+#include <mutex>
 #include "windowparam.h"
+#include "image.h"
+#include "point.h"
 
 namespace view
 {
     class NGLscene : public QOpenGLWindow
-    {
+    {Q_OBJECT
     public:
         NGLscene();
         ~NGLscene();
         void initializeGL() override;
         void paintGL() override;
         void resizeGL(int _w, int _h) override;
+        void buildMesh(std::size_t _width, std::size_t _height, std::shared_ptr<view::Image> _image);
+        void NGLupdate();
+        void feed(std::size_t _width, std::size_t _height, std::shared_ptr<view::Image> _image);
+
+    public slots:
+        void setImage();
+
     private:
+
+        std::size_t m_width;
+        std::size_t m_height;
+        std::shared_ptr<view::Image> m_image;
         //window stuff
         WinParams m_win;
 
@@ -26,18 +40,21 @@ namespace view
         std::unique_ptr<ngl::AbstractVAO> m_vao;
         size_t m_nVerts;
 
-        void buildMesh(ngl::Real _width, ngl::Real _height);
-        void timerEvent(QTimerEvent *);
+        //std::vector<model::Vertex> m_data;
+
+        void timerEvent(QTimerEvent *) override;
 
         //mouse stuff
         ngl::Vec3 m_modelPos;
         ngl::Mat4 m_mouseGlobalTX;
 
-        void keyPressEvent(QKeyEvent *_event);
-        void mouseMoveEvent(QMouseEvent * _event);
-        void mousePressEvent(QMouseEvent *_event);
-        void mouseReleaseEvent(QMouseEvent *_event);
-        void wheelEvent(QWheelEvent *_event);
+        std::mutex m_datamutex;
+
+        void keyPressEvent(QKeyEvent *_event) override;
+        void mouseMoveEvent(QMouseEvent * _event) override;
+        void mousePressEvent(QMouseEvent *_event) override;
+        void mouseReleaseEvent(QMouseEvent *_event) override;
+        void wheelEvent(QWheelEvent *_event) override;
     };
 }
 #endif //NGLSCENE_H
