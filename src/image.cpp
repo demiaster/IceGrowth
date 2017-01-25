@@ -49,30 +49,4 @@ namespace view
 
         return;
     }
-
-    bool Image::hit(const std::size_t _x, const std::size_t _y,
-                    const unsigned char _r,
-                    const unsigned char _g,
-                    const unsigned char _b) const
-    {
-        for (int i = -1; i <= 1; ++i)
-        {
-            for (int j = -1; j <= 1; ++j)
-            {
-                std::size_t nx = _x + i;
-                std::size_t ny = _y + j;
-                if (nx < m_width && ny < m_height )
-                {
-                    if (get({{nx, ny, 0}}) == _r &&
-                        get({{nx, ny, 1}}) == _g &&
-                        get({{nx, ny, 2}}) == _b)
-                    {
-                        std::cout << "X: " <<  nx << "Y: " <<  ny <<"\n";
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
 }
