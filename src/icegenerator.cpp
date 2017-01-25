@@ -57,7 +57,7 @@ namespace controller
     {
         m_width = _width;
         m_height = _height;
-        m_navigator.reset(new model::SquareNavigator(_width, _height));
+        m_navigator.reset(new model::HexNavigator(_width, _height));
         m_image.reset(new view::Image (m_width, m_height));
         m_image->clearScreen(255, 0, 0);
 
@@ -82,9 +82,6 @@ namespace controller
     {
         m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME);
         //to avoid melting
-        //m_iceGrid->freeze(m_width / 2, m_height / 2, 1.0);
-        //m_heatGrid->setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);
-
         m_heatGrid->inspect();
         m_iceGrid->merge(m_heatGrid.get());
         this->dla_pattern();

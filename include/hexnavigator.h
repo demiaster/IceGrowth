@@ -16,7 +16,7 @@ namespace model
                      const std::size_t _height);
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
-        //void diffuseOnAxis() override;
+        void diffuseOnAxis() override;
         bool isFreezable(const float _probability);
     private:
         //common::RandomDist& m_randomdist;
