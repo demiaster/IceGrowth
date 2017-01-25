@@ -27,6 +27,10 @@ namespace model
         {
             return _probability > m_floatdist.get_distr();
         }
+
+        /// @brief destructor
+        inline ~Freezable() {;}
+
     private:
         common::FloatDistribution m_floatdist;
     };
