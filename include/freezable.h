@@ -8,8 +8,20 @@ namespace model
     class Freezable
     {
     public:
+
+        /// @brief constructor
+        /// with default values for range
+
         inline Freezable() :
                          m_floatdist(0.0, 1.0) {;}
+
+        /// @brief extract random number within the distribution range
+        /// and compare with the given one
+        ///
+        /// Its purpose is to check whether or not a cell of the mesh
+        /// has to freeze
+        /// @param[in] _probability value to be compared
+        /// @param[out] true if _probability > extracted number
 
         inline bool isFreezable(const float _probability)
         {
