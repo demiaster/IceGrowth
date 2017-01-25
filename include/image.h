@@ -49,10 +49,15 @@ namespace view
                              const unsigned char _g,
                              const unsigned char _b);
 
+            /// not mutators
             /// @brief save image to output file
             /// @param[in] _fname name of the output file
+            /// @param[out] true if successfull
 
             bool save(const std::string _fname);
+
+            /// @brief get array of data
+            /// @param[out] array of data
 
             inline unsigned char* getData() const {return m_data.get();}
 
