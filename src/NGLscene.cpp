@@ -217,7 +217,7 @@ namespace view
         shader->linkProgramObject(gridShader);
 
         shader->use(gridShader);
-        shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
+        //shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
         std::shared_ptr<view::Image> image;
         image.reset(new view::Image(m_width, m_height, 3));
         image->clearScreen(0, 0, 0);

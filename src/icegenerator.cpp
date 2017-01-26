@@ -13,9 +13,9 @@
 #include <chrono>
 #include <thread>
 
-#define HITTEMPERATURE -100
+#define HITTEMPERATURE -10
 #define DIFFUSE_K -0.34
-#define DIFFUSE_TIME 1.0/(1.5*1000000000)
+#define DIFFUSE_TIME 1.0/(3*1000000000)
 #define RESET_TEMPERATURE 1.0
 
 GLFWwindow* gWindowPointer;
@@ -81,7 +81,7 @@ namespace controller
 
     void IceGenerator::update()
     {
-        //m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME);
+        m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME, m_navigator);
         //to avoid melting
         m_heatGrid->setMinTemp();
 #ifdef LOG
@@ -89,7 +89,31 @@ namespace controller
 #endif
         m_heatGrid->inspect();
         m_iceGrid->merge(m_heatGrid.get());
-        m_heatGrid->setMinTemp();
+
+#ifdef HIT
+        NUMBER temperature;
+        NUMBER minTemp = m_heatGrid->getMinTemp();
+        std::size_t ice;
+        for (std::size_t i = 0; i < m_width; ++i)
+        {
+            for (std::size_t j = 0; j < m_height; ++j)
+            {
+                temperature = m_heatGrid->getTemperature(i, j);
+                if (temperature < 0)
+                {
+                    ice = COLOR - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * DIFFCOLOR;
+                    m_image->setPixel(i, j, ice, ice, ice);
+                }
+                else
+                {
+                  m_image->resetPixelColor(i, j);
+                }
+            }
+        }
+        m_image->save("/tmp/test.png");
+#endif
+
+        //m_heatGrid->setMinTemp();
 #ifdef LOG
         std::cout<< "minTemp after merge " << m_heatGrid->getMinTemp()<<std::endl;
 #endif
@@ -133,7 +157,7 @@ namespace controller
                 }
             }
         }
-#ifdef GRAPHICSDEBUG
+#ifdef HIT
         m_image->save("/tmp/test.png");
 #endif
         m_window->feed(m_width, m_height, m_image);

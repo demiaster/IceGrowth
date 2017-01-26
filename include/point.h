@@ -11,7 +11,7 @@ namespace model
     {
         std::size_t x;
         std::size_t y;
-    } Point;
+     } Point;
 
     typedef struct DiffPoint_s
     {
