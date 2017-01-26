@@ -9,7 +9,10 @@ namespace model
     public:
         virtual model::Point setOnBorder() = 0;
         virtual void walk(model::Point& _walker) = 0;
-        virtual void diffuseOnAxis() = 0;
+        template <typename OPERATION>
+        void onNeighbours(model::Point& _point, OPERATION operation);
+        //template <typename OPERATION>
+        //virtual void onAxis(model::Point& _point, OPERATION operation) = 0;
     protected:
         std::size_t m_width, m_height;
     };

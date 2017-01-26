@@ -44,7 +44,7 @@ namespace controller
         std::unique_ptr<frm::Framebuffer> m_framebuffer;
         std::shared_ptr<view::NGLscene> m_window;
         model::Freezable m_freezeprob;
-        std::unique_ptr<model::SquareNavigator> m_navigator;
+        std::shared_ptr<model::HexNavigator> m_navigator;
     };
 }
 

@@ -45,8 +45,4 @@ namespace model
         _walker.x = _walker.x + dp.x;
         _walker.y = _walker.y + dp.y;
     }
-
-    void SquareNavigator::diffuseOnAxis()
-    {;}
-
 }

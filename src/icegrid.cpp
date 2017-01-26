@@ -17,25 +17,30 @@ namespace model
         set({{x, y}}, percentage);
     }
 
-    PERCENTAGE IceGrid::hit(std::size_t x, std::size_t y) const
-    {
-        int neighbours = 0;
-        PERCENTAGE accum = 0;
-        for (int i = -1; i <= 1; ++i)
-        {
-            for (int j = -1; j <= 1; ++j)
-            {
-                std::size_t nx = x + i;
-                std::size_t ny = y + j;
-                if (nx < m_width && ny < m_height ) {
-                    ++neighbours;
-                    accum += get({{nx, ny}});
-                }
-            }
-        }
-        return neighbours > 0 ?
-                    accum / neighbours : 0;
-    }
+//    PERCENTAGE IceGrid::hit(std::size_t _x,
+//                            std::size_t _y,
+//                            std::shared_ptr<model::Navigator> navigator) const
+//    {
+//        Point p = {_x, _y};
+//        int neighbours = 0;
+//        PERCENTAGE accum = 0;
+//        //for (int i = -1; i <= 1; ++i)
+//        //{
+//            //for (int j = -1; j <= 1; ++j)
+//            //{
+//                //std::size_t nx = x + i;
+//                //std::size_t ny = y + j;
+//                //if (nx < m_width && ny < m_height ) {
+//                navigator->onNeighbours(p, [&](Point point) {
+//                    ++neighbours;
+//                    accum += this->get({{point.x, point.y}});
+//                  });
+//                //}
+//            //}
+//        //}
+//        return neighbours > 0 ?
+//                    accum / neighbours : 0;
+//    }
 
     void IceGrid::merge(HeatGrid* heatGrid)
     {

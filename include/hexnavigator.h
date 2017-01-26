@@ -17,7 +17,22 @@ namespace model
                      const std::size_t _height);
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
-        void diffuseOnAxis() override;
+        template <typename OPERATION>
+        inline void onNeighbours(model::Point& _point, OPERATION operation) {
+          DiffPoint (&m_point)[6] = _point.x % 2 ? m_point_even : m_point_odd;
+
+          for (std::size_t i = 0; i < 6; i++) {
+            model::Point newPoint = _point;
+
+            newPoint.x += m_point[i].x;
+            newPoint.y += m_point[i].y;
+
+            if (0 <= newPoint.x && newPoint.x < m_width &&
+                0 <= newPoint.y && newPoint.y < m_height) {
+                operation(newPoint);
+            }
+          }
+        }
     private:
         //common::RandomDist& m_randomdist;
         common::IntDistribution m_borderdist, m_neighboursdist;

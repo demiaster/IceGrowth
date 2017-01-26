@@ -19,7 +19,20 @@ namespace model
                         const std::size_t _height);
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
-        void diffuseOnAxis() override;
+        template <typename OPERATION>
+        inline void onNeighbours(model::Point& _point, OPERATION operation) {
+          for (std::size_t i = 0; i < 8; i++) {
+            model::Point newPoint = _point;
+
+            newPoint.x += m_neighbour[i].x;
+            newPoint.y += m_neighbour[i].y;
+
+            if (0 <= newPoint.x && newPoint.x < m_width &&
+                0 <= newPoint.y && newPoint.y < m_height) {
+                operation(newPoint);
+            }
+          }
+        }
     private:
         common::IntDistribution m_borderdist, m_neighboursdist;
 

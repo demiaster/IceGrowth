@@ -57,7 +57,7 @@ namespace controller
     {
         m_width = _width;
         m_height = _height;
-        m_navigator.reset(new model::SquareNavigator(_width, _height));
+        m_navigator.reset(new model::HexNavigator(_width, _height));
         m_image.reset(new view::Image (m_width, m_height));
         m_image->setBackgroundColor(255, 0, 0);
         m_image->clearScreen(255, 0, 0);
@@ -174,7 +174,7 @@ namespace controller
         while (true)
         {
             m_navigator->walk(random_walker);
-            PERCENTAGE probability = m_iceGrid->hit(random_walker.x, random_walker.y);
+            PERCENTAGE probability = m_iceGrid->hit(random_walker.x, random_walker.y, m_navigator);
 
 #ifdef DLA_TRACE
             std::cout<<"IceGrid status\n";

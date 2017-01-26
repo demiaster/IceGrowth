@@ -46,7 +46,4 @@ namespace model
         _walker.y = _walker.y + dp.y;
     }
 
-    void HexNavigator::diffuseOnAxis()
-    {;}
-
 }
