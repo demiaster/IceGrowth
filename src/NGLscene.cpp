@@ -4,6 +4,7 @@
 #include "NGLscene.h"
 #include "point.h"
 #include "randomdist.h"
+#include "common.h"
 
 #include <ngl/NGLInit.h>
 #include <ngl/NGLStream.h>
@@ -44,7 +45,7 @@ namespace view
         m_win.width  = static_cast<int>( _w * devicePixelRatio() );
         m_win.height = static_cast<int>( _h * devicePixelRatio() );
         m_projection=ngl::perspective(45.0f,
-                                      static_cast<float>(_w)/_h,
+                                      static_cast<NUMBER>(_w)/_h,
                                       0.5f,
                                       200.0f);
         std::cout<<"projection \n"<<m_projection<<'\n';
@@ -81,10 +82,10 @@ namespace view
         model::Vertex vert;
         model::Vertex origin;
         model::Vertex current_center;
-        float angle = 60.0;
-        float cosine = cos(angle * ngl::PI / 180);
-        float sine = sin(angle * ngl::PI / 180);
-        float radius = 0.3f;
+        NUMBER angle = 60.0;
+        NUMBER cosine = cos(angle * ngl::PI / 180);
+        NUMBER sine = sin(angle * ngl::PI / 180);
+        NUMBER radius = 0.3f;
         //anticlockwise
         std::array<model::MeshPoint, 7> vertices =
                                 {{model::MeshPoint{  radius, 0},
@@ -99,14 +100,14 @@ namespace view
         origin.p.m_x = 0.0f;
         origin.p.m_y = 0.0f;
 
-        float deltax = 3 * radius * cosine;
-        float deltay_odd = - radius * sine;
+        NUMBER deltax = 3 * radius * cosine;
+        NUMBER deltay_odd = - radius * sine;
         //looping on the y
         std::size_t k, j, i;
         for(k = 0; k < _height; ++k)
         {
             int nk = k;
-            float line_offset = - nk * 2 * radius * sine;
+            NUMBER line_offset = - nk * 2 * radius * sine;
             //looping on the x
             for(j = 0; j < _width; ++j)
             {

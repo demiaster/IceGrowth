@@ -3,8 +3,7 @@
 
 #include "grid.h"
 #include "heatgrid.h"
-
-using PERCENTAGE = double;
+#include "common.h"
 
 namespace model
 {

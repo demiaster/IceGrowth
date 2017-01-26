@@ -14,8 +14,8 @@
 #include <thread>
 
 #define HITTEMPERATURE -100
-#define DIFFUSE_K 0.34
-#define DIFFUSE_TIME 1.0/(3*1000000000)
+#define DIFFUSE_K -0.34
+#define DIFFUSE_TIME 1.0/(1.5*1000000000)
 #define RESET_TEMPERATURE 1.0
 
 GLFWwindow* gWindowPointer;
@@ -84,10 +84,20 @@ namespace controller
         m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME);
         //to avoid melting
         m_heatGrid->setMinTemp();
+#ifdef LOG
+        std::cout<< "minTemp before merge " << m_heatGrid->getMinTemp()<<std::endl;
+#endif
         m_heatGrid->inspect();
         m_iceGrid->merge(m_heatGrid.get());
+        m_heatGrid->setMinTemp();
+#ifdef LOG
+        std::cout<< "minTemp after merge " << m_heatGrid->getMinTemp()<<std::endl;
+#endif
         this->dla_pattern();
         m_heatGrid->setMinTemp();
+#ifdef LOG
+        std::cout<< "minTemp after dla " << m_heatGrid->getMinTemp()<<std::endl;
+#endif
         m_heatGrid->inspect();
         m_iceGrid->inspect();
         return;
@@ -95,8 +105,8 @@ namespace controller
 
     void IceGenerator::representNGL()
     {
-        float temperature;
-        float minTemp = m_heatGrid->getMinTemp();
+        NUMBER temperature;
+        NUMBER minTemp = m_heatGrid->getMinTemp();
         std::size_t ice;
 
         //initialize mesh (or maybe outside from there)
@@ -108,7 +118,7 @@ namespace controller
                 temperature = m_heatGrid->getTemperature(i, j);
                 if (temperature < 0)
                 {
-                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 255;
+                    ice = COLOR - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * DIFFCOLOR;
 #ifdef LOG
                     std::cout << "Represent ice: " << ice << std::endl;
                     std::cout << "Temp ice: " << temperature << std::endl;
@@ -132,8 +142,8 @@ namespace controller
     }
     void IceGenerator::representFrameBuffer()
     {
-        float temperature;
-        float minTemp = m_heatGrid->getMinTemp();
+        NUMBER temperature;
+        NUMBER minTemp = m_heatGrid->getMinTemp();
         std::size_t ice;
         for (std::size_t i = 0; i < m_width; ++i)
         {
@@ -142,7 +152,7 @@ namespace controller
                 temperature = m_heatGrid->getTemperature(i, j);
                 if (temperature < 0)
                 {
-                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 255;
+                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 128;
                     std::cout << "Represent ice: " << ice << std::endl;
 #ifdef DEBUG
                     //std::cout << "Represent ice: " << ice << std::endl;

@@ -21,7 +21,7 @@ macx:QMAKE_CXXFLAGS += -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 
 macx:LIBS += -L/usr/local/lib -lMagick++-6.Q16 -lMagickWand-6.Q16 -lMagickCore-6.Q16
 
 CONFIG += c++11
-#DEFINES += GRAPHICSDEBUG
+DEFINES += GRAPHICSDEBUG
 #DEFINES += DEBUG
 #DEFINES += TRACE
 DEFINES += LOG
@@ -38,7 +38,8 @@ SOURCES += src/main.cpp \
            src/NGLsceneMouseControls.cpp \
            src/squarenavigator.cpp
 
-HEADERS += include/image.h \
+HEADERS += include/common.h \
+           include/image.h \
            include/point.h \
            include/grid.h \
            include/heatgrid.h \

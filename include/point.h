@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <ngl/Util.h>
+#include "common.h"
 
 namespace model
 {
@@ -20,8 +21,8 @@ namespace model
 
     typedef struct MeshPoint_s
     {
-        float x;
-        float y;
+        NUMBER x;
+        NUMBER y;
     } MeshPoint;
 
     typedef struct Vertex_s

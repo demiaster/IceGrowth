@@ -26,7 +26,7 @@ namespace model
     void HeatGrid::setMinTemp()
     {
         NUMBER tempTemp;
-        NUMBER minTemp = NOICE_TEMP;
+        NUMBER minTemp = 2000;
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
@@ -34,7 +34,11 @@ namespace model
                 tempTemp = getTemperature(i, j);
                 if (tempTemp < minTemp) //cell is frozen
                 {
-                  minTemp = tempTemp;
+                    minTemp = tempTemp;
+#ifdef LOG
+                    std::cout << "tempTemp " << tempTemp << std::endl;
+                    std::cout << "minTemp prov " << minTemp << std::endl;
+#endif
                 }
             }
         }

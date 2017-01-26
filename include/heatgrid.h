@@ -2,10 +2,11 @@
 #define MODEL_HEATGRID_H
 
 #include "grid.h"
+#include "common.h"
 
 namespace model
 {
-    using NUMBER = double;
+    //using NUMBER = double;
     class HeatGrid
     {
     public:
@@ -19,10 +20,10 @@ namespace model
         NUMBER getTemperature(const std::size_t _x,
                               const std::size_t _y) const;
 
-        inline int getMinTemp(){ return m_minTemp;}
+        inline NUMBER getMinTemp(){ return m_minTemp;}
 
         void setMinTemp();
-        inline void setMinTemp(const float _temp){m_minTemp = _temp;}
+        inline void setMinTemp(const NUMBER _temp){m_minTemp = _temp;}
 
         void reset(const NUMBER _temp);
 

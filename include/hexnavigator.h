@@ -4,6 +4,7 @@
 #include <tuple>
 #include "navigator.h"
 #include "randomdist.h"
+#include "common.h"
 
 #define TUPLE std::tuple<DiffPoint, DiffPoint>
 
@@ -17,7 +18,7 @@ namespace model
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
         void diffuseOnAxis() override;
-        bool isFreezable(const float _probability);
+        bool isFreezable(const PROBABILITY _probability);
     private:
         //common::RandomDist& m_randomdist;
         common::IntDistribution m_borderdist, m_neighboursdist;

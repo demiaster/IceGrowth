@@ -2,6 +2,7 @@
 #define COMMON_RANDOMDIST_H
 
 #include <random>
+#include "common.h"
 namespace common
 {
 #define RANDOMDIST(name, distr, type) \
@@ -19,7 +20,7 @@ namespace common
     }
 
     RANDOMDIST(IntDistribution, int, std::size_t);
-    RANDOMDIST(FloatDistribution, real, float);
+    RANDOMDIST(FloatDistribution, real, NUMBER);
 }
 
 #endif //COMMON_RANDOMDIST_H
