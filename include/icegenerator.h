@@ -9,6 +9,7 @@
 #include "framebuffer.h"
 #include "freezable.h"
 #include "hexnavigator.h"
+#include "squarenavigator.h"
 #include "randomdist.h"
 #include "NGLscene.h"
 
@@ -43,7 +44,7 @@ namespace controller
         std::unique_ptr<frm::Framebuffer> m_framebuffer;
         std::shared_ptr<view::NGLscene> m_window;
         model::Freezable m_freezeprob;
-        std::unique_ptr<model::HexNavigator> m_navigator;
+        std::unique_ptr<model::SquareNavigator> m_navigator;
     };
 }
 

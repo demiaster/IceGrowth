@@ -57,7 +57,7 @@ namespace controller
     {
         m_width = _width;
         m_height = _height;
-        m_navigator.reset(new model::HexNavigator(_width, _height));
+        m_navigator.reset(new model::SquareNavigator(_width, _height));
         m_image.reset(new view::Image (m_width, m_height));
         m_image->setBackgroundColor(255, 0, 0);
         m_image->clearScreen(255, 0, 0);
@@ -81,7 +81,7 @@ namespace controller
 
     void IceGenerator::update()
     {
-        m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME);
+        //m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME);
         //to avoid melting
         m_heatGrid->setMinTemp();
 #ifdef LOG
@@ -176,9 +176,9 @@ namespace controller
             m_navigator->walk(random_walker);
             PERCENTAGE probability = m_iceGrid->hit(random_walker.x, random_walker.y);
 
-#ifdef TRACE
+#ifdef DLA_TRACE
             std::cout<<"IceGrid status\n";
-            m_iceGrid->inspect();
+            //m_iceGrid->inspect();
             std::cout << "DLA Probability: (" << random_walker.x << ", " << random_walker.y << "), " <<
               probability << "\n";
 #endif
@@ -186,7 +186,7 @@ namespace controller
             {
                 //m_iceGrid->freeze(random_walker.x, random_walker.y, probability);
                 m_heatGrid->setTemperature(random_walker.x, random_walker.y, HITTEMPERATURE);
-#ifdef DEBUG
+#ifdef DLA_DEBUG
                 std::cout << "Freeze: (" << random_walker.x << ", " << random_walker.y << ")\n";
 #endif
                 break;

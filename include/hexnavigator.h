@@ -18,7 +18,6 @@ namespace model
         model::Point setOnBorder() override;
         void walk(model::Point& _walker) override;
         void diffuseOnAxis() override;
-        bool isFreezable(const PROBABILITY _probability);
     private:
         //common::RandomDist& m_randomdist;
         common::IntDistribution m_borderdist, m_neighboursdist;
