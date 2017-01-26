@@ -59,6 +59,7 @@ namespace controller
         m_height = _height;
         m_navigator.reset(new model::HexNavigator(_width, _height));
         m_image.reset(new view::Image (m_width, m_height));
+        m_image->setBackgroundColor(255, 0, 0);
         m_image->clearScreen(255, 0, 0);
 
         //initialising all other grids
@@ -82,9 +83,11 @@ namespace controller
     {
         m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME);
         //to avoid melting
+        m_heatGrid->setMinTemp();
         m_heatGrid->inspect();
         m_iceGrid->merge(m_heatGrid.get());
         this->dla_pattern();
+        m_heatGrid->setMinTemp();
         m_heatGrid->inspect();
         m_iceGrid->inspect();
         return;
@@ -93,7 +96,8 @@ namespace controller
     void IceGenerator::representNGL()
     {
         float temperature;
-        //std::size_t ice;
+        float minTemp = m_heatGrid->getMinTemp();
+        std::size_t ice;
 
         //initialize mesh (or maybe outside from there)
 
@@ -104,12 +108,18 @@ namespace controller
                 temperature = m_heatGrid->getTemperature(i, j);
                 if (temperature < 0)
                 {
-                    //ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
-#ifdef DEBUG
-                    //std::cout << "Represent ice: " << ice << std::endl;
+                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 255;
+#ifdef LOG
+                    std::cout << "Represent ice: " << ice << std::endl;
+                    std::cout << "Temp ice: " << temperature << std::endl;
+                    std::cout << "Mintemp ice: " << minTemp << std::endl;
 #endif
                     //set mesh cell's colour
-                    m_image->setPixel(i, j, 255, 255, 255);
+                    m_image->setPixel(i, j, ice, ice, ice);
+                }
+                else
+                {
+                  m_image->resetPixelColor(i, j);
                 }
             }
         }
@@ -123,7 +133,8 @@ namespace controller
     void IceGenerator::representFrameBuffer()
     {
         float temperature;
-        //std::size_t ice;
+        float minTemp = m_heatGrid->getMinTemp();
+        std::size_t ice;
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
@@ -131,11 +142,12 @@ namespace controller
                 temperature = m_heatGrid->getTemperature(i, j);
                 if (temperature < 0)
                 {
-                    //ice = 255 - (temperature - HITTEMPERATURE)/(RESET_TEMPERATURE - HITTEMPERATURE) * 255;
+                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 255;
+                    std::cout << "Represent ice: " << ice << std::endl;
 #ifdef DEBUG
                     //std::cout << "Represent ice: " << ice << std::endl;
 #endif
-                    m_image->setPixel(i, j, 255, 255, 255);
+                    m_image->setPixel(i, j, ice, ice, ice);
                 }
             }
         }

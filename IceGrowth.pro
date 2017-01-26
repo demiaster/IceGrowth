@@ -24,6 +24,7 @@ CONFIG += c++11
 #DEFINES += GRAPHICSDEBUG
 #DEFINES += DEBUG
 #DEFINES += TRACE
+DEFINES += LOG
 
 # Input
 SOURCES += src/main.cpp \

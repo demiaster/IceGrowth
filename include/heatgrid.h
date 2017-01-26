@@ -19,6 +19,11 @@ namespace model
         NUMBER getTemperature(const std::size_t _x,
                               const std::size_t _y) const;
 
+        inline int getMinTemp(){ return m_minTemp;}
+
+        void setMinTemp();
+        inline void setMinTemp(const float _temp){m_minTemp = _temp;}
+
         void reset(const NUMBER _temp);
 
         void diffuse(const NUMBER _k0, const NUMBER _dt);
@@ -45,6 +50,7 @@ namespace model
         Grid<NUMBER, 2>* m_temp;
 
         std::size_t m_width, m_height;
+        NUMBER m_minTemp;
     };
 }
 

@@ -1,6 +1,7 @@
 #include "heatgrid.h"
 #include <iostream>
 
+#define NOICE_TEMP 1.0
 namespace model
 {
 
@@ -11,7 +12,8 @@ namespace model
                    m_actual(&m_first),
                    m_temp(&m_second),
                    m_width(_width),
-                   m_height(_height) {;}
+                   m_height(_height),
+                   m_minTemp(0){;}
 
     void HeatGrid::setTemperature(std::size_t _x,
                                   std::size_t _y,
@@ -21,6 +23,23 @@ namespace model
         return;
     }
 
+    void HeatGrid::setMinTemp()
+    {
+        NUMBER tempTemp;
+        NUMBER minTemp = NOICE_TEMP;
+        for (std::size_t i = 0; i < m_width; ++i)
+        {
+            for (std::size_t j = 0; j < m_height; ++j)
+            {
+                tempTemp = getTemperature(i, j);
+                if (tempTemp < minTemp) //cell is frozen
+                {
+                  minTemp = tempTemp;
+                }
+            }
+        }
+        setMinTemp(minTemp);
+    }
 
     /// The following section is from :-
     /// Fabien Dournac (2003). MPI Parallelization for numerically solving the 3D Heat equation [online]. [Accessed 2016].

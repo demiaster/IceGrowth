@@ -39,23 +39,14 @@ namespace model
 
     void IceGrid::merge(HeatGrid* heatGrid)
     {
-        NUMBER minTemp = NOICE_TEMP;
+        heatGrid->setMinTemp();
+        NUMBER minTemp = heatGrid->getMinTemp();
+        NUMBER temp;
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
             {
-                NUMBER tempTemp = heatGrid->getTemperature(i, j);
-                if (tempTemp < minTemp)
-                {
-                  minTemp = tempTemp;
-                }
-            }
-        }
-        for (std::size_t i = 0; i < m_width; ++i)
-        {
-            for (std::size_t j = 0; j < m_height; ++j)
-            {
-                NUMBER temp = heatGrid->getTemperature(i, j);
+                temp = heatGrid->getTemperature(i, j);
                 if (temp > NOICE_TEMP) temp = NOICE_TEMP;
                 this->set({{i, j}}, 1 - (temp - minTemp)/(NOICE_TEMP - minTemp));
             }
