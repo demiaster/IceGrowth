@@ -36,7 +36,6 @@ SOURCES += src/main.cpp \
            src/hexnavigator.cpp \
            src/icegrid.cpp \
            src/icegenerator.cpp \
-           src/framebuffer.cpp \
            src/NGLscene.cpp \
            src/NGLsceneMouseControls.cpp \
            src/squarenavigator.cpp
