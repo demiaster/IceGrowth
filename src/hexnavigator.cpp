@@ -14,7 +14,7 @@ namespace model
         m_height = _height;
     }
 
-    model::Point HexNavigator::setOnBorder()
+    Point HexNavigator::setOnBorder()
     {
         //mapping all the point on the frame of the image
         //to use a contiguous indexing system
@@ -23,15 +23,15 @@ namespace model
         std::size_t offset = m_borderdist.get_distr();
 
         //converting from that index to the actual x, y values for the random walker
-        model::Point walker = (offset < m_width) ? model::Point{offset, 0} :
-                  (m_width <= offset && offset < m_width + m_height) ? model::Point{m_width - 1, offset - m_width} :
+        Point walker = (offset < m_width) ? Point{offset, 0} :
+                  (m_width <= offset && offset < m_width + m_height) ? Point{m_width - 1, offset - m_width} :
                   (m_width + m_height <= offset && offset < 2 * m_width + m_height) ?
-                                                                           model::Point{offset - m_width - m_height, m_height - 1} :
-                                                                           model::Point{0, offset - m_width - m_width - m_height};
+                                                                           Point{offset - m_width - m_height, m_height - 1} :
+                                                                           Point{0, offset - m_width - m_width - m_height};
         return walker;
     }
 
-    void HexNavigator::walk(model::Point& _walker)
+    void HexNavigator::walk(Point& _walker)
     {
         DiffPoint dp = {0,0};
 
