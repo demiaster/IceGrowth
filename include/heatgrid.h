@@ -44,34 +44,33 @@ namespace model
 
             // Perform an explicit update on the points within the domain
             //#pragma omp parallel for
-            Point point;
+            model::Point point;
             NUMBER accumulator;
-            int q = 0;
-            for(std::size_t i = 1; i < m_width - 1; ++i)
+            std::size_t ncount;
+            for(std::size_t i = 0; i < m_width; ++i)
             {
-                for(std::size_t j = 1; j < m_height - 1; ++j)
+                for(std::size_t j = 0; j < m_height; ++j)
                 {
-                    q++;
-//                    std::cout << "q = " << q << std::endl;
                     accumulator = 0;
+                    ncount = 0;
                     point.x = i;
                     point.y = j;
-                    navigator->onAxis(point, [weighty,
-                                              diagy,
-                                              &accumulator,
-                                              this](Point left,
-                                                         Point center,
-                                                         Point right)
-                    {
-//                        std::cout<< "left " << this->m_actual->get({{left.x, left.y}}) << std::endl;
-//                        std::cout<< "right " << this->m_actual->get({{right.x, right.y}}) << std::endl;
-//                        std::cout<< "center " << this->m_actual->get({{center.x, center.y}}) << std::endl;
-                        accumulator += weighty * (this->m_actual->get({{left.x, left.y}}) +
-                                                  this->m_actual->get({{right.x, right.y}}) +
-                                                  this->m_actual->get({{center.x, center.y}}) * diagy);
+                    //std::cout << "point.x: " << point.x << std::endl;
+                    //std::cout << "point.y: " << point.y << std::endl;
+                    NUMBER cvalue = this->m_actual->get({point.x, point.y});
+                    //std::cout << "cvalue: " << cvalue << std::endl;
+                    navigator->onNeighbours(point, [cvalue, weighty, &point, &ncount, &accumulator, this] (model::Point neighbour) {
+                        accumulator += this->m_actual->get({neighbour.x, neighbour.y}) - cvalue;
+                        //std::cout << "neighbour.x: " << neighbour.x << std::endl;
+                        //std::cout << "neighbour.y: " << neighbour.y << std::endl;
+                        //std::cout << "accum: " << accumulator << std::endl;
+                        ++ncount;
                     });
-//                    std::cout << "accumulator " << accumulator << std::endl;
-                    m_temp->set({{i, j}}, accumulator);
+
+                    //std::cout << "ncount: " << ncount << ", accumulator: " << accumulator << std::endl;
+
+                    accumulator = ncount ? accumulator/ncount : accumulator;
+                    this->m_temp->set({point.x, point.y}, weighty*accumulator + cvalue);
                 }
             }
 

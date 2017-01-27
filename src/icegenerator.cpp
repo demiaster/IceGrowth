@@ -13,8 +13,9 @@
 #include <thread>
 
 #define HITTEMPERATURE -100
-#define DIFFUSE_K -0.34
-#define DIFFUSE_TIME 1.0/(3*100000000)
+#define DIFFUSE_K 0.34
+//#define DIFFUSE_TIME 1.0/(3*100000000)
+#define DIFFUSE_TIME 1.0/(1000000)
 #define RESET_TEMPERATURE 1.0
 
 namespace controller
@@ -53,9 +54,9 @@ namespace controller
             }
             update();
             std::cout<< i++<< '\n';
+            std::this_thread::sleep_for(std::chrono::milliseconds(150));
             //representFrameBuffer();
             representNGL();
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
     }
 
@@ -105,7 +106,7 @@ namespace controller
         m_heatGrid->inspect();
         m_iceGrid->merge(m_heatGrid.get());
 
-        //m_heatGrid->setMinTemp();
+        m_heatGrid->setMinTemp();
 #ifdef LOG
         std::cout<< "minTemp after merge " << m_heatGrid->getMinTemp()<<std::endl;
 #endif
@@ -186,25 +187,20 @@ namespace controller
     void IceGenerator::dla_pattern()
     {
         model::Point random_walker = m_navigator->setOnBorder();
+        bool hit = false;
 
-        while (true)
+        while (!hit)
         {
             m_navigator->walk(random_walker);
-            PERCENTAGE probability = m_iceGrid->hit(random_walker.x, random_walker.y, m_navigator);
+            m_navigator->onNeighbours(random_walker, [&hit,this](model::Point n) {
+                if (this->m_heatGrid->getTemperature(
+                    n.x, n.y) < -1.0) {
+                    hit = true;
+                }
+            });
 
-#ifdef DLA_TRACE
-            std::cout<<"IceGrid status\n";
-            //m_iceGrid->inspect();
-            std::cout << "DLA Probability: (" << random_walker.x << ", " << random_walker.y << "), " <<
-              probability << "\n";
-#endif
-            if(m_freezeprob.isFreezable(probability))
-            {
-                //m_iceGrid->freeze(random_walker.x, random_walker.y, probability);
+            if (hit) {
                 m_heatGrid->setTemperature(random_walker.x, random_walker.y, HITTEMPERATURE);
-#ifdef DLA_DEBUG
-                std::cout << "Freeze: (" << random_walker.x << ", " << random_walker.y << ")\n";
-#endif
                 break;
             }
         }

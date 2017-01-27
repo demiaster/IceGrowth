@@ -22,12 +22,12 @@ macx:LIBS += -L/usr/local/lib -lMagick++-6.Q16 -lMagickWand-6.Q16 -lMagickCore-6
 
 CONFIG += c++11
 #DEFINES += GRAPHICSDEBUG
-DEFINES += DEBUG
+#DEFINES += DEBUG
 #DEFINES += TRACE
 #DEFINES += LOG
 #DEFINES += DLA_DEBUG
 #DEFINES += DLA_TRACE
-#DEFINES += HIT
+DEFINES += HIT
 
 # Input
 SOURCES += src/main.cpp \
