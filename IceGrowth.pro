@@ -49,7 +49,6 @@ HEADERS += include/common.h \
            include/hexnavigator.h \
            include/icegrid.h \
            include/icegenerator.h \
-           include/freezable.h \
            include/navigator.h \
            include/NGLscene.h \
            include/randomdist.h \
