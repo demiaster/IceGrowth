@@ -11,7 +11,6 @@ namespace model
 
         /// @brief constructor
         /// with default values for range
-
         inline Freezable() :
                          m_floatdist(0.0, 1.0) {;}
 
@@ -22,7 +21,6 @@ namespace model
         /// has to freeze
         /// @param[in] _probability value to be compared
         /// @param[out] true if _probability > extracted number
-
         inline bool isFreezable(const PROBABILITY _probability)
         {
             return _probability > m_floatdist.get_distr();
