@@ -51,17 +51,6 @@ int main(int argc, char **argv)
     controller.setup(W, H, window);
     controller.start();
 
-//    std::unique_ptr<frm::Framebuffer> framebuffer(new frm::Framebuffer());
-//    framebuffer->init(W, H, NULL);
-//    framebuffer->bind();
-//    framebuffer->poll();
-//    framebuffer->title("IceGrowth");
-//    controller::IceGenerator controller(W, H, framebuffer.get());
-//    controller.setup();
-//    while(!framebuffer->shouldClose())
-//    {
-//        controller.run();
-//    }
     return app.exec();
     //return EXIT_SUCCESS;
 }
