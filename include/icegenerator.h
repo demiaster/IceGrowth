@@ -6,7 +6,6 @@
 #include "heatgrid.h"
 #include "icegrid.h"
 #include "image.h"
-#include "framebuffer.h"
 #include "freezable.h"
 #include "hexnavigator.h"
 #include "squarenavigator.h"
@@ -32,7 +31,7 @@ namespace controller
 
     private:
         void update();
-        void representFrameBuffer();
+        //void representFrameBuffer();
         void representNGL();
 
         void dla_pattern();
@@ -41,7 +40,7 @@ namespace controller
         std::unique_ptr<model::HeatGrid> m_heatGrid;
         std::unique_ptr<model::IceGrid> m_iceGrid;
         std::shared_ptr<view::Image> m_image;
-        std::unique_ptr<frm::Framebuffer> m_framebuffer;
+        //std::unique_ptr<frm::Framebuffer> m_framebuffer;
         std::shared_ptr<view::NGLscene> m_window;
         model::Freezable m_freezeprob;
         std::shared_ptr<model::HexNavigator> m_navigator;

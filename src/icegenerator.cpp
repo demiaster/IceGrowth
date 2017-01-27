@@ -1,7 +1,6 @@
 #include "icegenerator.h"
 #include "point.h"
 #include "squarenavigator.h"
-#include "framebuffer.h"
 #include "image.h"
 
 // random shits
@@ -17,10 +16,6 @@
 #define DIFFUSE_K -0.34
 #define DIFFUSE_TIME 1.0/(3*100000000)
 #define RESET_TEMPERATURE 1.0
-
-GLFWwindow* gWindowPointer;
-
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 namespace controller
 {
@@ -161,32 +156,32 @@ namespace controller
         emit imageChanged();
         return;
     }
-    void IceGenerator::representFrameBuffer()
-    {
-        NUMBER temperature;
-        NUMBER minTemp = m_heatGrid->getMinTemp();
-        std::size_t ice;
-        for (std::size_t i = 0; i < m_width; ++i)
-        {
-            for (std::size_t j = 0; j < m_height; ++j)
-            {
-                temperature = m_heatGrid->getTemperature(i, j);
-                if (temperature < 0)
-                {
-                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 128;
-                    std::cout << "Represent ice: " << ice << std::endl;
-#ifdef DEBUG
-                    //std::cout << "Represent ice: " << ice << std::endl;
-#endif
-                    m_image->setPixel(i, j, ice, ice, ice);
-                }
-            }
-        }
-        m_framebuffer->image(m_image->getData(), m_width, m_height);
-        m_framebuffer->draw();
-        m_framebuffer->poll();
-        return;
-    }
+//    void IceGenerator::representFrameBuffer()
+//    {
+//        NUMBER temperature;
+//        NUMBER minTemp = m_heatGrid->getMinTemp();
+//        std::size_t ice;
+//        for (std::size_t i = 0; i < m_width; ++i)
+//        {
+//            for (std::size_t j = 0; j < m_height; ++j)
+//            {
+//                temperature = m_heatGrid->getTemperature(i, j);
+//                if (temperature < 0)
+//                {
+//                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 128;
+//                    std::cout << "Represent ice: " << ice << std::endl;
+//#ifdef DEBUG
+//                    //std::cout << "Represent ice: " << ice << std::endl;
+//#endif
+//                    m_image->setPixel(i, j, ice, ice, ice);
+//                }
+//            }
+//        }
+//        m_framebuffer->image(m_image->getData(), m_width, m_height);
+//        m_framebuffer->draw();
+//        m_framebuffer->poll();
+//        return;
+//    }
 
     void IceGenerator::dla_pattern()
     {
@@ -217,14 +212,3 @@ namespace controller
     }
 }
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    switch(key)
-    {
-      case GLFW_KEY_ESCAPE:
-        std::cout<< "exiting";
-        exit(EXIT_SUCCESS);
-      break;
-    default: break;
-    }
-}
