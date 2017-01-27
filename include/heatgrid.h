@@ -23,7 +23,6 @@ public:
 
     ///------------------------------------------------------------------------
     /// @brief constructor passing in the size of the grid
-    /// have to be stored
     /// @param [in] _width width of the grid
     /// @param [in] _height height of the grid
     /// -----------------------------------------------------------------------
