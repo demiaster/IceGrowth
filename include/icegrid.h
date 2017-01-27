@@ -43,8 +43,9 @@ namespace model
 //                std::cout<< "accum count" << accum<< std::endl;
 //                std::cout<< "return value count" << accum / neighbours << std::endl;
             });
-            return neighbours > 0 ?
-                        accum / neighbours : 0;
+//            return neighbours > 0 ?
+//                        accum / neighbours : 0;
+            return accum > 0 ? 1 :0;
         }
 
         void merge(HeatGrid* _heatGrid);

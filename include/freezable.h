@@ -23,7 +23,7 @@ namespace model
         /// @param[in] _probability value to be compared
         /// @param[out] true if _probability > extracted number
 
-        inline bool isFreezable(const float _probability)
+        inline bool isFreezable(const PROBABILITY _probability)
         {
             return _probability > m_floatdist.get_distr();
         }

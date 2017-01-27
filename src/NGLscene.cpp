@@ -24,8 +24,8 @@ namespace view
         // re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
         setTitle("VAO Grid");
         std::cout<<m_view<<'\n'<<m_projection<<'\n';
-        m_view=ngl::lookAt(ngl::Vec3(50.0f, -50.0f,150.0f),
-                           ngl::Vec3(50.0f, -50.0f, 50.0f),
+        m_view=ngl::lookAt(ngl::Vec3(50.0f, -90.0f,150.0f),
+                           ngl::Vec3(50.0f, -90.0f, 50.0f),
                            ngl::Vec3::up());
         m_width = _width;
         m_height = _height;
@@ -217,7 +217,7 @@ namespace view
         shader->linkProgramObject(gridShader);
 
         shader->use(gridShader);
-        //shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
+        shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
         std::shared_ptr<view::Image> image;
         image.reset(new view::Image(m_width, m_height, 3));
         image->clearScreen(0, 0, 0);

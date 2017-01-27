@@ -13,9 +13,9 @@
 #include <chrono>
 #include <thread>
 
-#define HITTEMPERATURE -10
+#define HITTEMPERATURE -100
 #define DIFFUSE_K -0.34
-#define DIFFUSE_TIME 1.0/(3*1000000000)
+#define DIFFUSE_TIME 1.0/(3*100000000)
 #define RESET_TEMPERATURE 1.0
 
 GLFWwindow* gWindowPointer;
@@ -32,12 +32,32 @@ namespace controller
     {
         connect(this, SIGNAL(imageChanged()),
                 m_window.get(), SLOT(setImage()));
+        int i = 0;
+        model::Point point = {0, 0};
+        m_navigator->onNeighbours(point, [](model::Point p){
+                                  std::cout<<p.x<< ' '<< p.y << std::endl;
+                                  });
+        model::Point point2 = {50, 0};
+        m_navigator->onNeighbours(point2, [](model::Point p){
+                                  std::cout<<p.x<< ' '<< p.y << std::endl;
+                                  });
+        model::Point point3 = {50, 50};
+        m_navigator->onNeighbours(point3, [](model::Point p){
+                                  std::cout<<p.x<< ' '<< p.y << std::endl;
+                                  });
         while(true)
         {
 #ifdef GRAPHICSDEBUG
             std::cout << "run\n";
 #endif
+            if(i == 29)
+            {
+                std::cout << "sith will happen\n";
+                m_iceGrid->inspect();
+                m_heatGrid->inspect();
+            }
             update();
+            std::cout<< i++<< '\n';
             //representFrameBuffer();
             representNGL();
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -89,29 +109,6 @@ namespace controller
 #endif
         m_heatGrid->inspect();
         m_iceGrid->merge(m_heatGrid.get());
-
-#ifdef HIT
-        NUMBER temperature;
-        NUMBER minTemp = m_heatGrid->getMinTemp();
-        std::size_t ice;
-        for (std::size_t i = 0; i < m_width; ++i)
-        {
-            for (std::size_t j = 0; j < m_height; ++j)
-            {
-                temperature = m_heatGrid->getTemperature(i, j);
-                if (temperature < 0)
-                {
-                    ice = COLOR - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * DIFFCOLOR;
-                    m_image->setPixel(i, j, ice, ice, ice);
-                }
-                else
-                {
-                  m_image->resetPixelColor(i, j);
-                }
-            }
-        }
-        m_image->save("/tmp/test.png");
-#endif
 
         //m_heatGrid->setMinTemp();
 #ifdef LOG
