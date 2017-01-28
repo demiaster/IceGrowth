@@ -16,9 +16,9 @@ namespace model
 {
 
 ///-----------------------------------------------------------------------------
-/// @class Grid "include/hexgrid.h"
+/// @class Grid "include/hexnavigator.h"
 /// @author Marta Feriani
-/// @brief hexgrid inherits from navigator base class and implements methods to
+/// @brief hexnavigator inherits from navigator base class and implements methods to
 /// handle movement on an hexagonal lattice
 ///----------------------------------------------------------------------------
 class HexNavigator : public Navigator
