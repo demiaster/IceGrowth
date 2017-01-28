@@ -17,7 +17,7 @@ namespace model
 {
 
 ///-----------------------------------------------------------------------------
-/// @class Grid "include/squarenavigator.h"
+/// @class SquareNavigator "include/squarenavigator.h"
 /// @author Marta Feriani
 /// @brief squarenavigator inherits from navigator base class and implements
 /// methods to handle movement on a square lattice
