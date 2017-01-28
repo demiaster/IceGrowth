@@ -24,8 +24,8 @@ namespace view
         // re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
         setTitle("VAO Grid");
         std::cout<<m_view<<'\n'<<m_projection<<'\n';
-        m_view=ngl::lookAt(ngl::Vec3(50.0f, -90.0f,150.0f),
-                           ngl::Vec3(50.0f, -90.0f, 50.0f),
+        m_view=ngl::lookAt(ngl::Vec3(40.0f, 5.0f, 70.0f),
+                           ngl::Vec3(40.0f, 5.0f, 50.0f),
                            ngl::Vec3::up());
         m_width = _width;
         m_height = _height;
@@ -113,9 +113,9 @@ namespace view
             {
                 current_center.p.m_x = origin.p.m_x + j * deltax;
                 current_center.p.m_y = origin.p.m_y + line_offset + ((j % 2) * deltay_odd);
-                current_center.c.m_r = _image->get({{k, j, 0}});
-                current_center.c.m_g = _image->get({{k, j, 1}});
-                current_center.c.m_b = _image->get({{k, j, 2}});
+                current_center.c.m_r = (int)_image->get({{k, j, 0}})/255.0f;
+                current_center.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
+                current_center.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
 
                 //do the hexagon
                 for(i = 0; i < vertices.size() - 1; ++i)
@@ -128,17 +128,17 @@ namespace view
                     {
                         vert.p.m_x = current_center.p.m_x + vertices[i].x;
                         vert.p.m_y = current_center.p.m_y + vertices[i].y;
-                        vert.c.m_r = _image->get({{k, j, 0}});
-                        vert.c.m_g = _image->get({{k, j, 1}});
-                        vert.c.m_b = _image->get({{k, j, 2}});
+                        vert.c.m_r = (int)_image->get({{k, j, 0}})/255.0f;
+                        vert.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
+                        vert.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
                     }
                     data.push_back(vert);
 
                     vert.p.m_x = current_center.p.m_x + vertices[i + 1].x;
                     vert.p.m_y = current_center.p.m_y + vertices[i + 1].y;
-                    vert.c.m_r = _image->get({{k, j, 0}});
-                    vert.c.m_g = _image->get({{k, j, 1}});
-                    vert.c.m_b = _image->get({{k, j, 2}});
+                    vert.c.m_r = (int)_image->get({{k, j, 0}})/255.0f;
+                    vert.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
+                    vert.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
                     data.push_back(vert);
 
                 }
