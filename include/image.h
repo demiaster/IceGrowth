@@ -14,7 +14,7 @@ namespace view
 {
 
 ///----------------------------------------------------------------------------
-/// @class Grid "include/grid.h"
+/// @class Image "include/image.h"
 /// @author Marta Feriani
 /// @brief inherits from base class Grid, implements method to set, or
 /// change colours on an image, as well as save it on disk
