@@ -11,12 +11,12 @@
 
 namespace model
 {
-///-----------------------------------------------------------------------------
+///----------------------------------------------------------------------------
 /// @class Grid "include/heatgrid.h"
 /// @author Marta Feriani
-/// @brief a base class for for a heatgrid representation, it holds temperatures
+/// @brief base class for for a heatgrid representation, it holds temperatures
 /// and provides methods to set, get or diffuse heat on a grid
-///-----------------------------------------------------------------------------
+///----------------------------------------------------------------------------
 class HeatGrid
 {
 public:
@@ -166,12 +166,12 @@ private:
     Grid<NUMBER, 2>* m_temp;
 
     /// -----------------------------------------------------------------------
-    /// @brief width width of the grid
+    /// @brief width of the grid
     /// -----------------------------------------------------------------------
     std::size_t m_width;
 
     /// -----------------------------------------------------------------------
-    /// @brief height height of the grid
+    /// @brief height of the grid
     /// -----------------------------------------------------------------------
     std::size_t m_height;
 
