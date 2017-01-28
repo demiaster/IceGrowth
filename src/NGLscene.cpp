@@ -117,6 +117,8 @@ namespace view
                 current_center.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
                 current_center.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
                 current_center.c.m_a = (int)_image->get({{k, j, 3}})/255.0f;
+//                std::cout << "alpha center original" << (int)_image->get({{k, j, 3}})<< std::endl;
+//                std::cout << "alpha center division" << (int)_image->get({{k, j, 3}})/255.0f << std::endl;
 
                 //do the hexagon
                 for(i = 0; i < vertices.size() - 1; ++i)
@@ -164,7 +166,7 @@ namespace view
                                                     data[0].p.m_x));
         m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(model::Vertex),0);
         m_vao->setVertexAttributePointer(1,3,GL_FLOAT,sizeof(model::Vertex),3);
-        m_vao->setVertexAttributePointer(2,4,GL_FLOAT,sizeof(model::Vertex),7);
+        m_vao->setVertexAttributePointer(2,4,GL_FLOAT,sizeof(model::Vertex),6);
 
         m_vao->setNumIndices(data.size());
 #ifdef GRAPHICSDEBUG
@@ -193,7 +195,7 @@ namespace view
         // be done once we have a valid GL context but before we call any GL commands. If we dont do
         // this everything will crash
         ngl::NGLInit::instance();
-        glClearColor(0.4f, 0.4f, 0.4f, 1.0f);   // Grey Background
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);   // Grey Background
         // enable depth testing for drawing
         glEnable(GL_DEPTH_TEST);
         // enable multisampling for smoother drawing
@@ -224,7 +226,6 @@ namespace view
         shader->linkProgramObject(gridShader);
 
         shader->use(gridShader);
-        shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
         std::shared_ptr<view::Image> image;
         image.reset(new view::Image(m_width, m_height, 3));
         image->clearScreen(0, 0, 0, 0);
