@@ -1,7 +1,7 @@
 #ifndef MODEL_SQUARENAVIGATOR_H
 #define MODEL_SQUARENAVIGATOR_H
 /// @file squarenavigator.h
-/// @brief this class is the navigator for an hexagonal lattice
+/// @brief this class is the navigator for a square lattice
 
 #include <random>
 #include <tuple>
