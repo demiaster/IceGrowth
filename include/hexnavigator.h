@@ -89,7 +89,7 @@ private:
 
     ///------------------------------------------------------------------------
     /// @brief holds the neighbouring diffpoints (values for x and y
-    /// to be summed to current position to move aroun). Since it emulates an
+    /// to be summed to current position to move around). Since it emulates an
     /// hexagonal lattice, there are different neighbouring position depending
     /// on wheter the column index for current position si odd or even.
     /// This one is for even column indices.
@@ -103,7 +103,7 @@ private:
 
     ///------------------------------------------------------------------------
     /// @brief holds the neighbouring diffpoints (values for x and y
-    /// to be summed to current position to move aroun). Since it emulates an
+    /// to be summed to current position to move around). Since it emulates an
     /// hexagonal lattice, there are different neighbouring position depending
     /// on wheter the column index for current position si odd or even.
     /// This one is for odd column indices.
@@ -117,7 +117,7 @@ private:
 
     ///------------------------------------------------------------------------
     /// @brief holds hexagonal axis diffpoints (values for x and y
-    /// to be summed to current position to move aroun). Since it emulates an
+    /// to be summed to current position to move around). Since it emulates an
     /// hexagonal lattice, there are different neighbouring position depending
     /// on wheter the column index for current position si odd or even.
     /// This one is for even column indices.
@@ -128,7 +128,7 @@ private:
 
     ///------------------------------------------------------------------------
     /// @brief holds hexagonal axis diffpoints (values for x and y
-    /// to be summed to current position to move aroun). Since it emulates an
+    /// to be summed to current position to move around). Since it emulates an
     /// hexagonal lattice, there are different neighbouring position depending
     /// on wheter the column index for current position si odd or even.
     /// This one is for odd column indices.
