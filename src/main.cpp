@@ -10,8 +10,8 @@
 #include "NGLscene.h"
 #include "icegenerator.h"
 
-static const size_t W = 101;
-static const size_t H = 101;
+static const size_t W = 151;
+static const size_t H = 151;
 
 int main(int argc, char **argv)
 {
