@@ -12,7 +12,7 @@
 namespace model
 {
 ///----------------------------------------------------------------------------
-/// @class Grid "include/heatgrid.h"
+/// @class HeatGrid "include/heatgrid.h"
 /// @author Marta Feriani
 /// @brief base class for for a heatgrid representation, it holds temperatures
 /// and provides methods to set, get or diffuse heat on a grid
