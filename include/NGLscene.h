@@ -9,6 +9,7 @@
 #include "windowparam.h"
 #include "image.h"
 #include "point.h"
+#include "color.h"
 
 namespace view
 {
