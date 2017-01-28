@@ -40,7 +40,8 @@ SOURCES += src/main.cpp \
            src/NGLsceneMouseControls.cpp \
            src/squarenavigator.cpp
 
-HEADERS += include/common.h \
+HEADERS += include/color.h \
+           include/common.h \
            include/image.h \
            include/point.h \
            include/grid.h \
