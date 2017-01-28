@@ -17,7 +17,7 @@ namespace controller
 {
 
 ///----------------------------------------------------------------------------
-/// @class Grid "include/icegenerator.h"
+/// @class IceGenerator "include/icegenerator.h"
 /// @author Marta Feriani
 /// @brief This class contains the logic of the application. It is in charge of
 /// starting the simulation by initialising all the data structures
