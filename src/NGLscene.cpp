@@ -24,8 +24,8 @@ namespace view
         // re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
         setTitle("VAO Grid");
         std::cout<<m_view<<'\n'<<m_projection<<'\n';
-        m_view=ngl::lookAt(ngl::Vec3(40.0f, 5.0f, 70.0f),
-                           ngl::Vec3(40.0f, 5.0f, 50.0f),
+        m_view=ngl::lookAt(ngl::Vec3(40.0f, -40.0f, 100.0f),
+                           ngl::Vec3(40.0f, -40.0f, 50.0f),
                            ngl::Vec3::up());
         m_width = _width;
         m_height = _height;
@@ -116,6 +116,7 @@ namespace view
                 current_center.c.m_r = (int)_image->get({{k, j, 0}})/255.0f;
                 current_center.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
                 current_center.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
+                current_center.c.m_a = (int)_image->get({{k, j, 3}})/255.0f;
 
                 //do the hexagon
                 for(i = 0; i < vertices.size() - 1; ++i)
@@ -131,6 +132,7 @@ namespace view
                         vert.c.m_r = (int)_image->get({{k, j, 0}})/255.0f;
                         vert.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
                         vert.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
+                        vert.c.m_a = (int)_image->get({{k, j, 3}})/255.0f;
                     }
                     data.push_back(vert);
 
@@ -139,6 +141,7 @@ namespace view
                     vert.c.m_r = (int)_image->get({{k, j, 0}})/255.0f;
                     vert.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
                     vert.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
+                    vert.c.m_a = (int)_image->get({{k, j, 3}})/255.0f;
                     data.push_back(vert);
 
                 }
@@ -161,7 +164,7 @@ namespace view
                                                     data[0].p.m_x));
         m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(model::Vertex),0);
         m_vao->setVertexAttributePointer(1,3,GL_FLOAT,sizeof(model::Vertex),3);
-        m_vao->setVertexAttributePointer(2,3,GL_FLOAT,sizeof(model::Vertex),6);
+        m_vao->setVertexAttributePointer(2,4,GL_FLOAT,sizeof(model::Vertex),7);
 
         m_vao->setNumIndices(data.size());
 #ifdef GRAPHICSDEBUG
@@ -196,6 +199,10 @@ namespace view
         // enable multisampling for smoother drawing
         glEnable(GL_MULTISAMPLE);
 
+        glEnable(GL_BLEND);
+        glBlendEquation(GL_FUNC_ADD);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         ngl::ShaderLib *shader = ngl::ShaderLib::instance();
         shader->createShaderProgram(gridShader);
 
@@ -220,7 +227,7 @@ namespace view
         shader->setUniform("color", 0.0f, 1.0f, 1.0f, 1.0f);
         std::shared_ptr<view::Image> image;
         image.reset(new view::Image(m_width, m_height, 3));
-        image->clearScreen(0, 0, 0);
+        image->clearScreen(0, 0, 0, 0);
 
         buildMesh(m_width, m_height, image);
         startTimer(100);
