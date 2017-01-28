@@ -9,6 +9,7 @@
 #include <Magick++.h>
 
 #include "grid.h"
+#include "color.h"
 
 namespace view
 {
@@ -32,7 +33,7 @@ public:
     ///------------------------------------------------------------------------
     inline Image(const std::size_t _width,
                  const std::size_t _height,
-                 std::size_t _depth = 3) :
+                 std::size_t _depth = 4) :
                                 Grid(std::array<std::size_t, 3>{{_width,
                                                                  _height,
                                                                  _depth}}),
@@ -47,22 +48,26 @@ public:
     /// @param[in] _r red component
     /// @param[in] _g green component
     /// @param[in] _b blue component
+    /// @param[in] _a alpha channel
     /// -----------------------------------------------------------------------
     void setPixel(const std::size_t _x,
                   const std::size_t _y,
                   const unsigned char _r,
                   const unsigned char _g,
-                  const unsigned char _b);
+                  const unsigned char _b,
+                  const unsigned char _a);
 
     ///------------------------------------------------------------------------
     /// @brief set the whole image color according to given r, g, b values
     /// @param[in] _r red component
     /// @param[in] _g green component
     /// @param[in] _b blue component
+    /// @param[in] _a alpha channel
     /// -----------------------------------------------------------------------
     void clearScreen(const unsigned char _r,
                      const unsigned char _g,
-                     const unsigned char _b);
+                     const unsigned char _b,
+                     const unsigned char _a);
 
     /// non mutators
     /// -----------------------------------------------------------------------
@@ -81,14 +86,17 @@ public:
     /// @param[in] _r red component
     /// @param[in] _g green component
     /// @param[in] _b blue component
+    /// @param[in] _a alpha channel
     ///------------------------------------------------------------------------
     inline void setBackgroundColor(const unsigned char _r,
                                    const unsigned char _g,
-                                   const unsigned char _b)
+                                   const unsigned char _b,
+                                   const unsigned char _a)
     {
         m_background.r = _r;
         m_background.g = _g;
         m_background.b = _b;
+        m_background.a = _a;
     }
 
     ///------------------------------------------------------------------------
@@ -99,24 +107,14 @@ public:
     inline void resetPixelColor(const std::size_t _x,
                                 const std::size_t _y)
     {
-        setPixel(_x, _y, m_background.r, m_background.g, m_background.b);
+        setPixel(_x, _y, m_background.r, m_background.g,
+                 m_background.b, m_background.a);
     }
 
     ///------------------------------------------------------------------------
     /// @brief destructor
     ///------------------------------------------------------------------------
     inline ~Image() {;}
-
-    union Color
-    {
-        struct
-        {
-            unsigned char r;
-            unsigned char g;
-            unsigned char b;
-        };
-        unsigned char array[3];
-    };
 
 private:
 

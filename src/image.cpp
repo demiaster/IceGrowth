@@ -9,11 +9,13 @@ namespace view
                   const std::size_t _y,
                   const unsigned char _r,
                   const unsigned char _g,
-                  const unsigned char _b)
+                  const unsigned char _b,
+                  const unsigned char _a)
     {
         set({{_x, _y, 0}}, _r);
         set({{_x, _y, 1}}, _g);
         set({{_x, _y, 2}}, _b);
+        set({{_x, _y, 3}}, _a);
 
         return;
     }
@@ -37,13 +39,14 @@ namespace view
 
     void Image::clearScreen(const unsigned char _r,
                             const unsigned char _g,
-                            const unsigned char _b)
+                            const unsigned char _b,
+                            const unsigned char _a)
     {
         for (unsigned int i = 0; i < m_width; ++i)
         {
             for (unsigned int j = 0; j < m_height; ++j)
             {
-                setPixel(i, j, _r, _g, _b);
+                setPixel(i, j, _r, _g, _b, _a);
             }
         }
 
