@@ -28,34 +28,13 @@ namespace controller
     {
         connect(this, SIGNAL(imageChanged()),
                 m_window.get(), SLOT(setImage()));
-        int i = 0;
-        model::Point point = {0, 0};
-        m_navigator->onNeighbours(point, [](model::Point p){
-                                  std::cout<<p.x<< ' '<< p.y << std::endl;
-                                  });
-        model::Point point2 = {50, 0};
-        m_navigator->onNeighbours(point2, [](model::Point p){
-                                  std::cout<<p.x<< ' '<< p.y << std::endl;
-                                  });
-        model::Point point3 = {50, 50};
-        m_navigator->onNeighbours(point3, [](model::Point p){
-                                  std::cout<<p.x<< ' '<< p.y << std::endl;
-                                  });
         while(true)
         {
 #ifdef GRAPHICSDEBUG
             std::cout << "run\n";
 #endif
-            if(i == 29)
-            {
-                std::cout << "sith will happen\n";
-                m_iceGrid->inspect();
-                m_heatGrid->inspect();
-            }
             update();
-            std::cout<< i++<< '\n';
             std::this_thread::sleep_for(std::chrono::milliseconds(150));
-            //representFrameBuffer();
             representNGL();
         }
     }
@@ -126,8 +105,6 @@ namespace controller
         NUMBER minTemp = m_heatGrid->getMinTemp();
         std::size_t ice;
 
-        //initialize mesh (or maybe outside from there)
-
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
@@ -157,32 +134,6 @@ namespace controller
         emit imageChanged();
         return;
     }
-//    void IceGenerator::representFrameBuffer()
-//    {
-//        NUMBER temperature;
-//        NUMBER minTemp = m_heatGrid->getMinTemp();
-//        std::size_t ice;
-//        for (std::size_t i = 0; i < m_width; ++i)
-//        {
-//            for (std::size_t j = 0; j < m_height; ++j)
-//            {
-//                temperature = m_heatGrid->getTemperature(i, j);
-//                if (temperature < 0)
-//                {
-//                    ice = 255 - (temperature - minTemp)/(RESET_TEMPERATURE - minTemp) * 128;
-//                    std::cout << "Represent ice: " << ice << std::endl;
-//#ifdef DEBUG
-//                    //std::cout << "Represent ice: " << ice << std::endl;
-//#endif
-//                    m_image->setPixel(i, j, ice, ice, ice);
-//                }
-//            }
-//        }
-//        m_framebuffer->image(m_image->getData(), m_width, m_height);
-//        m_framebuffer->draw();
-//        m_framebuffer->poll();
-//        return;
-//    }
 
     void IceGenerator::dla_pattern()
     {
