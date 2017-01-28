@@ -54,8 +54,8 @@ namespace controller
         m_height = _height;
         m_navigator.reset(new model::HexNavigator(_width, _height));
         m_image.reset(new view::Image (m_width, m_height));
-        m_image->setBackgroundColor(255, 0, 0);
-        m_image->clearScreen(255, 0, 0);
+        m_image->setBackgroundColor(107, 203, 255, 125);
+        m_image->clearScreen(107, 203, 255, 125);
 
         //initialising all other grids
         m_iceGrid.reset(new model::IceGrid(m_width, m_height));
@@ -78,6 +78,7 @@ namespace controller
     {
         m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME, m_navigator);
         //to avoid melting
+        //m_heatGrid->setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);
         m_heatGrid->setMinTemp();
 #ifdef LOG
         std::cout<< "minTemp before merge " << m_heatGrid->getMinTemp()<<std::endl;
@@ -119,7 +120,7 @@ namespace controller
                     std::cout << "Mintemp ice: " << minTemp << std::endl;
 #endif
                     //set mesh cell's colour
-                    m_image->setPixel(i, j, ice, ice, ice);
+                    m_image->setPixel(i, j, ice, ice, ice, 255);
                 }
                 else
                 {
