@@ -27,30 +27,30 @@ CONFIG += c++11
 #DEFINES += LOG
 #DEFINES += DLA_DEBUG
 #DEFINES += DLA_TRACE
-DEFINES += HIT
+#DEFINES += HIT
 
 # Input
-SOURCES += src/main.cpp \
-           src/image.cpp \
-           src/heatgrid.cpp \
+SOURCES += src/heatgrid.cpp \
            src/hexnavigator.cpp \
-           src/icegrid.cpp \
            src/icegenerator.cpp \
+           src/icegrid.cpp \
+           src/image.cpp \
+           src/main.cpp \
            src/NGLscene.cpp \
            src/NGLsceneMouseControls.cpp \
            src/squarenavigator.cpp
 
 HEADERS += include/color.h \
            include/common.h \
-           include/image.h \
-           include/point.h \
            include/grid.h \
            include/heatgrid.h \
            include/hexnavigator.h \
-           include/icegrid.h \
            include/icegenerator.h \
+           include/icegrid.h \
+           include/image.h \
            include/navigator.h \
            include/NGLscene.h \
+           include/point.h \
            include/randomdist.h \
            include/squarenavigator.h \
            include/windowparam.h
