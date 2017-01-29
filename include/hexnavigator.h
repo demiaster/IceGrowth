@@ -3,12 +3,11 @@
 /// @file hexnavigator.h
 /// @brief this class is the navigator for an hexagonal lattice
 
-#include <tuple>
 #include <iostream>
+#include <tuple>
 
 #include "navigator.h"
 #include "randomdist.h"
-#include "common.h"
 
 #define TUPLE std::tuple<DiffPoint, DiffPoint>
 
@@ -42,9 +41,9 @@ public:
 
     ///------------------------------------------------------------------------
     /// @brief selects a random adjacent position for the given one
-    /// @param [inout] random walker position
+    /// @param [inout] io_walker random walker position
     /// -----------------------------------------------------------------------
-    void walk(model::Point& _walker) override;
+    void walk(model::Point& io_walker) override;
 
     ///------------------------------------------------------------------------
     /// @brief implements the reactive pattern. The callback function given
@@ -65,10 +64,8 @@ public:
             newPoint.x += m_point[i].x;
             newPoint.y += m_point[i].y;
 
-            //throws a warning but better to keep it for in future
-            //the .x and .y could be a different type than std::size_t
-            if (0 <= newPoint.x && newPoint.x < m_width &&
-                    0 <= newPoint.y && newPoint.y < m_height)
+            //only checks for upper bounds since .x and .y are std::size_t
+            if (newPoint.x < m_width && newPoint.y < m_height)
             {
                 _operation(newPoint);
             }

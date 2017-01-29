@@ -1,4 +1,9 @@
 #include "NGLscene.h"
+///----------------------------------------------------------------------------
+/// @file NGLsceneMouseControls.cpp
+/// @brief implementation files for NGLscene mouse functions
+///----------------------------------------------------------------------------
+
 #include <QMouseEvent>
 
 namespace view

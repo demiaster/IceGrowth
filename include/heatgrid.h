@@ -5,8 +5,8 @@
 
 #include <iostream>
 
-#include "grid.h"
 #include "common.h"
+#include "grid.h"
 #include "point.h"
 
 namespace model

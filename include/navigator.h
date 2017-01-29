@@ -4,6 +4,7 @@
 /// @brief this class is the navigator for every kind of lattice
 
 #include "point.h"
+
 namespace model
 {
 
@@ -26,15 +27,15 @@ public:
 
     ///------------------------------------------------------------------------
     /// @brief selects a random adjacent position for the given one
-    /// @param [inout] random walker position
+    /// @param[inout] random walker position
     /// -----------------------------------------------------------------------
-    virtual void walk(Point& _walker) = 0;
+    virtual void walk(Point& io_walker) = 0;
 
     ///------------------------------------------------------------------------
     /// @brief implements the reactive pattern. The callback function given
     /// as input is applied to every neighbouring position of the given one
-    /// @param [in] _point input position
-    /// @param [in] _operation function, lambda or whatever
+    /// @param[in] _point input position
+    /// @param[in] _operation function, lambda or whatever
     /// that answers to the call operator "()"
     /// -----------------------------------------------------------------------
     template <typename OPERATION>

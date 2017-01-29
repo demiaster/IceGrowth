@@ -1,27 +1,23 @@
 #include "icegenerator.h"
-#include "point.h"
-#include "squarenavigator.h"
-#include "image.h"
+///----------------------------------------------------------------------------
+/// @file icegenerator.cpp
+/// @brief implementation files for IceGenerator class
+///----------------------------------------------------------------------------
 
-// random shits
-#include <random>
 #include <algorithm>
-#include <sstream>
-#include <string>
-#include <iostream>
 #include <chrono>
+#include <sstream>
+#include <iostream>
+#include <string>
 #include <thread>
 
 #define HITTEMPERATURE -100
 #define DIFFUSE_K 0.34
-//#define DIFFUSE_TIME 1.0/(3*100000000)
 #define DIFFUSE_TIME 1.0/(1000000)
 #define RESET_TEMPERATURE 1.0
 
 namespace controller
 {
-    //setup IceGenerator controller
-
     IceGenerator::IceGenerator(){}
 
     void IceGenerator::run()
@@ -77,8 +73,6 @@ namespace controller
     void IceGenerator::update()
     {
         m_heatGrid->diffuse(DIFFUSE_K, DIFFUSE_TIME, m_navigator);
-        //to avoid melting
-        //m_heatGrid->setTemperature(m_width / 2, m_height / 2, HITTEMPERATURE);
         m_heatGrid->setMinTemp();
 #ifdef LOG
         std::cout<< "minTemp before merge " << m_heatGrid->getMinTemp()<<std::endl;
@@ -144,9 +138,10 @@ namespace controller
         while (!hit)
         {
             m_navigator->walk(random_walker);
-            m_navigator->onNeighbours(random_walker, [&hit,this](model::Point n) {
-                if (this->m_heatGrid->getTemperature(
-                    n.x, n.y) < -1.0) {
+            m_navigator->onNeighbours(random_walker, [&hit,this](model::Point n)
+            {
+                if (this->m_heatGrid->getTemperature(n.x, n.y) < -1.0)
+                {
                     hit = true;
                 }
             });

@@ -1,4 +1,9 @@
 #include "image.h"
+///----------------------------------------------------------------------------
+/// @file image.cpp
+/// @brief implementation files for Image class
+///----------------------------------------------------------------------------
+
 #include <exception>
 #include <iostream>
 

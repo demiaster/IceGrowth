@@ -5,13 +5,14 @@
 
 #include <memory>
 #include <QThread>
-#include "heatgrid.h"
+
 #include "icegrid.h"
 #include "image.h"
+#include "heatgrid.h"
 #include "hexnavigator.h"
-#include "squarenavigator.h"
-#include "randomdist.h"
 #include "NGLscene.h"
+#include "randomdist.h"
+#include "squarenavigator.h"
 
 namespace controller
 {
@@ -42,9 +43,9 @@ public:
     ///------------------------------------------------------------------------
     /// @brief setup the initial state for the simulation, get a reference
     /// for the openGL context
-    /// @param [in] _width width of the grid
-    /// @param [in] _height height of the grid
-    /// @param [in] _window openGL context
+    /// @param[in] _width width of the grid
+    /// @param[in] _height height of the grid
+    /// @param[in] _window openGL context
     /// -----------------------------------------------------------------------
     void setup(const std::size_t _width,
                const std::size_t _height,
@@ -52,8 +53,8 @@ public:
 
     ///------------------------------------------------------------------------
     /// @brief setup the initial state for the simulation
-    /// @param [in] _width width of the grid
-    /// @param [in] _height height of the grid
+    /// @param[in] _width width of the grid
+    /// @param[in] _height height of the grid
     /// -----------------------------------------------------------------------
     void setup(const std::size_t _width,
                const std::size_t _height);
@@ -62,21 +63,6 @@ signals:
     void imageChanged();
 
 private:
-
-    ///------------------------------------------------------------------------
-    /// @brief runs the algorithms to simulate the ice growth
-    /// -----------------------------------------------------------------------
-    void update();
-
-    ///------------------------------------------------------------------------
-    /// @brief passes new model state to openGL
-    /// -----------------------------------------------------------------------
-    void representNGL();
-
-    ///------------------------------------------------------------------------
-    /// @brief implements the DLA brownian walk
-    /// -----------------------------------------------------------------------
-    void dla_pattern();
 
     /// -----------------------------------------------------------------------
     /// @brief width of the grid
@@ -112,6 +98,22 @@ private:
     /// @brief contains the rules to move on a lattice
     /// -----------------------------------------------------------------------
     std::shared_ptr<model::HexNavigator> m_navigator;
+
+    ///------------------------------------------------------------------------
+    /// @brief runs the algorithms to simulate the ice growth
+    /// -----------------------------------------------------------------------
+    void update();
+
+    ///------------------------------------------------------------------------
+    /// @brief passes new model state to openGL
+    /// -----------------------------------------------------------------------
+    void representNGL();
+
+    ///------------------------------------------------------------------------
+    /// @brief implements the DLA brownian walk
+    /// -----------------------------------------------------------------------
+    void dla_pattern();
+
 };
 } // end namespace controller
 

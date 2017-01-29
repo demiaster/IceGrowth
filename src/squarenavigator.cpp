@@ -1,15 +1,19 @@
 #include "squarenavigator.h"
+///----------------------------------------------------------------------------
+/// @file squarenavigator.cpp
+/// @brief implementation files for SquareNavigator class
+///----------------------------------------------------------------------------
 
-#include "point.h"
 
 namespace model
 {
     SquareNavigator::SquareNavigator(const std::size_t _width,
                                      const std::size_t _height) :
+                                     m_neighboursdist(0, 7),
                                      m_borderdist(0, 2 * (_width + _height)
                                                   - 4 /* remove double vertexes */
-                                                  - 1 /* remove last element because we start from zero */),
-                                     m_neighboursdist(0, 7)
+                                                  - 1 /* remove last element because we start from zero */)
+
     {
         m_width = _width;
         m_height = _height;
@@ -24,12 +28,12 @@ namespace model
         std::size_t offset = m_borderdist.get_distr();
 
         //converting from that index to the actual x, y values for the random walker
-        Point walker = (offset < m_width) ? model::Point{offset, 0} :
+        Point _walker = (offset < m_width) ? model::Point{offset, 0} :
                   (m_width <= offset && offset < m_width + m_height) ? Point{m_width - 1, offset - m_width} :
                   (m_width + m_height <= offset && offset < 2 * m_width + m_height) ?
                                                                            Point{offset - m_width - m_height, m_height - 1} :
                                                                            Point{0, offset - m_width - m_width - m_height};
-        return walker;
+        return _walker;
 
     }
 

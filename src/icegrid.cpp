@@ -1,4 +1,8 @@
 #include "icegrid.h"
+///----------------------------------------------------------------------------
+/// @file icegrid.cpp
+/// @brief implementation files for IceGrid class
+///----------------------------------------------------------------------------
 
 #define NOICE_TEMP 1.0
 
@@ -12,21 +16,21 @@ namespace model
         m_height = _height;
     }
 
-    void IceGrid::freeze(std::size_t _x, std::size_t _y, PERCENTAGE percentage)
+    void IceGrid::freeze(std::size_t _x, std::size_t _y, PERCENTAGE _percentage)
     {
-        set({{_x, _y}}, percentage);
+        set({{_x, _y}}, _percentage);
     }
 
-    void IceGrid::merge(HeatGrid* heatGrid)
+    void IceGrid::merge(HeatGrid* _heatGrid)
     {
-        heatGrid->setMinTemp();
-        NUMBER minTemp = heatGrid->getMinTemp();
+        _heatGrid->setMinTemp();
+        NUMBER minTemp = _heatGrid->getMinTemp();
         NUMBER temp;
         for (std::size_t i = 0; i < m_width; ++i)
         {
             for (std::size_t j = 0; j < m_height; ++j)
             {
-                temp = heatGrid->getTemperature(i, j);
+                temp = _heatGrid->getTemperature(i, j);
                 if (temp > NOICE_TEMP) temp = NOICE_TEMP;
                 this->set({{i, j}}, 1 - (temp - minTemp)/(NOICE_TEMP - minTemp));
             }

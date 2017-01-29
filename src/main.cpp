@@ -1,14 +1,13 @@
-#include "point.h"
-#include "image.h"
 #include <cstdlib>
 #include <iostream>
 #include <memory>
 #include <thread>
-
 #include <QtGui/QGuiApplication>
 
-#include "NGLscene.h"
 #include "icegenerator.h"
+#include "image.h"
+#include "NGLscene.h"
+#include "point.h"
 
 static const size_t W = 151;
 static const size_t H = 151;
@@ -43,7 +42,7 @@ int main(int argc, char **argv)
     // we can now query the version to see if it worked
     std::cout<<"Profile is "<<format.majorVersion()<<" "<<format.minorVersion()<<"\n";
     // set the window size
-    window->resize(1024, 720);
+    window->resize(1920, 1080);
     // and finally show
     window->show();
 
@@ -52,5 +51,4 @@ int main(int argc, char **argv)
     controller.start();
 
     return app.exec();
-    //return EXIT_SUCCESS;
 }

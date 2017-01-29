@@ -4,11 +4,12 @@
 /// @brief this class is the base grid class
 /// for all the other ones in this project
 
-#include <memory>
 #include <array>
-#include <numeric>
 #include <cstdarg>
 #include <functional>
+#include <memory>
+#include <numeric>
+
 #ifdef DEBUG
 #include <iostream>
 #endif
@@ -112,25 +113,25 @@ private:
     /// @param [in] _coordinates coordinates for the position
     /// @return the index of m_data corresponding the coordinates
     /// -----------------------------------------------------------------------
-    inline std::size_t index(const std::array<std::size_t, N>& coordinates) const
+    inline std::size_t index(const std::array<std::size_t, N>& _coordinates) const
     {
         // {W, H, D}
         // {X, Y, Z} inputs
         // X*H*D+Y*D+Z
 
         // sum accumulator
-        std::size_t accum = 0;
+        std::size_t o_accum = 0;
         for (std::size_t i = 0; i < N; ++i)
         {
             // multiplier accumulator
-            std::size_t maccum = coordinates[i];
+            std::size_t maccum = _coordinates[i];
             for (std::size_t j = i + 1; j < N; j++)
             {
                 maccum *= m_sizes[j];
             }
-            accum += maccum;
+            o_accum += maccum;
         }
-        return accum;
+        return o_accum;
     }
 
 protected:

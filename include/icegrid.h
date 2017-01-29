@@ -5,9 +5,9 @@
 
 #include <iostream>
 
+#include "common.h"
 #include "grid.h"
 #include "heatgrid.h"
-#include "common.h"
 #include "navigator.h"
 
 namespace model

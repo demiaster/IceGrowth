@@ -5,11 +5,11 @@
 
 #include <cstddef>
 #include <string>
-#include <memory>
 #include <Magick++.h>
+#include <memory>
 
-#include "grid.h"
 #include "color.h"
+#include "grid.h"
 
 namespace view
 {
@@ -73,7 +73,7 @@ public:
     /// -----------------------------------------------------------------------
     /// @brief save image to output file
     /// @param[in] _fname name of the output file
-    /// @param[out] true if successfull
+    /// @return true if successfull
     /// -----------------------------------------------------------------------
     bool save(const std::string _fname);
 

@@ -6,10 +6,10 @@
 #include <ngl/Camera.h>
 #include <QOpenGLWindow>
 
-#include "windowparam.h"
+#include "color.h"
 #include "image.h"
 #include "point.h"
-#include "color.h"
+#include "windowparam.h"
 
 namespace view
 {
@@ -33,9 +33,9 @@ public:
 
     ///------------------------------------------------------------------------
     /// @brief ctor for our NGL drawing class
-    /// @param [in] parent the parent window to the class
-    /// @param [in] _width width of the grid
-    /// @param [in] _height height of the grid
+    /// @param[in] parent the parent window to the class
+    /// @param[in] _width width of the grid
+    /// @param[in] _height height of the grid
     ///------------------------------------------------------------------------
     NGLscene(std::size_t _width, std::size_t _height);
 
@@ -62,16 +62,18 @@ public:
 
     ///------------------------------------------------------------------------
     /// @brief build the hexagonal lattice on which the ice will be represented
-    /// @param [in] _width number of hexagons in the width for the mesh
-    /// @param [in] _height number of hexagons in the height for the mesh
+    /// @param[in] _width number of hexagons in the width for the mesh
+    /// @param[in] _height number of hexagons in the height for the mesh
+    /// @param[in] _image continer for colors
     ///------------------------------------------------------------------------
     void buildMesh(std::size_t _width, std::size_t _height,
                    std::shared_ptr<view::Image> _image);
 
     ///------------------------------------------------------------------------
     /// @brief gets the new color grid for the mesh
-    /// @param [in] _width width of the grid
-    /// @param [in] _height height of the grid
+    /// @param[in] _width width of the grid
+    /// @param[in] _height height of the grid
+    /// @param[in] _image continer for colors
     ///------------------------------------------------------------------------
     void feed(std::size_t _width, std::size_t _height,
               std::shared_ptr<view::Image> _image);
@@ -96,7 +98,6 @@ private:
     /// -----------------------------------------------------------------------
     std::shared_ptr<view::Image> m_image;
 
-    //window stuff
     /// -----------------------------------------------------------------------
     /// @brief used to store the x rotation mouse value
     /// -----------------------------------------------------------------------
@@ -127,7 +128,6 @@ private:
     /// -----------------------------------------------------------------------
     size_t m_nVerts;
 
-    //mouse stuff
     ///------------------------------------------------------------------------
     /// @brief the model position for mouse movement
     ///------------------------------------------------------------------------

@@ -3,11 +3,9 @@
 /// @file squarenavigator.h
 /// @brief this class is the navigator for a square lattice
 
-#include <random>
-#include <tuple>
 #include <array>
+#include <tuple>
 
-#include "point.h"
 #include "navigator.h"
 #include "randomdist.h"
 
@@ -55,7 +53,7 @@ public:
     /// that answers to the call operator "()"
     /// -----------------------------------------------------------------------
     template <typename OPERATION>
-    inline void onNeighbours(Point& _point, OPERATION operation)
+    inline void onNeighbours(Point& _point, OPERATION _operation)
     {
         for (std::size_t i = 0; i < 8; i++)
         {
@@ -64,12 +62,10 @@ public:
             newPoint.x += m_neighbour[i].x;
             newPoint.y += m_neighbour[i].y;
 
-            //throws a warning but better to keep it for in future
-            //the .x and .y could be a different type than std::size_t
-            if (0 <= newPoint.x && newPoint.x < m_width &&
-                    0 <= newPoint.y && newPoint.y < m_height)
+            //only checks for upper bounds since .x and .y are std::size_t
+            if (newPoint.x < m_width && newPoint.y < m_height)
             {
-                operation(newPoint);
+                _operation(newPoint);
             }
         }
     }

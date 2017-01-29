@@ -1,10 +1,11 @@
+#include "NGLscene.h"
+///----------------------------------------------------------------------------
+/// @file NGLscene.cpp
+/// @brief implementation files for NGLscene class
+///----------------------------------------------------------------------------
+
 #include <QMouseEvent>
 #include <QGuiApplication>
-
-#include "NGLscene.h"
-#include "point.h"
-#include "randomdist.h"
-#include "common.h"
 
 #include <ngl/NGLInit.h>
 #include <ngl/NGLStream.h>
@@ -12,10 +13,13 @@
 #include <ngl/VAOPrimitives.h>
 #include <ngl/VAOFactory.h>
 #include <ngl/Util.h>
-#include <iostream>
-#include <vector>
 #include <array>
+#include <iostream>
 #include <math.h>
+#include <vector>
+
+#include "point.h"
+#include "common.h"
 
 namespace view
 {
@@ -77,7 +81,6 @@ namespace view
         std::cout << "buildMesh\n";
 #endif
 
-        static common::IntDistribution dist(0, 255);
         std::vector<model::Vertex> data;
         model::Vertex vert;
         model::Vertex origin;
@@ -117,8 +120,6 @@ namespace view
                 current_center.c.m_g = (int)_image->get({{k, j, 1}})/255.0f;
                 current_center.c.m_b = (int)_image->get({{k, j, 2}})/255.0f;
                 current_center.c.m_a = (int)_image->get({{k, j, 3}})/255.0f;
-//                std::cout << "alpha center original" << (int)_image->get({{k, j, 3}})<< std::endl;
-//                std::cout << "alpha center division" << (int)_image->get({{k, j, 3}})/255.0f << std::endl;
 
                 //do the hexagon
                 for(i = 0; i < vertices.size() - 1; ++i)
@@ -195,7 +196,7 @@ namespace view
         // be done once we have a valid GL context but before we call any GL commands. If we dont do
         // this everything will crash
         ngl::NGLInit::instance();
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);   // Grey Background
+        glClearColor(0.04f, 0.11f, 0.23f, 1.0f);   // Grey Background
         // enable depth testing for drawing
         glEnable(GL_DEPTH_TEST);
         // enable multisampling for smoother drawing
