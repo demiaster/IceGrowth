@@ -8,10 +8,6 @@ On branch:
 
 * `framebuffer` : representation using the `FrameBuffer` class.
 
-* `submissionNovember` : .lyx projects for CGITech and Design reports for midterm submission.
-
-* `finalSubmission` : full code + doc folder with CGITech and ASE reports.
-
 
 A video of the program can be found at:
 
